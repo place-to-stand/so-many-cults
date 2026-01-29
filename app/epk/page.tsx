@@ -7,8 +7,8 @@ const tracks = [
     file: "/arcade.mp3",
   },
   {
-    title: "Directed Energy Weapon (Demo)",
-    file: "/directed-energy-weapon.mp3",
+    title: "Directed Energy Weapons (Demo)",
+    file: "/directed-energy-weapons.mp3",
   },
   {
     title: "It's Gone Viral (Demo)",
