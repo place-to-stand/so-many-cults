@@ -4,15 +4,15 @@ import { WaveformPlayer } from "../components/WaveformPlayer";
 const tracks = [
   {
     title: "Arcade (Demo)",
-    file: "/Arcade - 008 Mix ideas + backing vox.mp3",
+    file: "/arcade.mp3",
   },
   {
     title: "Directed Energy Weapon (Demo)",
-    file: "/Directed Energy Weapon - 004 Add rough synth ideas.mp3",
+    file: "/directed-energy-weapon.mp3",
   },
   {
     title: "It's Gone Viral (Demo)",
-    file: "/It's Gone Viral - 006 Re-track slower drums.mp3",
+    file: "/its-gone-viral.mp3",
   },
 ];
 
