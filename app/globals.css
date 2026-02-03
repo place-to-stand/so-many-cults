@@ -26,5 +26,7 @@ body {
 }
 
 a:hover {
-  @apply underline underline-offset-6;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
 }

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export interface Photo {
   id: string;
@@ -29,17 +29,67 @@ function DownloadIcon() {
   );
 }
 
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      {direction === "left" ? (
+        <polyline points="15 18 9 12 15 6" />
+      ) : (
+        <polyline points="9 6 15 12 9 18" />
+      )}
+    </svg>
+  );
+}
+
 export function PhotoGallery({ photos, showDownload = false }: PhotoGalleryProps) {
-  const [lightboxPhoto, setLightboxPhoto] = useState<Photo | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const lightboxPhoto = lightboxIndex !== null ? photos[lightboxIndex] : null;
+
+  const goToPrev = useCallback(() => {
+    if (lightboxIndex !== null) {
+      setLightboxIndex(lightboxIndex === 0 ? photos.length - 1 : lightboxIndex - 1);
+    }
+  }, [lightboxIndex, photos.length]);
+
+  const goToNext = useCallback(() => {
+    if (lightboxIndex !== null) {
+      setLightboxIndex(lightboxIndex === photos.length - 1 ? 0 : lightboxIndex + 1);
+    }
+  }, [lightboxIndex, photos.length]);
+
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+  }, []);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        goToPrev();
+      } else if (e.key === "ArrowRight") {
+        goToNext();
+      } else if (e.key === "Escape") {
+        closeLightbox();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, goToPrev, goToNext, closeLightbox]);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+  };
 
   return (
     <>
       <div className="grid grid-cols-2 gap-3 w-full">
-        {photos.map((photo) => (
+        {photos.map((photo, index) => (
           <div key={photo.id} className="flex flex-col">
             <div className="group relative aspect-square overflow-hidden bg-[#1a1a1a]">
               <button
-                onClick={() => setLightboxPhoto(photo)}
+                onClick={() => openLightbox(index)}
                 className="absolute inset-0 cursor-pointer z-10"
               >
                 <Image
@@ -51,21 +101,10 @@ export function PhotoGallery({ photos, showDownload = false }: PhotoGalleryProps
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               </button>
-              {showDownload && (
-                <a
-                  href={photo.fullSize}
-                  download
-                  onClick={(e) => e.stopPropagation()}
-                  className="absolute bottom-2 right-2 z-20 p-1.5 bg-black/60 hover:bg-black/80 text-white/80 hover:text-white transition-all opacity-0 group-hover:opacity-100"
-                  title="Download hi-res"
-                >
-                  <DownloadIcon />
-                </a>
-              )}
             </div>
-            <div className="text-[#666] text-[11px] mt-1.5 flex justify-between items-center">
+            <div className="text-[#666] text-[10px] mt-1.5 flex justify-between items-center">
               <span>
-                <Link href={photo.photographerLink} target="_blank">{photo.photographer}</Link>
+                by <Link href={photo.photographerLink} target="_blank">{photo.photographer}</Link>
               </span>
               {showDownload && (
                 <a
@@ -73,7 +112,7 @@ export function PhotoGallery({ photos, showDownload = false }: PhotoGalleryProps
                   download
                   className="text-[#888] hover:text-white transition-colors flex items-center gap-1"
                 >
-                  <DownloadIcon />
+                  Hi-Res <DownloadIcon />
                 </a>
               )}
             </div>
@@ -85,14 +124,31 @@ export function PhotoGallery({ photos, showDownload = false }: PhotoGalleryProps
       {lightboxPhoto && (
         <div
           className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-          onClick={() => setLightboxPhoto(null)}
+          onClick={closeLightbox}
         >
           <button
-            className="absolute top-4 right-4 text-white/60 hover:text-white text-2xl"
-            onClick={() => setLightboxPhoto(null)}
+            className="absolute top-4 right-4 text-white/60 hover:text-white text-2xl z-10"
+            onClick={closeLightbox}
           >
             ×
           </button>
+
+          {/* Left arrow */}
+          <button
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-white/40 hover:text-white transition-colors z-10"
+            onClick={(e) => { e.stopPropagation(); goToPrev(); }}
+          >
+            <ArrowIcon direction="left" />
+          </button>
+
+          {/* Right arrow */}
+          <button
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-white/40 hover:text-white transition-colors z-10"
+            onClick={(e) => { e.stopPropagation(); goToNext(); }}
+          >
+            <ArrowIcon direction="right" />
+          </button>
+
           <div className="relative max-w-4xl max-h-[85vh] w-full h-full">
             <Image
               src={lightboxPhoto.thumbnail}

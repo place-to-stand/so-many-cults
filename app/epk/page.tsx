@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { WaveformPlayer } from "../components/WaveformPlayer";
 import { PhotoGallery } from "../components/PhotoGallery";
 import { chessClubPhotos } from "../data/photos";
+
+export const metadata: Metadata = {
+  title: "so many cults - Electronic Press Kit",
+};
 
 const tracks = [
   {
@@ -24,7 +29,9 @@ export default function EPK() {
       <main className="mx-auto font-mono">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold">so many cults</h1>
+          <h1 className="text-4xl font-bold">
+            <Link href="/">so many cults</Link>
+          </h1>
           <div className="text-[#666] mt-2">Electronic Press Kit</div>
           <div className="text-[#888] text-sm mt-1">Austin, Texas Psych Rock</div>
         </div>
@@ -59,7 +66,6 @@ export default function EPK() {
                 <Link
                   href="https://do512.com/artists/so-many-cults"
                   target="_blank"
-                  className="hover:underline"
                 >
                   Upcoming Shows
                 </Link>
@@ -68,7 +74,6 @@ export default function EPK() {
                 <Link
                   href="https://instagram.com/somanycults"
                   target="_blank"
-                  className="hover:underline"
                 >
                   Instagram
                 </Link>
@@ -77,13 +82,12 @@ export default function EPK() {
                 <Link
                   href="https://somanycults.bandcamp.com/"
                   target="_blank"
-                  className="hover:underline"
                 >
                   Bandcamp
                 </Link>
               </li>
               <li>
-                <Link href="mailto:somanycults@gmail.com" className="hover:underline">
+                <Link href="mailto:somanycults@gmail.com">
                   somanycults@gmail.com
                 </Link>
               </li>
