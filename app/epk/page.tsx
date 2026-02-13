@@ -137,9 +137,9 @@ export default function EPK() {
             </p>
             <p>
               The band quickly established themselves as regulars on Austin&apos;s live
-              circuit, cutting their teeth at Red River staples like Chess Club and East
-              6th mainstay Hotel Vegas — small, loud rooms where the line between stage
-              and crowd barely exists.
+              circuit, cutting their teeth at Red River staples like Chess Club and 13th
+              Floor and East 6th mainstay Hotel Vegas — small, loud rooms where the line
+              between stage and crowd barely exists.
               Sharing bills with acts like Mulch Cult, Medieval Snails, Sanctum Sanctorum, and
               Ash and the Endings, So Many Cults found their footing in the city&apos;s thriving
               garage-psych ecosystem, building a reputation on the strength of their relentless
