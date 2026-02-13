@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FaInstagram, FaBandcamp } from "react-icons/fa";
 import { FiCalendar, FiMail } from "react-icons/fi";
-import { WaveformPlayer } from "../components/WaveformPlayer";
+import { PlaylistPlayer } from "../components/PlaylistPlayer";
 import { PhotoGallery } from "../components/PhotoGallery";
 import { chessClubPhotos } from "../data/photos";
 
@@ -12,16 +12,16 @@ export const metadata: Metadata = {
 
 const tracks = [
   {
-    title: "Arcade (Demo)",
-    file: "/arcade.mp3",
+    title: "It's Gone Viral (Demo)",
+    file: "/its-gone-viral.mp3",
   },
   {
     title: "Directed Energy Weapons (Demo)",
     file: "/directed-energy-weapons.mp3",
   },
   {
-    title: "It's Gone Viral (Demo)",
-    file: "/its-gone-viral.mp3",
+    title: "Arcade (Demo)",
+    file: "/arcade.mp3",
   },
 ];
 
@@ -176,15 +176,7 @@ export default function EPK() {
           {/* Demos */}
           <div>
             <h2 className="text-xs text-[#888] uppercase tracking-wider mb-4">Demos</h2>
-            <div className="space-y-4">
-              {tracks.map((track) => (
-                <WaveformPlayer
-                  key={track.file}
-                  audioUrl={track.file}
-                  title={track.title}
-                />
-              ))}
-            </div>
+            <PlaylistPlayer tracks={tracks} />
           </div>
 
           {/* Press Photos */}
