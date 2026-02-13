@@ -102,7 +102,7 @@ export default function EPK() {
           </div>
 
           {/* Right: Members, FFO, Links */}
-          <div className="space-y-6 order-first lg:order-last">
+          <div className="space-y-8 order-first lg:order-last">
             <div>
               <h2 className="text-xs text-[#888] uppercase tracking-wider mb-4">Members</h2>
               <ul className="space-y-1.5 text-sm">
