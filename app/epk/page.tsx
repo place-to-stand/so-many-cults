@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { FaInstagram, FaBandcamp } from "react-icons/fa";
-import { FiCalendar, FiMail } from "react-icons/fi";
+import { FiCalendar, FiMail, FiDownload } from "react-icons/fi";
 import { PlaylistPlayer } from "../components/PlaylistPlayer";
 import { PhotoGallery } from "../components/PhotoGallery";
 import { chessClubPhotos } from "../data/photos";
@@ -167,6 +168,29 @@ export default function EPK() {
                   </Link>
                 </li>
               </ul>
+            </div>
+
+            <div>
+              <h2 className="text-xs text-[#888] uppercase tracking-wider mb-4">Logo</h2>
+              <div className="border border-[#333] rounded-lg p-4 bg-white">
+                <Image
+                  src="/so-many-cults-logo.svg"
+                  alt="so many cults logo"
+                  width={1582}
+                  height={263}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="mt-2 flex items-center justify-between">
+                <span className="text-xs text-[#666]">Font: Geist Mono, Bold</span>
+                <a
+                  href="/so-many-cults-logo.svg"
+                  download="so-many-cults-logo.svg"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#ccc] hover:text-white transition-colors"
+                >
+                  <FiDownload className="shrink-0" /> Download SVG
+                </a>
+              </div>
             </div>
           </div>
         </div>
