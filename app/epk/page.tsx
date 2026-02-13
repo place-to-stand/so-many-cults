@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FaInstagram, FaBandcamp } from "react-icons/fa";
+import { FiCalendar, FiMail } from "react-icons/fi";
 import { WaveformPlayer } from "../components/WaveformPlayer";
 import { PhotoGallery } from "../components/PhotoGallery";
 import { chessClubPhotos } from "../data/photos";
@@ -133,29 +135,35 @@ export default function EPK() {
                   <Link
                     href="https://do512.com/artists/so-many-cults"
                     target="_blank"
+                    className="inline-flex items-center gap-2"
                   >
-                    Upcoming Shows
+                    <FiCalendar className="shrink-0" /> Upcoming Shows
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="https://instagram.com/somanycults"
                     target="_blank"
+                    className="inline-flex items-center gap-2"
                   >
-                    Instagram
+                    <FaInstagram className="shrink-0" /> Instagram
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="https://somanycults.bandcamp.com/"
                     target="_blank"
+                    className="inline-flex items-center gap-2"
                   >
-                    Bandcamp
+                    <FaBandcamp className="shrink-0" /> Bandcamp
                   </Link>
                 </li>
                 <li>
-                  <Link href="mailto:somanycults@gmail.com">
-                    somanycults@gmail.com
+                  <Link
+                    href="mailto:somanycults@gmail.com"
+                    className="inline-flex items-center gap-2"
+                  >
+                    <FiMail className="shrink-0" /> somanycults@gmail.com
                   </Link>
                 </li>
               </ul>
