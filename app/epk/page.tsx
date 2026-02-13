@@ -140,10 +140,10 @@ export default function EPK() {
               circuit, cutting their teeth at Red River staples like 13th Floor and
               Chess Club and East 6th mainstay Hotel Vegas — small, loud rooms where the line
               between stage and crowd barely exists.
-              Sharing bills with acts like Mulch Cult, Medieval Snails, Sanctum Sanctorum, and
-              Ash and the Endings, So Many Cults found their footing in the city&apos;s thriving
-              garage-psych ecosystem, building a reputation on the strength of their relentless
-              live shows.
+              Along the way they&apos;ve shared stages with Farmer&apos;s Wife, TC Superstar,
+              Pussy Gillette, Exotic Fruitica, and Subpar Snatch, finding their footing in the
+              city&apos;s thriving garage-psych ecosystem and building a reputation on the strength
+              of their relentless live shows.
             </p>
             <p>
               Their sound draws from a deep well: the desert-baked riffs and rhythmic propulsion
