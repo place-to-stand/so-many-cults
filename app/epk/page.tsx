@@ -180,7 +180,7 @@ export default function EPK() {
 
           {/* Press Photos */}
           <div>
-            <h2 className="text-xs text-[#888] uppercase tracking-wider mb-4">Press Photos</h2>
+            <h2 className="text-xs text-[#888] uppercase tracking-wider mb-4">Live Photos</h2>
             <PhotoGallery photos={chessClubPhotos} showDownload />
           </div>
         </div>
