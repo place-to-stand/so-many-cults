@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { BAND_NAME, BAND_SUBTITLE } from "./data/band";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "so many cults",
-  description: "Austin, Texas psych rock",
+  title: BAND_NAME,
+  description: BAND_SUBTITLE,
 };
 
 export default function RootLayout({
