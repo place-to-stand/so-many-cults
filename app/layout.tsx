@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://somanycults.com"),
   title: BAND_NAME,
   description: BAND_SUBTITLE,
 };

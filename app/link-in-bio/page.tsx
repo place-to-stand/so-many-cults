@@ -5,7 +5,19 @@ import { featuredPhoto } from "../data/photos";
 import { BAND_NAME, BAND_SUBTITLE, BAND_WEBSITE, bandLinks } from "../data/band";
 
 export const metadata: Metadata = {
-  title: `${BAND_NAME} - Links`,
+  title: BAND_NAME,
+  description: BAND_SUBTITLE,
+  openGraph: {
+    title: BAND_NAME,
+    description: BAND_SUBTITLE,
+    images: [{ url: "/og-link-in-bio.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: BAND_NAME,
+    description: BAND_SUBTITLE,
+    images: ["/og-link-in-bio.png"],
+  },
 };
 
 export default function LinkInBio() {
