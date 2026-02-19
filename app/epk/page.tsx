@@ -13,11 +13,15 @@ export const metadata: Metadata = {
 
 const tracks = [
   {
+    title: "Under The Influence (Demo)",
+    file: "/under-the-influence.mp3",
+  },
+  {
     title: "It's Gone Viral (Demo)",
     file: "/its-gone-viral.mp3",
   },
   {
-    title: "Directed Energy Weapons (Demo)",
+    title: "Directed Energy Weapons + Instrumental (Demo)",
     file: "/directed-energy-weapons.mp3",
   },
   {
