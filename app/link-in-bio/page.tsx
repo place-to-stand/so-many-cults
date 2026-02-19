@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function LinkInBio() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen flex items-center justify-center p-6 font-(family-name:--font-geist-sans)">
       <main className="w-full max-w-sm font-mono flex flex-col items-center gap-6">
         {/* Avatar */}
         <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-[#333]">

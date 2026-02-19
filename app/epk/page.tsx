@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function EPK() {
   return (
-    <div className="min-h-screen p-6 sm:p-10 lg:p-16 font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen p-6 sm:p-10 lg:p-16 font-(family-name:--font-geist-sans)">
       <main className="mx-auto max-w-5xl font-mono">
         {/* Header */}
         <div className="text-center">

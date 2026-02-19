@@ -5,7 +5,7 @@ import { BAND_NAME, BAND_SUBTITLE, bandLinks } from "./data/band";
 
 export default function Home() {
   return (
-    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-(family-name:--font-geist-sans)">
       <main className="flex flex-col gap-8 row-start-2 items-center font-mono text-center max-w-md w-full">
         <h1 className="text-4xl font-bold">{BAND_NAME}</h1>
         <div className="text-[#666]">{BAND_SUBTITLE}</div>
