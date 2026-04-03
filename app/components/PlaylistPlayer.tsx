@@ -31,7 +31,6 @@ export function PlaylistPlayer({
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isDestroyedRef = useRef(false);
-  const tracksRef = useRef(tracks);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -39,9 +38,6 @@ export function PlaylistPlayer({
   const [currentTime, setCurrentTime] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
   const [volume, setVolume] = useState(0.8);
-
-  // Keep tracks ref in sync for use in closures
-  tracksRef.current = tracks;
 
   // Track whether we should auto-play after loading
   const shouldAutoPlayRef = useRef(false);
@@ -102,7 +98,7 @@ export function PlaylistPlayer({
       // Auto-advance to next track
       setActiveIndex((prev) => {
         const next = prev + 1;
-        if (next < tracksRef.current.length) {
+        if (next < tracks.length) {
           shouldAutoPlayRef.current = true;
           return next;
         }
@@ -156,7 +152,6 @@ export function PlaylistPlayer({
     const ws = wavesurferRef.current;
     if (!ws || isDestroyedRef.current) return;
 
-    ws.stop();
     setIsLoading(true);
     setCurrentTime(0);
     setTotalDuration(0);
