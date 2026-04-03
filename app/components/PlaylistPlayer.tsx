@@ -31,6 +31,7 @@ export function PlaylistPlayer({
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isDestroyedRef = useRef(false);
+  const isAdvancingTrackRef = useRef(false);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -41,6 +42,38 @@ export function PlaylistPlayer({
 
   // Track whether we should auto-play after loading
   const shouldAutoPlayRef = useRef(false);
+
+  const loadTrack = useCallback((trackFile: string) => {
+    const ws = wavesurferRef.current;
+    if (!ws || isDestroyedRef.current) return;
+
+    void ws.load(trackFile).catch((err) => {
+      if (
+        isDestroyedRef.current ||
+        (err instanceof Error && err.name === "AbortError")
+      ) {
+        return;
+      }
+
+      console.error("WaveSurfer load error:", err);
+      setIsLoading(false);
+    });
+  }, []);
+
+  const advanceToNextTrack = useCallback(() => {
+    if (isDestroyedRef.current || isAdvancingTrackRef.current) return;
+
+    setIsPlaying(false);
+    setActiveIndex((prev) => {
+      const next = prev + 1;
+      if (next < tracks.length) {
+        isAdvancingTrackRef.current = true;
+        shouldAutoPlayRef.current = true;
+        return next;
+      }
+      return prev;
+    });
+  }, [tracks.length]);
 
   // Initialize wavesurfer once
   useEffect(() => {
@@ -75,6 +108,7 @@ export function PlaylistPlayer({
 
     ws.on("ready", () => {
       if (isDestroyedRef.current) return;
+      isAdvancingTrackRef.current = false;
       setIsLoading(false);
       setTotalDuration(ws.getDuration());
       ws.setVolume(volume);
@@ -92,19 +126,7 @@ export function PlaylistPlayer({
       if (!isDestroyedRef.current) setIsPlaying(false);
     });
 
-    ws.on("finish", () => {
-      if (isDestroyedRef.current) return;
-      setIsPlaying(false);
-      // Auto-advance to next track
-      setActiveIndex((prev) => {
-        const next = prev + 1;
-        if (next < tracks.length) {
-          shouldAutoPlayRef.current = true;
-          return next;
-        }
-        return prev;
-      });
-    });
+    audio.addEventListener("ended", advanceToNextTrack);
 
     ws.on("timeupdate", (time) => {
       if (!isDestroyedRef.current) setCurrentTime(time);
@@ -112,18 +134,20 @@ export function PlaylistPlayer({
 
     ws.on("error", (err) => {
       if (isDestroyedRef.current) return;
+      isAdvancingTrackRef.current = false;
       if (err instanceof Error && err.name === "AbortError") return;
       console.error("WaveSurfer error:", err);
       setIsLoading(false);
     });
 
     // Load the first track
-    ws.load(tracks[0].file);
+    loadTrack(tracks[0].file);
 
     return () => {
       isDestroyedRef.current = true;
       wavesurferRef.current = null;
       audioRef.current = null;
+      audio.removeEventListener("ended", advanceToNextTrack);
 
       audio.pause();
       audio.src = "";
@@ -140,7 +164,7 @@ export function PlaylistPlayer({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [height, waveColor, progressColor]);
+  }, [height, waveColor, progressColor, advanceToNextTrack, loadTrack, tracks]);
 
   // Load new track when activeIndex changes (after initial mount)
   const hasInitializedRef = useRef(false);
@@ -152,11 +176,12 @@ export function PlaylistPlayer({
     const ws = wavesurferRef.current;
     if (!ws || isDestroyedRef.current) return;
 
+    isAdvancingTrackRef.current = false;
     setIsLoading(true);
     setCurrentTime(0);
     setTotalDuration(0);
-    ws.load(tracks[activeIndex].file);
-  }, [activeIndex, tracks]);
+    loadTrack(tracks[activeIndex].file);
+  }, [activeIndex, loadTrack, tracks]);
 
   const togglePlayPause = useCallback(() => {
     if (wavesurferRef.current && !isDestroyedRef.current) {
