@@ -8,8 +8,12 @@ export const demoTracks = [
     file: "/its-gone-viral.mp3",
   },
   {
-    title: "Directed Energy Weapons + Instrumental (Demo)",
+    title: "Directed Energy Weapons (Demo)",
     file: "/directed-energy-weapons.mp3",
+  },
+  {
+    title: "Instrumental Interlude (Demo)",
+    file: "/instrumental-interlude.mp3",
   },
   {
     title: "Arcade (Demo)",
