@@ -1,0 +1,127 @@
+{
+  "_note": "The first release with `featured: true` drives the homepage hero, /music, and the EPK. `status` is 'upcoming' or 'released'; before release, links are shown as pre-save links. Empty urls are hidden. `artwork` is the web-size image (null falls back to the band logo); `artworkHiRes` is the print/press download shown on the EPK. `video.url` supports YouTube watch/short/youtu.be links; null hides the video section. `releaseShowId` points to an id in shows.json. `type` is single, ep, or album. `audio` is a path under /public to a streamable file for the on-site player (null hides it). `artworkCredit` {name, url} is shown under the cover and in the lightbox caption (null hides it). `creditsId` references a block in credits.json. `tracklist` is [{title, duration, lyrics}] — lyrics as a plain string with \\n line breaks (blank line between verses). Tracks with empty lyrics still list; the Lyrics row hides if no track has lyrics. Each track may have `audio`; a release with 2+ playable tracks renders the multi-track player, otherwise the single-track player uses `audio` on the release. Mark a track `instrumental: true` to label it as having no lyrics.",
+  "releases": [
+    {
+      "id": "debut-single",
+      "type": "single",
+      "featured": true,
+      "title": "It's Gone Viral",
+      "status": "upcoming",
+      "releaseDate": "2026-09-04",
+      "artwork": "/artwork/its-gone-viral.jpg",
+      "artworkHiRes": "/artwork/its-gone-viral-3000.jpg",
+      "artworkCredit": {
+        "name": "Andrew Cashen",
+        "url": "https://www.instagram.com/andrewcashen/"
+      },
+      "audio": "/audio/its-gone-viral.m4a",
+      "description": null,
+      "creditsId": "igv-sessions",
+      "tracklist": [
+        {
+          "title": "It's Gone Viral",
+          "duration": "3:56",
+          "audio": "/audio/its-gone-viral.m4a",
+          "lyrics": "Infect the mainstream with your personal daydream\nIt’s a global pandemic\nViral infection and viral affections\nAre making us all sick\n\nNothing stays, hidden forever\nNot your buried treasures\nNot your darkest, pleasures\nYou know that secret spot that you love so much\nWell, it’s not so secret anymore\nBecause\n\nIt’s gone viral\n\nSuccess seems so easy to reach\nIt’s all in the right, angle\nJust be obtuse\nWatch out for abuse\nWhat’s the size of the carrot you dangle\n\nLook what I'm eating, look at who’s cheating\nDon’t look now it’s the president tweeting\nEvery breath you take\nEvery move you make\nWe’ll be watching you\nBecause\n\nIt’s gone, it’s gone, it’s gone fucking viral\n\nI just want to see it all today\nI just can’t seem to make it go away\n\nI just want to hear it all today\nI just can’t pretend its all okay\n\nI just want to feel it all today\nI just can’t seem to make it go away\n\nI just want to receive it all today\nI just can’t pretend it’s all, okay",
+          "instrumental": false
+        }
+      ],
+      "links": [
+        {
+          "platform": "bandcamp",
+          "label": "Bandcamp",
+          "url": ""
+        },
+        {
+          "platform": "spotify",
+          "label": "Spotify",
+          "url": ""
+        },
+        {
+          "platform": "apple-music",
+          "label": "Apple Music",
+          "url": ""
+        },
+        {
+          "platform": "youtube-music",
+          "label": "YouTube Music",
+          "url": ""
+        },
+        {
+          "platform": "tidal",
+          "label": "Tidal",
+          "url": ""
+        },
+        {
+          "platform": "amazon-music",
+          "label": "Amazon Music",
+          "url": ""
+        }
+      ],
+      "video": {
+        "title": "Official Music Video",
+        "url": null,
+        "director": null,
+        "premiereDate": null
+      },
+      "releaseShowId": null
+    },
+    {
+      "id": "so-many-cults-ep",
+      "type": "ep",
+      "featured": false,
+      "title": "So Many Cults",
+      "status": "upcoming",
+      "releaseDate": "2026-10-02",
+      "artwork": "/artwork/so-many-cults-ep.jpg",
+      "artworkHiRes": "/artwork/so-many-cults-ep-hires.png",
+      "artworkCredit": {
+        "name": "Andrew Cashen",
+        "url": "https://www.instagram.com/andrewcashen/"
+      },
+      "audio": null,
+      "description": null,
+      "creditsId": "smc-ep-sessions",
+      "tracklist": [
+        {
+          "title": "Under The Influence",
+          "duration": null,
+          "audio": "/under-the-influence.mp3",
+          "lyrics": "I remember the days\nWhen the digital haze\nWasn’t clouding my view\n\nClear as the sun\nNever felt overrun\nBy a tirade of truths\n\nNow my mind’s racing\nDisinformation’s chasing me\nOh, I’m under the influence\n\nPupils dilate\nI begin to fixate\nGot the void in my hands\n\nPutting it down\nJust to turn back around\n’Cause my conscience demands\n\nHopelessly helping\nMyself to a wealth\nOf nothing\n\nOh, I’m under the influence\nOh, I’m under the influence",
+          "instrumental": false
+        },
+        {
+          "title": "It's Gone Viral",
+          "duration": "3:56",
+          "audio": "/audio/its-gone-viral.m4a",
+          "lyrics": "Infect the mainstream with your personal daydream\nIt’s a global pandemic\nViral infection and viral affections\nAre making us all sick\n\nNothing stays, hidden forever\nNot your buried treasures\nNot your darkest, pleasures\nYou know that secret spot that you love so much\nWell, it’s not so secret anymore\nBecause\n\nIt’s gone viral\n\nSuccess seems so easy to reach\nIt’s all in the right, angle\nJust be obtuse\nWatch out for abuse\nWhat’s the size of the carrot you dangle\n\nLook what I'm eating, look at who’s cheating\nDon’t look now it’s the president tweeting\nEvery breath you take\nEvery move you make\nWe’ll be watching you\nBecause\n\nIt’s gone, it’s gone, it’s gone fucking viral\n\nI just want to see it all today\nI just can’t seem to make it go away\n\nI just want to hear it all today\nI just can’t pretend its all okay\n\nI just want to feel it all today\nI just can’t seem to make it go away\n\nI just want to receive it all today\nI just can’t pretend it’s all, okay",
+          "instrumental": false
+        },
+        {
+          "title": "Directed Energy Weapon",
+          "duration": null,
+          "audio": "/directed-energy-weapon.mp3",
+          "lyrics": "I’m walking to the bar\nIt’s Friday night\nShe’s walking with me\nI’m high on life\n\nWe drink and we sing\nPDA on the sink\nIt’s okay, ’cause we’re fucking vibing\n\nThen her friend comes around\nNever met him, a clown\nBad impressions, they last forever\nSnide remarks, side stares\nDagger eyes, crosshairs\nHer target system is set upon my face\nShe’s a\n\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\n\nYou go to work at 9 AM\nYou’re a ballpoint pen\nThat’s running out of ink\n\nYou walk in and he’s there\nWith that smug little stare\nClocking in\nBut I know he’s clocking me\n\nFuckers, trying to get ahead\nNever met a head\nThat he didn’t want to take\n\nSabotage underhand\nMotherfucker’s the man\nHe’s coming for my livelihood and\nHe’s a\n\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon",
+          "instrumental": false
+        },
+        {
+          "title": "Instrumental Interlude",
+          "duration": null,
+          "audio": "/instrumental-interlude.mp3",
+          "lyrics": "",
+          "instrumental": true
+        },
+        {
+          "title": "Arcade",
+          "duration": null,
+          "audio": "/arcade.mp3",
+          "lyrics": "Take me to the arcade\nLooking for a touch of fast play\nSpend the day on the promenade\n\nLook at all the lights blaze\nKeeping my eyes on the prize\nRealize it’s a losing game\n\nOh, I can’t stay\nAt the arcade\n\nTry to leave the arcade\nPlayed too many games\nNeed some change\nDisengage\nDisassociate\n\nFeeling like a lost cause\nPlay, play, play\nTake, take\nBreak, break\nCan’t break away\n\nOh, I’m on my last life\nSo far to go\nI need to level up\nAnd try to break the rut\nGet, get out of my own way\nTry to beat my own score\nIt’s time to play a new game\nCan’t win against myself\n\nOh, I can’t stay\nAt the arcade",
+          "instrumental": false
+        }
+      ],
+      "links": [],
+      "video": null,
+      "releaseShowId": "2026-10-03-13th-floor-ep-release"
+    }
+  ]
+}

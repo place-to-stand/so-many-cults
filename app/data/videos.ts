@@ -1,4 +1,3 @@
-export const fifthElementVideos = {
-  guy: "https://cdn.sanity.io/files/ojzttvlq/production/a22fc6d1010bf4acdda949c6301bd4cea9c9834a.mp4",
-  swirl: "https://cdn.sanity.io/files/ojzttvlq/production/b36d374bf2f8332c6138f388d8469450d145cd20.mp4",
-};
+import videosData from "@/data/videos.json";
+
+export const fifthElementVideos = videosData.fifthElement;

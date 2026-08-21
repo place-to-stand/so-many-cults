@@ -1,0 +1,47 @@
+{
+  "_note": "`press` photos are the official press shots (shown first on /photos and in the EPK with hi-res download). `live` photos are show photos. Drop originals in public/photos and run `node scripts/generate-thumbnails.mjs <source-dir>` to create thumbnails. `featuredPhotoId` is used on the homepage, link-in-bio and as the default OG image.",
+  "featuredPhotoId": "thomas-egan-2",
+  "press": [],
+  "live": [
+    {
+      "id": "thomas-egan-1",
+      "thumbnail": "/photos/thumbnails/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--1.jpg",
+      "fullSize": "/photos/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--1.jpg",
+      "photographer": "Thomas Egan",
+      "photographerLink": "https://www.instagram.com/thomaseganphotography",
+      "date": "2026-01-30",
+      "venue": "Chess Club",
+      "showId": "2026-01-30-chess-club"
+    },
+    {
+      "id": "thomas-egan-2",
+      "thumbnail": "/photos/thumbnails/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--2.jpg",
+      "fullSize": "/photos/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--2.jpg",
+      "photographer": "Thomas Egan",
+      "photographerLink": "https://www.instagram.com/thomaseganphotography",
+      "date": "2026-01-30",
+      "venue": "Chess Club",
+      "showId": "2026-01-30-chess-club"
+    },
+    {
+      "id": "thomas-egan-3",
+      "thumbnail": "/photos/thumbnails/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--3.jpg",
+      "fullSize": "/photos/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--3.jpg",
+      "photographer": "Thomas Egan",
+      "photographerLink": "https://www.instagram.com/thomaseganphotography",
+      "date": "2026-01-30",
+      "venue": "Chess Club",
+      "showId": "2026-01-30-chess-club"
+    },
+    {
+      "id": "chris-donahue-1",
+      "thumbnail": "/photos/thumbnails/2026-01-30---so-many-cults-at-chess-club---by-chris-donahue--1.jpg",
+      "fullSize": "/photos/2026-01-30---so-many-cults-at-chess-club---by-chris-donahue--1.jpg",
+      "photographer": "Chris Donahue",
+      "photographerLink": "https://www.instagram.com/chrisdonahue",
+      "date": "2026-01-30",
+      "venue": "Chess Club",
+      "showId": "2026-01-30-chess-club"
+    }
+  ]
+}

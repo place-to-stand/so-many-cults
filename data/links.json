@@ -1,0 +1,47 @@
+{
+  "_note": "Entries with an empty url are hidden everywhere on the site. Fill in the url to make a link appear. `platform` must match a key in app/data/links.ts PLATFORM_ICONS.",
+  "social": [
+    {
+      "platform": "instagram",
+      "label": "Instagram",
+      "url": "https://instagram.com/somanycults"
+    },
+    {
+      "platform": "youtube",
+      "label": "YouTube",
+      "url": ""
+    }
+  ],
+  "streaming": [
+    {
+      "platform": "bandcamp",
+      "label": "Bandcamp",
+      "url": "https://somanycults.bandcamp.com/"
+    },
+    {
+      "platform": "spotify",
+      "label": "Spotify",
+      "url": ""
+    },
+    {
+      "platform": "apple-music",
+      "label": "Apple Music",
+      "url": ""
+    },
+    {
+      "platform": "youtube-music",
+      "label": "YouTube Music",
+      "url": ""
+    },
+    {
+      "platform": "tidal",
+      "label": "Tidal",
+      "url": ""
+    },
+    {
+      "platform": "amazon-music",
+      "label": "Amazon Music",
+      "url": ""
+    }
+  ]
+}

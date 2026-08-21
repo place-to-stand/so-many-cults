@@ -1,0 +1,141 @@
+{
+  "_note": "Liner-note credit blocks, referenced from releases.json via `creditsId` so releases can share one. Each section is a list of {label, value, url}. Convention: performance = person → instruments (rendered 'Name — role'); production/studio labels end in 'by'/'at'/'to' and render without a dash ('Mixed by Name'). Empty `value` entries are hidden; delete a section to drop it. A block may `extends` another block's id and list only the sections/entries it overrides (matched by section title + entry label).",
+  "blocks": [
+    {
+      "id": "igv-sessions",
+      "sections": [
+        {
+          "title": "Performance",
+          "entries": [
+            {
+              "label": "Dave Pokk",
+              "value": "vocals, guitar",
+              "url": ""
+            },
+            {
+              "label": "Jason Desiderio",
+              "value": "synth, guitar",
+              "url": ""
+            },
+            {
+              "label": "Quinn Finney",
+              "value": "bass",
+              "url": ""
+            },
+            {
+              "label": "Dante Muñoz",
+              "value": "drums",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Recording",
+          "entries": [
+            {
+              "label": "Produced by",
+              "value": "Jason Desiderio & Dave Pokk",
+              "url": ""
+            },
+            {
+              "label": "Tracked by",
+              "value": "Jason Desiderio",
+              "url": ""
+            },
+            {
+              "label": "Mixed by",
+              "value": "Jason Desiderio & Matt Schaefer",
+              "url": ""
+            },
+            {
+              "label": "Mastered by",
+              "value": "Alan Douches",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Studios",
+          "entries": [
+            {
+              "label": "Recorded at",
+              "value": "The Good for Nothings Clubhouse",
+              "url": ""
+            },
+            {
+              "label": "Mixed at",
+              "value": "The Good for Nothings Clubhouse & Precision Sound",
+              "url": ""
+            },
+            {
+              "label": "Mastered at",
+              "value": "West West Side Music",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Artwork",
+          "entries": [
+            {
+              "label": "Songs written by",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Artwork by",
+              "value": "Andrew Cashen",
+              "url": "https://www.instagram.com/andrewcashen/"
+            },
+            {
+              "label": "Photography by",
+              "value": "",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Release",
+          "entries": [
+            {
+              "label": "Label",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Publishing",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "℗ ©",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Thanks to",
+              "value": "",
+              "url": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smc-ep-sessions",
+      "extends": "igv-sessions",
+      "sections": [
+        {
+          "title": "Performance",
+          "entries": [
+            {
+              "label": "Jason Desiderio",
+              "value": "synth, guitar, vocals",
+              "url": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
