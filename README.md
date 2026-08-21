@@ -13,6 +13,7 @@ npm run build
 | --- | --- |
 | `/` | Home: hero, featured release, upcoming + recent shows, photo preview |
 | `/music` | Releases, streaming / pre-save links, music video |
+| `/videos` | Music videos and live footage (YouTube embeds) |
 | `/shows` | Upcoming and past shows |
 | `/photos` | Press photos (hi-res) and live photos |
 | `/about` | Bio, members, FFO, contact |
@@ -35,7 +36,7 @@ Typed accessors in `app/data/*.ts` are the only code that reads the JSON — pag
 | `data/photos.json` | Press and live photos |
 | `data/credits.json` | Liner-note credit blocks (shared between releases via `creditsId`) |
 | `data/tracks.json` | Demo tracks for the EPK player |
-| `data/videos.json` | Video URLs for the fifth-element page |
+| `data/videos.json` | Music videos (YouTube URLs, newest first → homepage "Latest Video") + fifth-element page videos |
 
 **Rule used everywhere:** an empty `url` (`""`) or a `null` field is hidden. Fill it in and it appears. No code changes needed.
 

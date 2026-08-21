@@ -1,4 +1,18 @@
 {
+  "_note": "`videos` is newest-first by `date`; the first one is the homepage 'Latest Video'. `url` accepts YouTube watch/share/shorts links. PLACEHOLDER: the It's Gone Viral entry currently points at a stand-in video — replace `url` when the real one is live.",
+  "videos": [
+    {
+      "id": "its-gone-viral-official-video",
+      "title": "It's Gone Viral",
+      "kind": "Music Video",
+      "date": "2026-09-04",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "releaseId": "debut-single",
+      "director": null,
+      "description": null,
+      "placeholder": true
+    }
+  ],
   "fifthElement": {
     "guy": "https://cdn.sanity.io/files/ojzttvlq/production/a22fc6d1010bf4acdda949c6301bd4cea9c9834a.mp4",
     "swirl": "https://cdn.sanity.io/files/ojzttvlq/production/b36d374bf2f8332c6138f388d8469450d145cd20.mp4"

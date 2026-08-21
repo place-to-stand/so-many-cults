@@ -10,7 +10,7 @@ import {
   FaAmazon,
 } from "react-icons/fa";
 import { SiApplemusic, SiTidal, SiYoutubemusic } from "react-icons/si";
-import { FiCalendar, FiMail, FiLink, FiMusic, FiCamera, FiInfo } from "react-icons/fi";
+import { FiCalendar, FiMail, FiLink, FiMusic, FiCamera, FiInfo, FiVideo } from "react-icons/fi";
 import linksData from "@/data/links.json";
 import { BAND_EMAIL } from "./band";
 
@@ -73,6 +73,7 @@ export const contactLink: SiteLink = {
 /** Primary site navigation (public pages). */
 export const siteNav: SiteLink[] = [
   { label: "Music", href: "/music", icon: FiMusic, isExternal: false },
+  { label: "Videos", href: "/videos", icon: FiVideo, isExternal: false },
   { label: "Shows", href: "/shows", icon: FiCalendar, isExternal: false },
   { label: "Photos", href: "/photos", icon: FiCamera, isExternal: false },
   { label: "About", href: "/about", icon: FiInfo, isExternal: false },

@@ -20,7 +20,7 @@ export default function MusicPage() {
       <main className="mx-auto max-w-5xl font-mono">
         <h1 className="text-3xl font-bold">Music</h1>
 
-        <section className="mt-12 sm:mt-16 space-y-16 sm:space-y-20">
+        <section className="mt-12 sm:mt-16 space-y-20 sm:space-y-24">
           {ordered.map((release) => (
             <ReleaseCard key={release.id} release={release} />
           ))}

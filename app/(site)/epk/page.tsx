@@ -24,6 +24,8 @@ import {
 import { socialLinks, streamingLinks } from "../../data/links";
 import { demoTracks } from "../../data/tracks";
 import { featuredRelease, recordRelease, getReleaseShow, releaseTypeLabel } from "../../data/releases";
+import { latestVideo } from "../../data/videos";
+import { VideoCard } from "../../components/VideoCard";
 import { getUpcomingShows, getPastShows } from "../../data/shows";
 import { formatLongDate } from "../../data/dates";
 
@@ -78,6 +80,13 @@ export default function EPK() {
               {featuredRelease.video?.url ? " + Official Video" : ""}
             </SectionHeading>
             <ReleaseCard release={featuredRelease} showDownloads creditsOpen />
+          </section>
+        )}
+
+        {latestVideo && (
+          <section className="mt-12 lg:mt-16">
+            <SectionHeading>Latest Video</SectionHeading>
+            <VideoCard video={latestVideo} />
           </section>
         )}
 

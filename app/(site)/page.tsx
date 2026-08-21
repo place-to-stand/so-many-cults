@@ -5,6 +5,8 @@ import { platformGroups } from "../data/links";
 import { PlatformIcons } from "../components/PlatformIcons";
 import { LightboxImage } from "../components/LightboxImage";
 import { featuredRelease } from "../data/releases";
+import { latestVideo } from "../data/videos";
+import { VideoCard } from "../components/VideoCard";
 import { getUpcomingShows } from "../data/shows";
 import { ReleaseCard } from "../components/ReleaseCard";
 import { ShowList } from "../components/ShowList";
@@ -49,6 +51,19 @@ export default function Home() {
               </Link>
             </div>
             <ReleaseCard release={featuredRelease} />
+          </section>
+        )}
+
+        {/* Latest video */}
+        {latestVideo && (
+          <section className="mt-28 sm:mt-36">
+            <div className="flex items-baseline justify-between">
+              <SectionHeading size="lg">Latest Video</SectionHeading>
+              <Link href="/videos" className="text-xs text-[#888] hover:text-white">
+                All videos →
+              </Link>
+            </div>
+            <VideoCard video={latestVideo} />
           </section>
         )}
 
