@@ -31,6 +31,6 @@ function resolveBlock(id: string, depth = 0): CreditSection[] {
 export function getCredits(id: string | null | undefined): CreditSection[] {
   if (!id) return [];
   return resolveBlock(id)
-    .map((s) => ({ ...s, entries: s.entries.filter((e) => e.value.trim() !== "") }))
+    .map((s) => ({ ...s, entries: s.entries.filter((e) => e.value.trim() !== "" || e.label.trim() !== "") }))
     .filter((s) => s.entries.length > 0);
 }

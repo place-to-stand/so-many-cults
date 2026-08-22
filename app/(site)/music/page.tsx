@@ -5,11 +5,10 @@ import { releases } from "../../data/releases";
 import { ReleaseCard } from "../../components/ReleaseCard";
 import { LinkButtons } from "../../components/LinkButtons";
 import { SectionHeading } from "../../components/SectionHeading";
+import { pageMetadata, descriptions, musicJsonLd } from "../../data/seo";
+import { JsonLd } from "../../components/JsonLd";
 
-export const metadata: Metadata = {
-  title: `Music — ${BAND_NAME}`,
-  description: `Listen to ${BAND_NAME}: singles, videos, and where to stream.`,
-};
+export const metadata: Metadata = pageMetadata({ title: `Music — ${BAND_NAME}`, description: descriptions.music, path: "/music" });
 
 export default function MusicPage() {
   // Newest release first by date; undated releases sink to the bottom.
@@ -18,6 +17,7 @@ export default function MusicPage() {
   return (
     <div className="px-6 sm:px-10 pt-8 sm:pt-12 pb-8">
       <main className="mx-auto max-w-5xl font-mono">
+        <JsonLd data={musicJsonLd()} />
         <h1 className="text-3xl font-bold">Music</h1>
 
         <section className="mt-12 sm:mt-16 space-y-20 sm:space-y-24">

@@ -10,6 +10,8 @@ export type Video = {
   url: string;
   releaseId: string | null;
   director: string | null;
+  /** Id of a block in credits.json. */
+  creditsId?: string | null;
   description: string | null;
   /** True while the url is a stand-in. */
   placeholder?: boolean;

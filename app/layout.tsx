@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: BAND_NAME,
     description: BAND_SUBTITLE,
     type: "website",
-    images: [{ url: featuredPhoto.thumbnail, width: 800, height: 800 }],
+    images: [{ url: featuredPhoto.thumbnail, width: 800, height: 800, alt: `${BAND_NAME} live` }],
   },
   twitter: {
     card: "summary_large_image",

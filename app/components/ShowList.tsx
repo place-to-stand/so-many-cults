@@ -75,13 +75,8 @@ function Poster({ show }: { show: Show }) {
 }
 
 export function ShowCard({ show, compact = false }: { show: Show; compact?: boolean }) {
-  // Full bill in listed order, minus anyone already named in the event title (e.g. "X Residency").
-  // We always list ourselves.
-  const titleLc = (show.title ?? "").toLowerCase();
-  const others = show.lineup.filter((name) => {
-    const n = name.toLowerCase();
-    return n === "so many cults" || !(titleLc && titleLc.includes(n));
-  });
+  // Full bill in listed order.
+  const others = show.lineup;
   const doorsLine = [show.doors ? `Doors ${show.doors}` : show.time, show.price].filter(Boolean).join(" · ");
 
   if (compact) {
@@ -114,7 +109,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
             {show.title ?? <VenueName name={show.venue} className="text-[#f2f2f2] hover:text-white" />}
           </h3>
           {show.title && (
-            <div className="mt-[5px] text-[15px] text-[#9a9a9a]">
+            <div className="mt-0.5 text-[15px] text-[#9a9a9a]">
               <VenueName name={show.venue} />
               {show.festival && <span className="text-[#666]"> · {show.festival}</span>}
             </div>

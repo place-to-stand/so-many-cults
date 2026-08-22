@@ -1,5 +1,5 @@
 {
-  "_note": "Liner-note credit blocks, referenced from releases.json via `creditsId` so releases can share one. Each section is a list of {label, value, url}. Convention: performance = person → instruments (rendered 'Name — role'); production/studio labels end in 'by'/'at'/'to' and render without a dash ('Mixed by Name'). Empty `value` entries are hidden; delete a section to drop it. A block may `extends` another block's id and list only the sections/entries it overrides (matched by section title + entry label).",
+  "_note": "Liner-note credit blocks, referenced from releases.json via `creditsId` so releases can share one. Each section is a list of {label, value, url}. Convention: performance = person → instruments (rendered 'Name — role'); production/studio labels end in 'by'/'at'/'to' and render without a dash ('Mixed by Name'). An entry with an empty `value` renders its label alone (use for name-only lists like extras). Optional release credits you may want to add later: 'Songs written by', 'Photography by', 'Label', 'Publishing', '℗ ©', 'Thanks to'. A block may `extends` another block's id and list only the sections/entries it overrides (matched by section title + entry label). Entries may have an empty `value` when the label alone is the credit (e.g. a list of extras).",
   "blocks": [
     {
       "id": "igv-sessions",
@@ -55,6 +55,16 @@
           ]
         },
         {
+          "title": "Artwork",
+          "entries": [
+            {
+              "label": "Artwork by",
+              "value": "Andrew Cashen",
+              "url": "https://www.instagram.com/andrewcashen/"
+            }
+          ]
+        },
+        {
           "title": "Studios",
           "entries": [
             {
@@ -73,51 +83,6 @@
               "url": ""
             }
           ]
-        },
-        {
-          "title": "Artwork",
-          "entries": [
-            {
-              "label": "Songs written by",
-              "value": "",
-              "url": ""
-            },
-            {
-              "label": "Artwork by",
-              "value": "Andrew Cashen",
-              "url": "https://www.instagram.com/andrewcashen/"
-            },
-            {
-              "label": "Photography by",
-              "value": "",
-              "url": ""
-            }
-          ]
-        },
-        {
-          "title": "Release",
-          "entries": [
-            {
-              "label": "Label",
-              "value": "",
-              "url": ""
-            },
-            {
-              "label": "Publishing",
-              "value": "",
-              "url": ""
-            },
-            {
-              "label": "℗ ©",
-              "value": "",
-              "url": ""
-            },
-            {
-              "label": "Thanks to",
-              "value": "",
-              "url": ""
-            }
-          ]
         }
       ]
     },
@@ -131,6 +96,61 @@
             {
               "label": "Jason Desiderio",
               "value": "synth, guitar, vocals",
+              "url": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "video-its-gone-viral",
+      "sections": [
+        {
+          "title": "Crew",
+          "entries": [
+            {
+              "label": "Chris Donahue",
+              "value": "Director, Editor",
+              "url": "https://www.instagram.com/chrisdonahue"
+            },
+            {
+              "label": "Gabrielle Westfield",
+              "value": "Costumes, Set Dressing, Choreography",
+              "url": ""
+            },
+            {
+              "label": "Adam Lancaster",
+              "value": "Assistant Camera, VFX",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Garage Sale Shoppers",
+          "entries": [
+            {
+              "label": "Tony Hines",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Bradley DeLoatche",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Angela Newman",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Timothy James",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Blake Rodgers",
+              "value": "",
               "url": ""
             }
           ]

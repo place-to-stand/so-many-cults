@@ -4,11 +4,11 @@ import { getUpcomingShows, getPastShows } from "../../data/shows";
 import { ShowList } from "../../components/ShowList";
 import { SectionHeading } from "../../components/SectionHeading";
 import { Disclosure } from "../../components/Disclosure";
+import { pageMetadata, descriptions, showsJsonLd } from "../../data/seo";
+import { JsonLd } from "../../components/JsonLd";
+import { todayISO } from "../../data/dates";
 
-export const metadata: Metadata = {
-  title: `Shows — ${BAND_NAME}`,
-  description: `Upcoming and past shows from ${BAND_NAME}, Austin, TX.`,
-};
+export const metadata: Metadata = pageMetadata({ title: `Shows — ${BAND_NAME}`, description: descriptions.shows, path: "/shows" });
 
 export const revalidate = 3600;
 
@@ -19,6 +19,7 @@ export default function ShowsPage() {
   return (
     <div className="px-6 sm:px-10 pt-8 sm:pt-12">
       <main className="mx-auto max-w-5xl font-mono">
+        <JsonLd data={showsJsonLd(todayISO())} />
         <h1 className="text-3xl font-bold">Shows</h1>
 
         <section className="mt-12 sm:mt-16">

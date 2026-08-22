@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata, descriptions, musicGroupJsonLd } from "../data/seo";
+import { JsonLd } from "../components/JsonLd";
 import { featuredPhoto, pressPhotos } from "../data/photos";
-import { BAND_NAME, shortBio } from "../data/band";
+import { BAND_NAME, BAND_SUBTITLE, shortBio } from "../data/band";
 import { platformGroups } from "../data/links";
 import { PlatformIcons } from "../components/PlatformIcons";
 import { LightboxImage } from "../components/LightboxImage";
@@ -12,6 +15,8 @@ import { ReleaseCard } from "../components/ReleaseCard";
 import { ShowList } from "../components/ShowList";
 import { SectionHeading } from "../components/SectionHeading";
 
+export const metadata: Metadata = pageMetadata({ title: `${BAND_NAME} — ${BAND_SUBTITLE}`, description: descriptions.home, path: "/" });
+
 // Re-render hourly so shows roll from "upcoming" to "past" without a redeploy.
 export const revalidate = 3600;
 
@@ -22,6 +27,7 @@ export default function Home() {
   return (
     <div className="px-6 sm:px-10 pt-8 sm:pt-12 pb-8 sm:pb-16">
       <main className="mx-auto max-w-5xl font-mono">
+        <JsonLd data={musicGroupJsonLd()} />
         {/* Hero */}
         <section className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center">
           <div className="text-center lg:text-left">

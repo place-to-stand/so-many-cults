@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { BAND_NAME } from "../../data/band";
-import { pressPhotos, livePhotos } from "../../data/photos";
+import { pressPhotos, livePhotos, featuredPhoto } from "../../data/photos";
+import { pageMetadata, descriptions } from "../../data/seo";
 import { PhotoGallery } from "../../components/PhotoGallery";
 import { SectionHeading } from "../../components/SectionHeading";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: `Photos — ${BAND_NAME}`,
-  description: `Press and live photos of ${BAND_NAME}.`,
-};
+  description: descriptions.photos,
+  path: "/photos",
+  image: { url: featuredPhoto.thumbnail, alt: `${BAND_NAME} live at ${featuredPhoto.venue}` },
+});
 
 export default function PhotosPage() {
   return (

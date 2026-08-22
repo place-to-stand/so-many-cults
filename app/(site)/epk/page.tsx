@@ -28,12 +28,9 @@ import { latestVideo } from "../../data/videos";
 import { VideoCard } from "../../components/VideoCard";
 import { getUpcomingShows, getPastShows } from "../../data/shows";
 import { formatLongDate } from "../../data/dates";
+import { pageMetadata } from "../../data/seo";
 
-export const metadata: Metadata = {
-  title: `${BAND_NAME} — Electronic Press Kit`,
-  description: shortBio,
-  robots: { index: false, follow: true },
-};
+export const metadata: Metadata = pageMetadata({ title: `${BAND_NAME} — Electronic Press Kit`, description: shortBio, path: "/epk", noindex: true });
 
 export const revalidate = 3600;
 
@@ -86,7 +83,7 @@ export default function EPK() {
         {latestVideo && (
           <section className="mt-12 lg:mt-16">
             <SectionHeading>Latest Video</SectionHeading>
-            <VideoCard video={latestVideo} />
+            <VideoCard video={latestVideo} creditsOpen />
           </section>
         )}
 

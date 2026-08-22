@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { BAND_NAME, BAND_EMAIL, members, shortBio, extendedBio } from "../../data/band";
+import { BAND_NAME, BAND_EMAIL, members, extendedBio } from "../../data/band";
 import { platformGroups } from "../../data/links";
 import { PlatformIcons } from "../../components/PlatformIcons";
 import { SectionHeading } from "../../components/SectionHeading";
 import { LightboxImage } from "../../components/LightboxImage";
 import { featuredPhoto, pressPhotos } from "../../data/photos";
+import { pageMetadata, descriptions, musicGroupJsonLd } from "../../data/seo";
+import { JsonLd } from "../../components/JsonLd";
 
-export const metadata: Metadata = {
-  title: `About — ${BAND_NAME}`,
-  description: shortBio,
-};
+export const metadata: Metadata = pageMetadata({ title: `About — ${BAND_NAME}`, description: descriptions.about, path: "/about" });
 
 export default function AboutPage() {
   const heroPhoto = pressPhotos[0] ?? featuredPhoto;
   return (
     <div className="px-6 sm:px-10 pt-8 sm:pt-12">
       <main className="mx-auto max-w-5xl font-mono">
+        <JsonLd data={musicGroupJsonLd()} />
         <h1 className="text-3xl font-bold">About</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.6fr] gap-10 mt-12 sm:mt-16">
