@@ -1,14 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSelectedLayoutSegment } from "next/navigation";
 import { BAND_NAME } from "../data/band";
 import { siteNav } from "../data/links";
 
 export function SiteNav() {
   const pathname = usePathname();
   // The homepage hero already carries the wordmark, so the nav hides it there (animated on route change).
-  const isHome = pathname === "/";
+  // Decided from the layout segment rather than the pathname: during ISR regeneration on Vercel the
+  // root route can render with pathname "/index", which made the server send the wordmark visible.
+  const segment = useSelectedLayoutSegment();
+  const isHome = segment === null;
 
   return (
     <header className="font-mono">

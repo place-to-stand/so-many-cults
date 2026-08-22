@@ -21,7 +21,7 @@ function Artwork({ release }: { release: Release }) {
         photos={[photo]}
         index={0}
         alt={`${release.title} artwork`}
-        sizes="(max-width: 640px) 100vw, 360px"
+        sizes="(max-width: 768px) 100vw, 444px"
         imageClassName="border border-[#222]"
         showDownload={Boolean(release.artworkHiRes)}
         showCredit={false}
@@ -86,7 +86,7 @@ export function ReleaseCard({
 
   return (
     <article className="font-mono">
-      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,340px)_1fr] gap-8 md:gap-12 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,444px)_1fr] gap-8 md:gap-12 items-start">
         <Artwork release={release} />
 
         <div className="min-w-0 md:pt-2">
