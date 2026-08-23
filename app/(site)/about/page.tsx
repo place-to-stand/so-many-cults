@@ -11,7 +11,8 @@ import { JsonLd } from "../../components/JsonLd";
 export const metadata: Metadata = pageMetadata({ title: `About — ${BAND_NAME}`, description: descriptions.about, path: "/about" });
 
 export default function AboutPage() {
-  const heroPhoto = pressPhotos[0] ?? featuredPhoto;
+  // Second press shot here so About doesn't repeat the homepage hero.
+  const heroPhoto = pressPhotos[1] ?? pressPhotos[0] ?? featuredPhoto;
   return (
     <div className="px-6 sm:px-10 pt-8 sm:pt-12">
       <main className="mx-auto max-w-5xl font-mono">

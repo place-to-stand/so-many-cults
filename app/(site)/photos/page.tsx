@@ -19,13 +19,12 @@ export default function PhotosPage() {
         <h1 className="text-3xl font-bold">Photos</h1>
 
         {pressPhotos.length > 0 && (
-          <section className="mt-12 sm:mt-16">
-            <SectionHeading size="lg">Press Photos</SectionHeading>
+          <section className="mt-12 sm:mt-16" aria-label="Press photos">
             <PhotoGallery photos={pressPhotos} columns={3} />
           </section>
         )}
 
-        <section className="mt-12 sm:mt-16">
+        <section className="mt-16 sm:mt-20">
           <SectionHeading size="lg">Live</SectionHeading>
           <PhotoGallery photos={livePhotos} columns={3} />
         </section>

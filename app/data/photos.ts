@@ -11,6 +11,8 @@ export type Photo = {
   /** Venue for live shots; for press shots use a location or "Press Photo". */
   venue: string;
   showId?: string | null;
+  /** Original filename, for your records. */
+  source?: string;
   /** Caption prefix, defaults to "Photo by". Use "Artwork by" for cover art. */
   creditLabel?: string;
 };

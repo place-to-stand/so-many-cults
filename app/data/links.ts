@@ -10,7 +10,7 @@ import {
   FaAmazon,
 } from "react-icons/fa";
 import { SiApplemusic, SiTidal, SiYoutubemusic } from "react-icons/si";
-import { FiCalendar, FiMail, FiLink, FiMusic, FiCamera, FiInfo, FiVideo } from "react-icons/fi";
+import { FiCalendar, FiMail, FiLink, FiMusic, FiCamera, FiInfo, FiVideo, FiShoppingBag } from "react-icons/fi";
 import linksData from "@/data/links.json";
 import { BAND_EMAIL } from "./band";
 
@@ -75,6 +75,8 @@ export const siteNav: SiteLink[] = [
   { label: "Music", href: "/music", icon: FiMusic, isExternal: false },
   { label: "Videos", href: "/videos", icon: FiVideo, isExternal: false },
   { label: "Shows", href: "/shows", icon: FiCalendar, isExternal: false },
+  // Store is not live yet; URL is the planned collection so it isn't forgotten.
+  { label: "Merch", href: "https://shop.thegoodfornothings.club/collections/so-many-cults", icon: FiShoppingBag, isExternal: true },
   { label: "Photos", href: "/photos", icon: FiCamera, isExternal: false },
   { label: "About", href: "/about", icon: FiInfo, isExternal: false },
 ];

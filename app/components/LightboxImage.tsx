@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Photo } from "../data/photos";
 import { Lightbox } from "./Lightbox";
+import { useLightboxHash } from "./useLightboxHash";
 
 /**
  * An image that opens the shared lightbox over `photos`, starting at `index`,
@@ -33,6 +34,7 @@ export function LightboxImage({
   showCredit?: boolean;
 }) {
   const [open, setOpen] = useState<number | null>(null);
+  useLightboxHash(photos, open, setOpen);
   const photo = photos[index];
   if (!photo) return null;
 
@@ -45,10 +47,10 @@ export function LightboxImage({
         className="block w-full cursor-pointer group"
       >
         <Image
-          src={photo.thumbnail}
+          src={photo.fullSize}
           alt={alt}
-          width={800}
-          height={800}
+          width={1600}
+          height={1600}
           sizes={sizes}
           className={`w-full h-auto transition-opacity duration-300 group-hover:opacity-90 ${imageClassName}`}
           priority={priority}
@@ -67,7 +69,7 @@ export function LightboxImage({
         </div>
       )}
       {open !== null && (
-        <Lightbox photos={photos} index={open} onIndexChange={setOpen} onClose={() => setOpen(null)} showDownload={showDownload} />
+        <Lightbox photos={photos} index={open} onIndexChange={setOpen} onClose={() => setOpen(null)} showDownload={showDownload} thumbnailSizes={sizes} placeholderSrc="fullSize" />
       )}
     </div>
   );

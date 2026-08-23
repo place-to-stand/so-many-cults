@@ -35,6 +35,7 @@ export function SiteNav() {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  {...(item.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   aria-current={isActive ? "page" : undefined}
                   className={`transition-colors hover:no-underline ${
                     isActive ? "text-white" : "text-[#888] hover:text-[#ccc]"
