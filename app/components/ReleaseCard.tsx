@@ -21,7 +21,7 @@ function Artwork({ release }: { release: Release }) {
         photos={[photo]}
         index={0}
         alt={`${release.title} artwork`}
-        sizes="(max-width: 768px) 100vw, 444px"
+        sizes="(max-width: 1024px) 100vw, 444px"
         imageClassName="border border-[#222]"
         showDownload={Boolean(release.artworkHiRes)}
         showCredit={false}
@@ -80,16 +80,17 @@ export function ReleaseCard({
   const links = getReleaseLinks(release);
   const credits = getCredits(release.creditsId);
   const playable = release.tracklist.filter((t) => t.audio.trim() !== "");
+  const analytics = { release: release.title, player: playable.length > 1 ? "ep-playlist" : "single" };
   const Heading = headingLevel;
   const linksLabel = release.status === "released" ? "Listen" : "Pre-save";
   const kind = releaseTypeLabel(release);
 
   return (
     <article className="font-mono">
-      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,444px)_1fr] gap-8 md:gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,444px)_1fr] gap-8 lg:gap-12 items-start">
         <Artwork release={release} />
 
-        <div className="min-w-0 md:pt-2">
+        <div className="min-w-0 lg:pt-2">
           {/* Meta line: type · date — small, wide-tracked, deliberately quiet */}
           <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-[#9a9a9a]">
             <span>{kind}</span>
@@ -117,6 +118,7 @@ export function ReleaseCard({
             <div className="mt-8 border-t border-[#1e1e1e] pt-5">
               <PlaylistPlayer
                 tracks={playable.map((t) => ({ title: t.title, file: t.audio }))}
+                analytics={analytics}
                 variant="bare"
                 showTitle={false}
                 height={56}
@@ -130,6 +132,7 @@ export function ReleaseCard({
                 audioUrl={release.audio}
                 title={release.title}
                 showTitle={false}
+                analytics={analytics}
                 variant="bare"
                 height={56}
                 waveColor="rgba(255,255,255,0.18)"

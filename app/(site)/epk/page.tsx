@@ -218,7 +218,7 @@ export default function EPK() {
         {/* Demos */}
         <div className="mt-12 lg:mt-16 max-w-2xl">
           <SectionHeading>Demos</SectionHeading>
-          <PlaylistPlayer tracks={demoTracks} />
+          <PlaylistPlayer tracks={demoTracks} analytics={{ player: "epk-demos" }} />
         </div>
 
         {/* Shows */}

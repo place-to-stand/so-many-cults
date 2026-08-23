@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import WaveSurfer from "wavesurfer.js";
+import { createPlaybackTracker, type PlaybackTracker } from "../lib/playback-analytics";
 
 interface Track {
   title: string;
@@ -17,6 +18,8 @@ interface PlaylistPlayerProps {
   variant?: "card" | "bare";
   /** Show the active track title above the waveform (the tracklist already highlights it). */
   showTitle?: boolean;
+  /** Analytics context; when provided, play/progress/complete events are sent to PostHog. */
+  analytics?: { release?: string; player: string };
 }
 
 function formatTime(seconds: number): string {
@@ -32,6 +35,7 @@ export function PlaylistPlayer({
   progressColor = "rgba(255, 255, 255, 0.9)",
   variant = "card",
   showTitle = true,
+  analytics,
 }: PlaylistPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
@@ -40,6 +44,13 @@ export function PlaylistPlayer({
   const isAdvancingTrackRef = useRef(false);
 
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // One playback tracker per loaded track.
+  const trackerRef = useRef<PlaybackTracker | null>(null);
+  useEffect(() => {
+    const t = tracks[activeIndex];
+    trackerRef.current = analytics && t ? createPlaybackTracker({ title: t.title, src: t.file, ...analytics }) : null;
+  }, [activeIndex, tracks, analytics]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
@@ -126,17 +137,25 @@ export function PlaylistPlayer({
     });
 
     ws.on("play", () => {
-      if (!isDestroyedRef.current) setIsPlaying(true);
+      if (isDestroyedRef.current) return;
+      setIsPlaying(true);
+      trackerRef.current?.onPlay();
     });
 
     ws.on("pause", () => {
       if (!isDestroyedRef.current) setIsPlaying(false);
     });
 
+    ws.on("finish", () => {
+      if (!isDestroyedRef.current) trackerRef.current?.onFinish(ws.getDuration());
+    });
+
     audio.addEventListener("ended", advanceToNextTrack);
 
     ws.on("timeupdate", (time) => {
-      if (!isDestroyedRef.current) setCurrentTime(time);
+      if (isDestroyedRef.current) return;
+      setCurrentTime(time);
+      trackerRef.current?.onTime(time, ws.getDuration());
     });
 
     ws.on("error", (err) => {
@@ -294,12 +313,12 @@ export function PlaylistPlayer({
       </div>
 
       {/* Transport controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         {/* Prev */}
         <button
           onClick={skipPrev}
           disabled={activeIndex === 0}
-          className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 cursor-pointer disabled:cursor-default"
+          className="h-8 w-8 shrink-0 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 cursor-pointer disabled:cursor-default"
         >
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" />
@@ -310,7 +329,7 @@ export function PlaylistPlayer({
         <button
           onClick={togglePlayPause}
           disabled={isLoading}
-          className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-default"
+          className="h-10 w-10 shrink-0 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-default"
         >
           {isPlaying ? (
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -332,7 +351,7 @@ export function PlaylistPlayer({
         <button
           onClick={skipNext}
           disabled={activeIndex === tracks.length - 1}
-          className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 cursor-pointer disabled:cursor-default"
+          className="h-8 w-8 shrink-0 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 cursor-pointer disabled:cursor-default"
         >
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
@@ -340,7 +359,7 @@ export function PlaylistPlayer({
         </button>
 
         {/* Time */}
-        <div className="flex-1 text-xs text-[#888] font-mono">
+        <div className="flex-1 min-w-0 whitespace-nowrap text-xs text-[#888] font-mono">
           <span>{formatTime(currentTime)}</span>
           <span className="mx-1">/</span>
           <span>{formatTime(totalDuration)}</span>

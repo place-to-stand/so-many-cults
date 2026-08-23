@@ -15,7 +15,9 @@ function readHash(): string | null {
  */
 export function useLightboxHash(photos: Photo[], index: number | null, setIndex: (i: number | null) => void) {
   const photosRef = useRef(photos);
-  photosRef.current = photos;
+  useEffect(() => {
+    photosRef.current = photos;
+  }, [photos]);
   const ids = photos.map((p) => p.id).join("|");
 
   // URL → state: on load (deferred a frame so it isn't a synchronous set-in-effect) and on Back/Forward.

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import WaveSurfer from "wavesurfer.js";
+import { createPlaybackTracker, type PlaybackTracker } from "../lib/playback-analytics";
 
 interface WaveformPlayerProps {
   audioUrl: string;
@@ -13,6 +14,8 @@ interface WaveformPlayerProps {
   height?: number;
   waveColor?: string;
   progressColor?: string;
+  /** Analytics context; when provided, play/progress/complete events are sent to PostHog. */
+  analytics?: { release?: string; player: string };
 }
 
 function formatTime(seconds: number): string {
@@ -29,7 +32,12 @@ export function WaveformPlayer({
   height = 64,
   waveColor = "rgba(102, 102, 102, 0.6)",
   progressColor = "rgba(255, 255, 255, 0.9)",
+  analytics,
 }: WaveformPlayerProps) {
+  const trackerRef = useRef<PlaybackTracker | null>(null);
+  useEffect(() => {
+    trackerRef.current = analytics ? createPlaybackTracker({ title, src: audioUrl, ...analytics }) : null;
+  }, [audioUrl, title, analytics]);
   const containerRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const isDestroyedRef = useRef(false);
@@ -86,7 +94,9 @@ export function WaveformPlayer({
     });
 
     ws.on("play", () => {
-      if (!isDestroyedRef.current) setIsPlaying(true);
+      if (isDestroyedRef.current) return;
+      setIsPlaying(true);
+      trackerRef.current?.onPlay();
     });
 
     ws.on("pause", () => {
@@ -94,11 +104,15 @@ export function WaveformPlayer({
     });
 
     ws.on("finish", () => {
-      if (!isDestroyedRef.current) setIsPlaying(false);
+      if (isDestroyedRef.current) return;
+      setIsPlaying(false);
+      trackerRef.current?.onFinish(ws.getDuration());
     });
 
     ws.on("timeupdate", (time) => {
-      if (!isDestroyedRef.current) setCurrentTime(time);
+      if (isDestroyedRef.current) return;
+      setCurrentTime(time);
+      trackerRef.current?.onTime(time, ws.getDuration());
     });
 
     ws.on("error", (err) => {
@@ -208,12 +222,12 @@ export function WaveformPlayer({
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         {/* Play/Pause button */}
         <button
           onClick={togglePlayPause}
           disabled={isLoading}
-          className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-default"
+          className="h-10 w-10 shrink-0 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-default"
         >
           {isPlaying ? (
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -228,7 +242,7 @@ export function WaveformPlayer({
         </button>
 
         {/* Time display */}
-        <div className="flex-1 text-xs text-[#888] font-mono">
+        <div className="flex-1 min-w-0 whitespace-nowrap text-xs text-[#888] font-mono">
           <span>{formatTime(currentTime)}</span>
           <span className="mx-1">/</span>
           <span>{formatTime(totalDuration)}</span>
