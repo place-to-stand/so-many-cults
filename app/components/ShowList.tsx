@@ -44,7 +44,6 @@ function DateLine({ date, className = "" }: { date: string | null; className?: s
       <span className="text-[#f2f2f2]">
         {weekday} {month} {day}
       </span>
-      <span aria-hidden className="h-px w-5 bg-[#333]" />
       <span>{year}</span>
     </div>
   );
@@ -105,13 +104,25 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
 
         <div className="min-w-0 flex-1">
           <DateLine date={show.date} className="mb-3.5" />
-          <h3 className="text-lg sm:text-xl font-bold leading-snug text-[#f2f2f2]">
+          <h3 className="text-xl sm:text-[22px] font-bold leading-snug text-[#f2f2f2]">
             {show.title ?? <VenueName name={show.venue} className="text-[#f2f2f2] hover:text-white" />}
           </h3>
           {show.title && (
-            <div className="mt-0.5 text-[15px] text-[#9a9a9a]">
+            <div className="mt-2.5 text-[15px] text-[#9a9a9a]">
               <VenueName name={show.venue} />
               {show.festival && <span className="text-[#666]"> · {show.festival}</span>}
+            </div>
+          )}
+          {show.address && (
+            <div className="mt-0.5 mb-7 text-xs">
+              <Link
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${show.venue}, ${show.address}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#666] hover:text-[#bbb] hover:no-underline"
+              >
+                {show.address} ↗
+              </Link>
             </div>
           )}
 
@@ -123,7 +134,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
           )}
 
           {(doorsLine || show.setTimes.length > 0 || show.presenter) && (
-            <div className="mt-[18px] space-y-3.5 text-xs uppercase tracking-[0.08em] text-[#666]">
+            <div className="mt-9 space-y-3.5 text-xs uppercase tracking-[0.08em] text-[#666]">
               {doorsLine && <div className="text-[#8a8a8a]">{doorsLine}</div>}
               {show.setTimes.length > 0 && (
                 <ul className="space-y-0.5">

@@ -17,17 +17,17 @@ export function VideoCard({
   creditsOpen?: boolean;
 }) {
   const Heading = headingLevel;
-  const credits = getCredits(video.creditsId);
+  // The date lives in the credits, matching the release liner notes.
+  const credits = [
+    ...getCredits(video.creditsId),
+    { title: "Release", entries: [{ label: "Released on", value: formatLongDate(video.date), url: "" }] },
+  ];
   return (
     <article className="font-mono">
       <VideoEmbed url={video.url} title={`${video.title} — ${video.kind}`} />
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
-        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-[#9a9a9a]">
-          <span className="text-[#f2f2f2]">{video.kind}</span>
-          <span aria-hidden className="h-px w-5 bg-[#333]" />
-          <span>{formatLongDate(video.date)}</span>
-        </div>
+        <div className="text-xs uppercase tracking-[0.18em] text-[#9a9a9a]">{video.kind}</div>
         <Link
           href={video.url}
           target="_blank"
@@ -42,7 +42,7 @@ export function VideoCard({
       {video.description && <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-[#777]">{video.description}</p>}
       {credits.length > 0 && (
         <div className="mt-5 border-t border-[#262626] pt-4">
-          <CreditsAccordion sections={credits} defaultOpen={creditsOpen} noun="credits" />
+          <CreditsAccordion sections={credits} defaultOpen={creditsOpen} noun="credits" columns={2} />
         </div>
       )}
     </article>

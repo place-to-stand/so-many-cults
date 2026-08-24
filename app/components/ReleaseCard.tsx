@@ -78,7 +78,16 @@ export function ReleaseCard({
   headingLevel?: "h1" | "h2";
 }) {
   const links = getReleaseLinks(release);
-  const credits = getCredits(release.creditsId);
+  const released = release.status === "released";
+  // The release date always lives in the liner notes; the headline only carries it before release.
+  const credits = (() => {
+    const base = getCredits(release.creditsId);
+    if (!release.releaseDate) return base;
+    const entry = { label: released ? "Released on" : "Release date", value: formatLongDate(release.releaseDate), url: "" };
+    const idx = base.findIndex((s) => s.title.toLowerCase() === "release");
+    if (idx === -1) return [...base, { title: "Release", entries: [entry] }];
+    return base.map((s, i) => (i === idx ? { ...s, entries: [entry, ...s.entries] } : s));
+  })();
   const playable = release.tracklist.filter((t) => t.audio.trim() !== "");
   const analytics = { release: release.title, player: playable.length > 1 ? "ep-playlist" : "single" };
   const Heading = headingLevel;
@@ -94,14 +103,12 @@ export function ReleaseCard({
           {/* Meta line: type · date — small, wide-tracked, deliberately quiet */}
           <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-[#9a9a9a]">
             <span>{kind}</span>
-            <span aria-hidden className="h-px w-6 bg-[#333]" />
-            <span>
-              {release.status === "released"
-                ? "Out now"
-                : release.releaseDate
-                  ? `Out ${numericDate(release.releaseDate)}`
-                  : "Coming soon"}
-            </span>
+            {!released && (
+              <>
+                <span aria-hidden className="h-px w-6 bg-[#333]" />
+                <span>{release.releaseDate ? `Out ${numericDate(release.releaseDate)}` : "Coming soon"}</span>
+              </>
+            )}
           </div>
 
           {/* Title: the one loud thing */}

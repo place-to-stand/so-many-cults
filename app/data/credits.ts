@@ -1,6 +1,8 @@
 import creditsData from "@/data/credits.json";
 
-export type CreditEntry = { label: string; value: string; url: string };
+/** `parts` lets one line carry several independently-linked names, joined by " & ". */
+export type CreditPart = { value: string; url: string };
+export type CreditEntry = { label: string; value: string; url: string; parts?: CreditPart[] };
 export type CreditSection = { title: string; entries: CreditEntry[] };
 export type CreditBlock = { id: string; extends?: string; sections: CreditSection[] };
 

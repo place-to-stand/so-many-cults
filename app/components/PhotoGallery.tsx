@@ -52,7 +52,7 @@ export function PhotoGallery({ photos, showDownload = false, columns = 2 }: Phot
       <div className={`grid ${COLUMN_CLASS[columns]} gap-3 w-full`}>
         {photos.map((photo, index) => (
           <div key={photo.id} className="flex flex-col">
-            <div className="group relative aspect-square overflow-hidden bg-[#1a1a1a]">
+            <div className="group relative isolate aspect-square overflow-hidden bg-[#1a1a1a]">
               <button
                 onClick={() => openLightbox(index)}
                 className="absolute inset-0 cursor-pointer z-10"
@@ -67,7 +67,7 @@ export function PhotoGallery({ photos, showDownload = false, columns = 2 }: Phot
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               </button>
             </div>
-            <div className="text-[#666] text-[10px] mt-1.5 flex justify-end gap-3 items-center">
+            <div className="text-[#666] text-[10px] mt-1.5 flex justify-end gap-3 items-start">
               {photo.photographer ? (
                 <span>
                   by{" "}
@@ -84,7 +84,7 @@ export function PhotoGallery({ photos, showDownload = false, columns = 2 }: Phot
                 <a
                   href={photo.fullSize}
                   download
-                  className="text-[#888] hover:text-white transition-colors flex items-center gap-1"
+                  className="text-[#888] hover:text-white transition-colors flex items-center gap-1 shrink-0 whitespace-nowrap"
                 >
                   Hi-Res <DownloadIcon />
                 </a>
