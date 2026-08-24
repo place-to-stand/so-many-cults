@@ -41,8 +41,14 @@ export function VideoCard({
       <Heading className="mt-2 text-lg sm:text-xl font-bold leading-snug text-[#f2f2f2]">{video.title}</Heading>
       {video.description && <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-[#777]">{video.description}</p>}
       {credits.length > 0 && (
-        <div className="mt-5 border-t border-[#262626] pt-4">
-          <CreditsAccordion sections={credits} defaultOpen={creditsOpen} noun="credits" columns={2} />
+        <div className="mt-5">
+          <div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-2 sm:gap-6 items-start border-t border-[#262626] py-4">
+            <div className="text-[11px] leading-[26px] uppercase tracking-[0.18em] text-[#8a8a8a]">Credits</div>
+            <div className="min-w-0">
+              <CreditsAccordion sections={credits} defaultOpen={creditsOpen} noun="credits" columns={2} />
+            </div>
+          </div>
+          <div className="border-t border-[#262626]" />
         </div>
       )}
     </article>
