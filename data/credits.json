@@ -167,6 +167,11 @@
               "label": "Used with permission, special thanks to",
               "value": "Nova Martin & Rick Perry",
               "url": "https://www.youtube.com/@PricemasterOfDenton"
+            },
+            {
+              "label": "Behind-the-scenes footage by",
+              "value": "Tape Collector",
+              "url": "https://www.instagram.com/tapecollectortx/"
             }
           ]
         },
@@ -197,6 +202,16 @@
               "label": "Blake Rodgers",
               "value": "",
               "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Thanks",
+          "entries": [
+            {
+              "label": "CRT TVs lent by",
+              "value": "Cake Burger Light Show",
+              "url": "https://www.instagram.com/cakeburgerlightshow/"
             }
           ]
         }

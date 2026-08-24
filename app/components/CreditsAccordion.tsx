@@ -34,12 +34,24 @@ export function CreditsAccordion({
   if (sections.length === 0) return null;
   // Fixed columns pack sections top-to-bottom (no shared row heights), so a short
   // section sits directly under the one above it instead of leaving a gap.
-  const groups = columns
-    ? Array.from({ length: columns }, (_, i) => {
-        const per = Math.ceil(sections.length / columns);
-        return sections.slice(i * per, (i + 1) * per);
-      }).filter((g) => g.length > 0)
-    : sections.map((s) => [s]);
+  // The split point balances estimated height (entries + heading), not section count.
+  const groups = (() => {
+    if (!columns) return sections.map((s) => [s]);
+    const weight = (sec: CreditSection) => sec.entries.length + 1.5;
+    const total = sections.reduce((sum, sec) => sum + weight(sec), 0);
+    let best = 1;
+    let bestDiff = Infinity;
+    let running = 0;
+    sections.forEach((sec, i) => {
+      running += weight(sec);
+      const diff = Math.abs(running - (total - running));
+      if (i < sections.length - 1 && diff < bestDiff) {
+        bestDiff = diff;
+        best = i + 1;
+      }
+    });
+    return [sections.slice(0, best), sections.slice(best)].filter((g) => g.length > 0);
+  })();
   const renderSection = (section: CreditSection) => (
     <dl key={section.title}>
       <dt className="text-[11px] uppercase tracking-wider text-[#8a8a8a] mb-2">{section.title}</dt>
