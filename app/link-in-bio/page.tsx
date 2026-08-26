@@ -10,6 +10,7 @@ import { latestVideo } from "../data/videos";
 import { getNextShow } from "../data/shows";
 import { formatDateParts } from "../data/dates";
 import { PlatformIcons } from "../components/PlatformIcons";
+import { LightboxImage } from "../components/LightboxImage";
 
 export const metadata: Metadata = {
   title: BAND_NAME,
@@ -73,17 +74,16 @@ export default function LinkInBio() {
     <div className="min-h-screen flex items-start sm:items-center justify-center px-6 py-10 sm:py-14">
       <main className="w-full max-w-sm font-mono flex flex-col gap-7">
         <header className="flex items-center gap-4">
-          <div className="w-16 h-16 shrink-0 overflow-hidden border border-[#2a2a2a]">
-            <Image
-              src={featuredPhoto.fullSize}
-              alt={BAND_NAME}
-              width={128}
-              height={128}
-              sizes="64px"
-              className="w-full h-full object-cover"
-              priority
-            />
-          </div>
+          <LightboxImage
+            photos={[featuredPhoto]}
+            index={0}
+            alt={BAND_NAME}
+            sizes="64px"
+            priority
+            showCredit={false}
+            className="w-16 shrink-0 border border-[#2a2a2a]"
+            imageClassName="aspect-square object-cover"
+          />
           <div className="min-w-0">
             <h1 className="text-xl font-bold leading-tight">{BAND_NAME}</h1>
             <p className="text-xs text-[#888] mt-1">{BAND_SUBTITLE}</p>
