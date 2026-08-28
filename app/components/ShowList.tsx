@@ -96,7 +96,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
 
   return (
     <li className="py-9 first:pt-0 border-b border-[#222] last:border-b-0">
-      <div className="flex gap-7 md:gap-9">
+      <div className="flex gap-7 md:gap-10">
         {/* Poster column (desktop) */}
         <div className="hidden sm:block w-60 md:w-80 lg:w-96 shrink-0">
           <Poster show={show} />

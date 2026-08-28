@@ -113,7 +113,7 @@ export default function EPK() {
         {/* EP + release show */}
         {recordRelease && (
           <Section id="ep" title={`Debut ${releaseTypeLabel(recordRelease)}`}>
-            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,444px)_1fr] gap-8 lg:gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,444px)_1fr] gap-8 lg:gap-10 items-start">
               <div>
                 {recordRelease.artwork && (
                   <Image
@@ -122,7 +122,7 @@ export default function EPK() {
                     width={1000}
                     height={1000}
                     sizes="(max-width: 1024px) 100vw, 444px"
-                    className="w-full h-auto border border-[#222]"
+                    className="w-full h-auto"
                   />
                 )}
               </div>

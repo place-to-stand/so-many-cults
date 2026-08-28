@@ -313,7 +313,7 @@ export function PlaylistPlayer({
       </div>
 
       {/* Transport controls */}
-      <div className="flex items-center gap-3 min-w-0">
+      <div className="flex items-center gap-3 min-w-0 mb-3!">
         {/* Prev */}
         <button
           onClick={skipPrev}
@@ -414,7 +414,7 @@ export function PlaylistPlayer({
       </div>
 
       {/* Tracklist */}
-      <ul className="border-t border-[#333] pt-3 space-y-0.5">
+      <ul className="border-t border-[#262626] pt-3 space-y-0.5">
         {tracks.map((track, i) => (
           <li key={track.file}>
             <button

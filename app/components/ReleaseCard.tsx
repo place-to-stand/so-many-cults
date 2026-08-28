@@ -22,7 +22,6 @@ function Artwork({ release }: { release: Release }) {
         index={0}
         alt={`${release.title} artwork`}
         sizes="(max-width: 1024px) 100vw, 444px"
-        imageClassName="border border-[#222]"
         showDownload={Boolean(release.artworkHiRes)}
         showCredit={false}
       />
@@ -96,7 +95,7 @@ export function ReleaseCard({
 
   return (
     <article className="font-mono">
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,444px)_1fr] gap-8 lg:gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,444px)_1fr] gap-8 lg:gap-10 items-start">
         <Artwork release={release} />
 
         <div className="min-w-0 lg:pt-2">
@@ -122,7 +121,7 @@ export function ReleaseCard({
 
           {/* Player: bare waveform between hairlines — no box competing with the title */}
           {playable.length > 1 ? (
-            <div className="mt-8 border-t border-[#1e1e1e] pt-5">
+            <div className="mt-4 lg:mt-5 border-t border-[#262626] pt-5">
               <PlaylistPlayer
                 tracks={playable.map((t) => ({ title: t.title, file: t.audio }))}
                 analytics={analytics}
@@ -134,7 +133,7 @@ export function ReleaseCard({
               />
             </div>
           ) : release.audio ? (
-            <div className="mt-8 border-t border-[#1e1e1e] pt-5">
+            <div className="mt-4 lg:mt-5 border-t border-[#262626] pt-5 border-b border-b-[#262626] pb-3">
               <WaveformPlayer
                 audioUrl={release.audio}
                 title={release.title}
@@ -159,7 +158,7 @@ export function ReleaseCard({
       </div>
 
       {/* Meta rows: evenly rhythmed hairlines, spanning both columns so platforms stay on one line */}
-      <div className="mt-5">
+      <div className="mt-8 lg:mt-10">
         <MetaRow label={linksLabel}>
           {links.length > 0 ? <LinkButtons links={links} /> : <LinkButtons links={PLACEHOLDER_PLATFORMS} placeholder />}
         </MetaRow>
