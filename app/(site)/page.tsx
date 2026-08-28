@@ -29,7 +29,7 @@ export default function Home() {
       <main className="mx-auto max-w-5xl font-mono">
         <JsonLd data={musicGroupJsonLd()} />
         {/* Hero */}
-        <section className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center">
+        <section className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-10 items-center">
           <div className="text-center lg:text-left">
             <h1 className="text-4xl sm:text-5xl font-bold">{BAND_NAME}</h1>
             <p className="mt-4 text-sm text-[#666] leading-relaxed max-w-md mx-auto lg:mx-0">{shortBio}</p>

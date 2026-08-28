@@ -145,7 +145,7 @@
           "entries": [
             {
               "label": "Chris Donahue",
-              "value": "Director, Editor",
+              "value": "Director, Editor, Producer",
               "url": "https://www.instagram.com/chrisdonahue"
             },
             {
@@ -155,7 +155,17 @@
             },
             {
               "label": "Adam Lancaster",
-              "value": "Assistant Camera, VFX",
+              "value": "Assistant Director, VFX",
+              "url": ""
+            },
+            {
+              "label": "Dave Pokk",
+              "value": "Producer",
+              "url": ""
+            },
+            {
+              "label": "Jason Desiderio",
+              "value": "Producer",
               "url": ""
             }
           ]
