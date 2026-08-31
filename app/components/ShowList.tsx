@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import type { Show } from "../data/shows";
 import { formatDateParts } from "../data/dates";
@@ -73,10 +74,32 @@ function Poster({ show }: { show: Show }) {
   );
 }
 
+
+/** Label column + content, liner-notes style (matches the release card's meta labels). */
+function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-x-6 items-start">
+      <div className="text-[11px] leading-[22px] uppercase tracking-[0.18em] text-[#666]">{label}</div>
+      <div className="min-w-0">{children}</div>
+    </div>
+  );
+}
+
 export function ShowCard({ show, compact = false }: { show: Show; compact?: boolean }) {
-  // Full bill in listed order.
-  const others = show.lineup;
-  const doorsLine = [show.doors ? `Doors ${show.doors}` : show.time, show.price].filter(Boolean).join(" · ");
+  // Lineup rows in set-time order when set times exist; bands with no set listed after.
+  const timed = show.setTimes.map((st) => ({ band: st.band, time: st.time }));
+  // A set-time entry may carry a suffix ("So Many Cults (Cavalier Stage)") — match by prefix.
+  const hasSet = (band: string) =>
+    show.setTimes.some((st) => {
+      const a = st.band.toLowerCase();
+      const b = band.toLowerCase();
+      return a.startsWith(b) || b.startsWith(a);
+    });
+  const untimed = show.lineup.filter((b) => !hasSet(b)).map((b) => ({ band: b, time: null as string | null }));
+  // Show times only when the whole bill has them; a partial schedule reads as a mistake.
+  const fullSchedule = show.setTimes.length > 0 && untimed.length === 0;
+  const lineupRows = fullSchedule ? timed : show.lineup.map((b) => ({ band: b, time: null as string | null }));
+  const isUs = (band: string) => band.toLowerCase().startsWith("so many cults");
 
   if (compact) {
     return (
@@ -95,7 +118,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
   }
 
   return (
-    <li className="py-9 first:pt-0 border-b border-[#222] last:border-b-0">
+    <li className="py-12 first:pt-0 last:pb-0">
       <div className="flex gap-7 md:gap-10">
         {/* Poster column (desktop) */}
         <div className="hidden sm:block w-60 md:w-80 lg:w-96 shrink-0">
@@ -103,8 +126,8 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
         </div>
 
         <div className="min-w-0 flex-1">
-          <DateLine date={show.date} className="mb-3.5" />
-          <h3 className="text-xl sm:text-[22px] font-bold leading-snug text-[#f2f2f2]">
+          <DateLine date={show.date} className="mb-4" />
+          <h3 className="text-xl sm:text-2xl font-bold leading-snug text-[#f2f2f2]">
             {show.title ?? <VenueName name={show.venue} className="text-[#f2f2f2] hover:text-white" />}
           </h3>
           {show.title && (
@@ -114,7 +137,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
             </div>
           )}
           {show.address && (
-            <div className="mt-0.5 mb-7 text-xs">
+            <div className="mt-1 text-xs">
               <Link
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${show.venue}, ${show.address}`)}`}
                 target="_blank"
@@ -126,53 +149,61 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
             </div>
           )}
 
-          {others.length > 0 && (
-            <p className="mt-[18px] text-[15px] leading-relaxed text-[#777]">
-              <span className="text-[#555]">with </span>
-              {others.join(", ")}
-            </p>
-          )}
-
-          {(doorsLine || show.setTimes.length > 0 || show.presenter || show.visuals) && (
-            <div className="mt-9 space-y-3.5 text-xs uppercase tracking-[0.08em] text-[#666]">
-              {doorsLine && <div className="text-[#8a8a8a]">{doorsLine}</div>}
-              {show.setTimes.length > 0 && (
-                <ul className="space-y-0.5">
-                  {show.setTimes.map((st) => (
-                    <li key={`${st.time}-${st.band}`} className="flex gap-3">
-                      <span className="w-[5.5rem] shrink-0 whitespace-nowrap tabular-nums text-[#8a8a8a]">{st.time}</span>
-                      <span className={st.band.toLowerCase().startsWith("so many cults") ? "text-[#ddd]" : ""}>{st.band}</span>
-                    </li>
+          {/* Liner-note info block: labeled rows, breathing room instead of hairlines */}
+          <div className="mt-6 border-t border-[#262626] pt-6 space-y-5">
+            {(show.doors || show.time) && (
+              <InfoRow label={show.doors ? "Doors" : "Time"}>
+                <div className="text-sm leading-[22px] text-[#999]">{show.doors ?? show.time}</div>
+              </InfoRow>
+            )}
+            {lineupRows.length > 0 && (
+              <InfoRow label="With">
+                <div className="grid grid-cols-[max-content_max-content] gap-x-8 sm:gap-x-10 gap-y-1.5 text-sm leading-[22px]">
+                  {lineupRows.map(({ band, time }) => (
+                    <Fragment key={band}>
+                      <span className={isUs(band) ? "font-bold text-[#f2f2f2]" : "text-[#999]"}>{band}</span>
+                      <span className={`text-[11px] leading-[22px] whitespace-nowrap tabular-nums text-[#555]`}>
+                        {time ?? ""}
+                      </span>
+                    </Fragment>
                   ))}
-                </ul>
-              )}
-              {show.visuals && (
-                <div>
-                  Visuals by{" "}
-                  <Link href={show.visuals.url} target="_blank" rel="noopener noreferrer" className="text-[#8a8a8a] hover:text-white">
+                </div>
+              </InfoRow>
+            )}
+            {show.price && !show.ticketUrl && (
+              <InfoRow label="Price">
+                <div className="text-sm leading-[22px] text-[#999]">{show.price}</div>
+              </InfoRow>
+            )}
+            {show.visuals && (
+              <InfoRow label="Visuals">
+                <div className="text-sm leading-[22px]">
+                  <Link href={show.visuals.url} target="_blank" rel="noopener noreferrer" className="text-[#9a9a9a] hover:text-white">
                     {show.visuals.name}
                   </Link>
                 </div>
-              )}
-              {show.presenter && <div>Presented by {show.presenter}</div>}
-            </div>
-          )}
+              </InfoRow>
+            )}
+            {show.presenter && (
+              <InfoRow label="Presenter">
+                <div className="text-sm leading-[22px] text-[#999]">{show.presenter}</div>
+              </InfoRow>
+            )}
+          </div>
 
           {show.ticketUrl && (
-            <Link
-              href={show.ticketUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-[22px] text-xs uppercase tracking-[0.15em] px-3 py-1.5 border border-[#444] text-white hover:bg-white hover:text-black hover:no-underline transition-colors"
-            >
-              Tickets
-            </Link>
+            <div className="mt-6 border-t border-[#262626] pt-5 flex items-center gap-4">
+              <Link
+                href={show.ticketUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-xs uppercase tracking-[0.15em] px-[18px] py-2 bg-white font-bold text-black hover:bg-[#ddd] hover:no-underline transition-colors"
+              >
+                Tickets
+              </Link>
+              {show.price && <span className="text-sm text-[#ccc]">{show.price}</span>}
+            </div>
           )}
-
-          {/* Poster (mobile): below the info, full width */}
-          <div className="sm:hidden mt-[22px] max-w-xs">
-            <Poster show={show} />
-          </div>
         </div>
       </div>
     </li>
