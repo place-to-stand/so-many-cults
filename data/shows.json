@@ -7,10 +7,27 @@
       "title": "So Many Cults EP + Killer Kaya Single Release",
       "venue": "The 13th Floor",
       "address": "711 Red River St, Austin, TX 78701",
-      "doors": null,
+      "doors": "8:00 PM",
       "time": null,
-      "setTimes": [],
-      "price": null,
+      "setTimes": [
+        {
+          "time": "9:00 PM",
+          "band": "Heavy Velvet"
+        },
+        {
+          "time": "10:00 PM",
+          "band": "Killer Kaya"
+        },
+        {
+          "time": "11:00 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "12:00 AM",
+          "band": "Tortures"
+        }
+      ],
+      "price": "$12",
       "presenter": null,
       "festival": null,
       "lineup": [
@@ -22,7 +39,11 @@
       "description": null,
       "ticketUrl": "",
       "isReleaseShow": true,
-      "poster": null
+      "poster": null,
+      "visuals": {
+        "name": "Video Dream Light Show",
+        "url": "https://www.instagram.com/videodreamlightshow/"
+      }
     },
     {
       "id": "2026-03-14-webberville-block-party-4",

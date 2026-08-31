@@ -22,6 +22,8 @@ export type Show = {
   ticketUrl: string;
   /** Marks a record-release show (gets a badge). */
   isReleaseShow: boolean;
+  /** Projection/visuals artist, when the bill has one. */
+  visuals?: { name: string; url: string } | null;
   /** Show flyer, when we have one. */
   poster: { thumbnail: string; fullSize: string } | null;
 };

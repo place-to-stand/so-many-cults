@@ -133,7 +133,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
             </p>
           )}
 
-          {(doorsLine || show.setTimes.length > 0 || show.presenter) && (
+          {(doorsLine || show.setTimes.length > 0 || show.presenter || show.visuals) && (
             <div className="mt-9 space-y-3.5 text-xs uppercase tracking-[0.08em] text-[#666]">
               {doorsLine && <div className="text-[#8a8a8a]">{doorsLine}</div>}
               {show.setTimes.length > 0 && (
@@ -145,6 +145,14 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
                     </li>
                   ))}
                 </ul>
+              )}
+              {show.visuals && (
+                <div>
+                  Visuals by{" "}
+                  <Link href={show.visuals.url} target="_blank" rel="noopener noreferrer" className="text-[#8a8a8a] hover:text-white">
+                    {show.visuals.name}
+                  </Link>
+                </div>
               )}
               {show.presenter && <div>Presented by {show.presenter}</div>}
             </div>
