@@ -57,10 +57,10 @@ export function getReleaseLinks(release: Release): ExternalLink[] {
 export const PLACEHOLDER_PLATFORMS: ExternalLink[] = [
   { platform: "bandcamp", label: "Bandcamp", url: "" },
   { platform: "spotify", label: "Spotify", url: "" },
-  { platform: "apple-music", label: "Apple Music", url: "" },
   { platform: "youtube-music", label: "YouTube Music", url: "" },
-  { platform: "tidal", label: "Tidal", url: "" },
+  { platform: "apple-music", label: "Apple Music", url: "" },
   { platform: "amazon-music", label: "Amazon Music", url: "" },
+  { platform: "tidal", label: "Tidal", url: "" },
 ];
 
 /** Cover art as a lightbox-able "photo" so it can share the gallery viewer. */
