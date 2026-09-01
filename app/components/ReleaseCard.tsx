@@ -90,7 +90,7 @@ export function ReleaseCard({
   const playable = release.tracklist.filter((t) => t.audio.trim() !== "");
   const analytics = { release: release.title, player: playable.length > 1 ? "ep-playlist" : "single" };
   const Heading = headingLevel;
-  const linksLabel = release.status === "released" ? "Listen" : "Pre-save";
+  const linksLabel = release.status === "released" ? "Listen On" : "Pre-save";
   const kind = releaseTypeLabel(release);
 
   return (

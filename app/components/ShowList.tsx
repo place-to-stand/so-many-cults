@@ -78,7 +78,7 @@ function Poster({ show }: { show: Show }) {
 /** Label column + content, liner-notes style (matches the release card's meta labels). */
 function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-x-6 items-start">
+    <div className="grid grid-cols-[116px_minmax(0,1fr)] gap-x-6 items-start">
       <div className="text-[11px] leading-[22px] uppercase tracking-[0.18em] text-[#666]">{label}</div>
       <div className="min-w-0">{children}</div>
     </div>
@@ -176,7 +176,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
               </InfoRow>
             )}
             {show.visuals && (
-              <InfoRow label="Visuals">
+              <InfoRow label="Visuals By">
                 <div className="text-sm leading-[22px]">
                   <Link href={show.visuals.url} target="_blank" rel="noopener noreferrer" className="text-[#9a9a9a] hover:text-white">
                     {show.visuals.name}
@@ -185,7 +185,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
               </InfoRow>
             )}
             {show.presenter && (
-              <InfoRow label="Presenter">
+              <InfoRow label="Presented By">
                 <div className="text-sm leading-[22px] text-[#999]">{show.presenter}</div>
               </InfoRow>
             )}
