@@ -39,7 +39,10 @@
       "description": null,
       "ticketUrl": "",
       "isReleaseShow": true,
-      "poster": null,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2026-10-03-13th-floor-ep-release.jpg",
+        "fullSize": "/posters/2026-10-03-13th-floor-ep-release.jpg"
+      },
       "visuals": {
         "name": "Video Dream Light Show",
         "url": "https://www.instagram.com/videodreamlightshow/"
