@@ -154,11 +154,6 @@
               "url": ""
             },
             {
-              "label": "Adam Lancaster",
-              "value": "Assistant Director, VFX",
-              "url": ""
-            },
-            {
               "label": "Dave Pokk",
               "value": "Producer",
               "url": ""
@@ -223,6 +218,11 @@
         {
           "title": "Thanks",
           "entries": [
+            {
+              "label": "Thanks to",
+              "value": "Adam Lancaster, for his help and guidance",
+              "url": ""
+            },
             {
               "label": "CRT TVs lent by",
               "value": "Cake Burger Light Show",
