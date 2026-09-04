@@ -1,7 +1,7 @@
 import releasesData from "@/data/releases.json";
 import type { ExternalLink } from "./links";
 import { getShowById, type Show } from "./shows";
-import type { Photo } from "./photos";
+import { withBlur, type Photo } from "./photos";
 
 export type Track = {
   title: string;
@@ -66,7 +66,7 @@ export const PLACEHOLDER_PLATFORMS: ExternalLink[] = [
 /** Cover art as a lightbox-able "photo" so it can share the gallery viewer. */
 export function artworkAsPhoto(release: Release): Photo | null {
   if (!release.artwork) return null;
-  return {
+  return withBlur({
     id: `artwork-${release.id}`,
     thumbnail: release.artwork,
     fullSize: release.artworkHiRes ?? release.artwork,
@@ -75,7 +75,7 @@ export function artworkAsPhoto(release: Release): Photo | null {
     date: release.releaseDate ?? "",
     venue: release.title,
     creditLabel: "Artwork by",
-  };
+  });
 }
 
 export function getReleaseShow(release: Release): Show | undefined {

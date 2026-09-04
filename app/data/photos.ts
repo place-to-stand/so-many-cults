@@ -1,9 +1,12 @@
 import photosData from "@/data/photos.json";
+import { getBlurDataURL } from "./blur";
 
 export type Photo = {
   id: string;
   thumbnail: string;
   fullSize: string;
+  /** Base64 blur-up placeholder shown while the image loads (see `npm run blur`). */
+  blurDataURL?: string;
   photographer: string;
   photographerLink: string;
   /** YYYY-MM-DD */
@@ -17,8 +20,14 @@ export type Photo = {
   creditLabel?: string;
 };
 
-export const pressPhotos: Photo[] = photosData.press;
-export const livePhotos: Photo[] = photosData.live;
+/** Attach the blur placeholder for whichever file the tile renders (full size first, thumbnail as fallback). */
+export function withBlur<T extends { thumbnail: string; fullSize: string }>(photo: T): T & { blurDataURL?: string } {
+  const blurDataURL = getBlurDataURL(photo.fullSize) ?? getBlurDataURL(photo.thumbnail);
+  return blurDataURL ? { ...photo, blurDataURL } : photo;
+}
+
+export const pressPhotos: Photo[] = photosData.press.map(withBlur);
+export const livePhotos: Photo[] = photosData.live.map(withBlur);
 export const allPhotos: Photo[] = [...pressPhotos, ...livePhotos];
 
 export const featuredPhoto: Photo =

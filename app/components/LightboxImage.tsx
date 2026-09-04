@@ -52,6 +52,8 @@ export function LightboxImage({
           width={1600}
           height={1600}
           sizes={sizes}
+          placeholder={photo.blurDataURL ? "blur" : "empty"}
+          blurDataURL={photo.blurDataURL}
           className={`w-full h-auto transition-opacity duration-300 group-hover:opacity-90 ${imageClassName}`}
           priority={priority}
         />

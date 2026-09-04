@@ -23,6 +23,7 @@ import {
 } from "../../data/band";
 import { socialLinks, streamingLinks } from "../../data/links";
 import { featuredRelease, recordRelease, getReleaseShow, releaseTypeLabel } from "../../data/releases";
+import { blurProps } from "../../data/blur";
 import { latestVideo } from "../../data/videos";
 import { VideoCard } from "../../components/VideoCard";
 import { getUpcomingShows, getPastShows } from "../../data/shows";
@@ -123,6 +124,7 @@ export default function EPK() {
                     height={1000}
                     sizes="(max-width: 1024px) 100vw, 444px"
                     className="w-full h-auto"
+                    {...blurProps(recordRelease.artwork)}
                   />
                 )}
               </div>

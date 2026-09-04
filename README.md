@@ -66,7 +66,7 @@ Append to `shows` in `data/shows.json`:
 - `date: null` = TBA; it is listed under Upcoming after dated shows.
 - `address` is kept for records but never rendered.
 - `isReleaseShow: true` adds the "★ Release Show" badge.
-- `poster`: `{ "thumbnail": "/posters/thumbnails/<id>.jpg", "fullSize": "/posters/<id>.jpg" }` or `null`. Drop the flyer in `public/posters/` and make an 800px thumbnail (`sips -Z 800 in.jpg --out public/posters/thumbnails/<id>.jpg`).
+- `poster`: `{ "thumbnail": "/posters/thumbnails/<id>.jpg", "fullSize": "/posters/<id>.jpg" }` or `null`. Drop the flyer in `public/posters/` and make an 800px thumbnail (`sips -Z 800 in.jpg --out public/posters/thumbnails/<id>.jpg`), then run `npm run blur`.
 
 ### Announce the single / EP
 
@@ -94,3 +94,13 @@ npx -p sharp node scripts/generate-thumbnails.mjs ~/Downloads/press-photos --pre
 ```
 
 This copies originals to `public/photos/`, writes 800px thumbnails to `public/photos/thumbnails/`, and prints JSON entries to paste into `data/photos.json` under `press` (or `live`). Fill in `photographer`, `photographerLink`, `date`, and `venue`. The first press photo becomes the homepage hero image; `featuredPhotoId` controls the link-in-bio avatar and default social share image.
+
+### Blur-up placeholders
+
+Every image under `public/artwork`, `public/photos` and `public/posters` gets a tiny base64 placeholder that `next/image` shows (blurred) while the real file loads. They live in `data/blur-placeholders.json`, which is committed. Regenerate it whenever you add, replace or remove images:
+
+```bash
+npm run blur
+```
+
+Images without an entry simply load without a placeholder, so forgetting this is harmless — just less polished.

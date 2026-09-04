@@ -4,11 +4,11 @@ import type { Show } from "../data/shows";
 import { formatDateParts } from "../data/dates";
 import { getVenueUrl } from "../data/venues";
 import { LightboxImage } from "./LightboxImage";
-import type { Photo } from "../data/photos";
+import { withBlur, type Photo } from "../data/photos";
 
 /** A show flyer as a lightbox-able photo (no photographer credit; caption = title · date). */
 function posterAsPhoto(show: Show): Photo {
-  return {
+  return withBlur({
     id: `poster-${show.id}`,
     thumbnail: show.poster!.thumbnail,
     fullSize: show.poster!.fullSize,
@@ -16,7 +16,7 @@ function posterAsPhoto(show: Show): Photo {
     photographerLink: "",
     date: show.date ?? "",
     venue: show.title ? `${show.title} · ${show.venue}` : show.venue,
-  };
+  });
 }
 
 function VenueName({ name, className = "text-[#bbb] hover:text-white" }: { name: string; className?: string }) {

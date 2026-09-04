@@ -126,13 +126,15 @@ export function Lightbox({
               entered ? "scale-100" : "scale-[0.97]"
             }`}
           >
-            {/* Thumbnail (already in cache) shows instantly… */}
+            {/* Thumbnail (already in cache) shows instantly; on a cold deep-link open the blur fills in first… */}
             <Image
               src={placeholderSrc === "fullSize" ? photo.fullSize : photo.thumbnail}
               alt=""
               aria-hidden
               fill
               sizes={thumbnailSizes}
+              placeholder={photo.blurDataURL ? "blur" : "empty"}
+              blurDataURL={photo.blurDataURL}
               className="object-contain"
             />
             {/* …and the full-res cross-fades over it once loaded. */}
