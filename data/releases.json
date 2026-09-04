@@ -35,27 +35,27 @@
         {
           "platform": "spotify",
           "label": "Spotify",
-          "url": "https://open.spotify.com/track/2YhKnT4oemCeXyF4WDi21m"
+          "url": "https://open.spotify.com/album/7uowenb4qBdXR74jimSRoH"
         },
         {
           "platform": "youtube-music",
           "label": "YouTube Music",
-          "url": ""
+          "url": "https://music.youtube.com/playlist?list=OLAK5uy_m4AiVUUWOwah53wzx_EsEpT55WpcQvhu8"
         },
         {
           "platform": "apple-music",
           "label": "Apple Music",
-          "url": ""
+          "url": "https://music.apple.com/us/album/its-gone-viral-single/6804621374"
         },
         {
           "platform": "amazon-music",
           "label": "Amazon Music",
-          "url": ""
+          "url": "https://music.amazon.com/albums/B0HG9PPZTV"
         },
         {
           "platform": "tidal",
           "label": "Tidal",
-          "url": ""
+          "url": "https://tidal.com/album/555026031"
         }
       ],
       "video": {

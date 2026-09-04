@@ -36,12 +36,12 @@
     {
       "platform": "amazon-music",
       "label": "Amazon Music",
-      "url": ""
+      "url": "https://music.amazon.com/artists/B0HG9L21TX/so-many-cults"
     },
     {
       "platform": "tidal",
       "label": "Tidal",
-      "url": ""
+      "url": "https://tidal.com/artist/84881273"
     }
   ]
 }
