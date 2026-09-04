@@ -30,9 +30,13 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
+  /* Hover-only devices: touch screens leave a tapped link in a sticky :hover state, which showed a stray
+     underline (and Tailwind's hover: utilities are already gated the same way, so they couldn't cancel it). */
+  @media (hover: hover) {
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+    }
   }
 }

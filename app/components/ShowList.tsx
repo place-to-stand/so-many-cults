@@ -133,9 +133,9 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
 
   return (
     <li className="py-12 first:pt-0 last:pb-0">
-      <div className="flex gap-7 md:gap-10">
-        {/* Poster column (desktop) */}
-        <div className="hidden sm:block w-60 md:w-80 lg:w-96 shrink-0">
+      <div className="flex flex-col sm:flex-row gap-7 md:gap-10">
+        {/* Poster: full width above the details on phones, a fixed column beside them from sm up */}
+        <div className="w-full sm:w-60 md:w-80 lg:w-96 shrink-0">
           <Poster show={show} />
         </div>
 
