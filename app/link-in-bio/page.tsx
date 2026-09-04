@@ -6,6 +6,7 @@ import { featuredPhoto } from "../data/photos";
 import { BAND_NAME, BAND_SUBTITLE, BAND_WEBSITE, BAND_EMAIL } from "../data/band";
 import { platformGroups, siteNav } from "../data/links";
 import { featuredRelease, releaseTypeLabel } from "../data/releases";
+import { blurProps } from "../data/blur";
 import { latestVideo } from "../data/videos";
 import { getNextShow } from "../data/shows";
 import { formatDateParts } from "../data/dates";
@@ -101,6 +102,7 @@ export default function LinkInBio() {
                 sizes="(max-width: 640px) 100vw, 384px"
                 className="w-full h-auto"
                 priority
+                {...blurProps(featuredRelease.artwork)}
               />
             )}
             <div className="flex items-center justify-between gap-4 px-4 py-3.5 border-t border-[#2a2a2a]">

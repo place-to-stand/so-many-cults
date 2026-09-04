@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "blur": "node scripts/generate-blur-placeholders.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

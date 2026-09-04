@@ -74,6 +74,7 @@ async function run() {
 
   console.log('\nPaste into data/photos.json (under "press" or "live") and fill in the TODOs:\n');
   console.log(JSON.stringify(entries, null, 2));
+  console.log('\nThen run `npm run blur` to generate blur-up placeholders for the new files.');
 }
 
 run().catch((err) => {
