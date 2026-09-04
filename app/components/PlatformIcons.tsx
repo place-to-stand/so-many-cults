@@ -8,7 +8,8 @@ type Size = "sm" | "md" | "lg";
 const SIZES: Record<Size, { icon: string; gap: string; divider: string }> = {
   sm: { icon: "h-5 w-5", gap: "gap-4", divider: "h-5" },
   md: { icon: "h-6 w-6", gap: "gap-5", divider: "h-6" },
-  lg: { icon: "h-6 w-6", gap: "gap-5", divider: "h-6" },
+  // Hero size: 20px on phones so social + streaming fit on one line at 375px, 24px from sm up.
+  lg: { icon: "h-5 w-5 sm:h-6 sm:w-6", gap: "gap-4 sm:gap-5", divider: "h-5 sm:h-6" },
 };
 
 function PlatformIcon({ link, iconClass }: { link: ExternalLink; iconClass: string }) {

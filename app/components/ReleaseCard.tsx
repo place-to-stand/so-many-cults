@@ -88,6 +88,7 @@ export function ReleaseCard({
     return base.map((s, i) => (i === idx ? { ...s, entries: [entry, ...s.entries] } : s));
   })();
   const playable = release.tracklist.filter((t) => t.audio.trim() !== "");
+  const singleTrackPlayer = playable.length <= 1 && !!release.audio && !(showDownloads && release.artworkHiRes);
   const analytics = { release: release.title, player: playable.length > 1 ? "ep-playlist" : "single" };
   const Heading = headingLevel;
   const linksLabel = release.status === "released" ? "Listen On" : "Pre-save";
@@ -157,8 +158,10 @@ export function ReleaseCard({
         </div>
       </div>
 
-      {/* Meta rows: evenly rhythmed hairlines, spanning both columns so platforms stay on one line */}
-      <div className="mt-8 lg:mt-10">
+      {/* Meta rows: evenly rhythmed hairlines, spanning both columns so platforms stay on one line.
+          Below lg the card stacks, so a single-track player's bottom rule would sit right above the first
+          row's top rule; drop that row's rule and tighten the gap so there's one hairline, not two. */}
+      <div className={`mt-8 lg:mt-10 ${singleTrackPlayer ? "max-lg:mt-2 max-lg:[&>*:first-child]:border-t-0" : ""}`}>
         <MetaRow label={linksLabel}>
           {links.length > 0 ? <LinkButtons links={links} /> : <LinkButtons links={PLACEHOLDER_PLATFORMS} placeholder />}
         </MetaRow>

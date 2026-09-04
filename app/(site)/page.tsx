@@ -31,8 +31,9 @@ export default function Home() {
         {/* Hero */}
         <section className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-10 items-center">
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl font-bold">{BAND_NAME}</h1>
-            <p className="mt-4 text-sm text-[#666] leading-relaxed max-w-md mx-auto lg:mx-0">{shortBio}</p>
+            {/* On mobile the nav wordmark stands in for this heading; sr-only keeps it for assistive tech and SEO. */}
+            <h1 className="sr-only sm:not-sr-only text-4xl sm:text-5xl font-bold">{BAND_NAME}</h1>
+            <p className="sm:mt-4 text-sm text-[#666] leading-relaxed max-w-md mx-auto lg:mx-0">{shortBio}</p>
             <div className="mt-8 flex justify-center lg:justify-start">
               <PlatformIcons groups={platformGroups} size="lg" />
             </div>
