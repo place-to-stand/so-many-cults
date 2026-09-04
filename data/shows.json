@@ -24,7 +24,7 @@
         },
         {
           "time": "12:00 AM",
-          "band": "Tortures"
+          "band": "Screamin' J"
         }
       ],
       "price": "$12",
@@ -33,15 +33,15 @@
       "lineup": [
         "So Many Cults",
         "Killer Kaya",
-        "Tortures",
+        "Screamin' J",
         "Heavy Velvet"
       ],
       "description": null,
       "ticketUrl": "",
       "isReleaseShow": true,
       "poster": {
-        "thumbnail": "/posters/thumbnails/2026-10-03-13th-floor-ep-release.jpg",
-        "fullSize": "/posters/2026-10-03-13th-floor-ep-release.jpg"
+        "thumbnail": "/posters/thumbnails/2026-10-03-13th-floor-ep-release-final.jpg",
+        "fullSize": "/posters/2026-10-03-13th-floor-ep-release-final.jpg"
       },
       "visuals": {
         "name": "Video Dream Light Show",
