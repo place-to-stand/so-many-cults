@@ -73,7 +73,8 @@ export const contactLink: SiteLink = {
 /** Primary site navigation (public pages). */
 export const siteNav: SiteLink[] = [
   { label: "Music", href: "/music", icon: FiMusic, isExternal: false },
-  { label: "Videos", href: "/videos", icon: FiVideo, isExternal: false },
+  // Hidden while the video awaits approval — restore with data/videos.json `_hiddenVideos`.
+  // { label: "Videos", href: "/videos", icon: FiVideo, isExternal: false },
   { label: "Shows", href: "/shows", icon: FiCalendar, isExternal: false },
   // Store is not live yet; URL is the planned collection so it isn't forgotten.
   { label: "Merch", href: "https://shop.thegoodfornothings.club/collections/so-many-cults", icon: FiShoppingBag, isExternal: true },

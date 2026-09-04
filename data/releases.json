@@ -65,63 +65,68 @@
         "premiereDate": null
       },
       "releaseShowId": null
-    },
-    {
-      "id": "so-many-cults-ep",
-      "type": "ep",
-      "featured": false,
-      "title": "So Many Cults",
-      "status": "upcoming",
-      "releaseDate": "2026-10-02",
-      "artwork": "/artwork/so-many-cults-ep.jpg",
-      "artworkHiRes": "/artwork/so-many-cults-ep-hires.png",
-      "artworkCredit": {
-        "name": "Andrew Cashen",
-        "url": "https://www.instagram.com/andrewcashen/"
-      },
-      "audio": null,
-      "description": null,
-      "creditsId": "smc-ep-sessions",
-      "tracklist": [
-        {
-          "title": "Under The Influence",
-          "duration": null,
-          "audio": "/under-the-influence.mp3",
-          "lyrics": "I remember the days\nWhen the digital haze\nWasn’t clouding my view\n\nClear as the sun\nNever felt overrun\nBy a tirade of truths\n\nNow my mind’s racing\nDisinformation's chasing me\n\nOh, I’m under the influence\nOh, I’m under the influence\n\nPupils dilate\nI begin to fixate\nGot the void in my hands\n\nPutting it down\nJust to turn back around\n‘cause my conscious demands\n\nHopelessly helping\nMyself to a wealth\nOf nothing\n\nOh, I’m under the influence\nOh, I’m under the influence\nOh, I’m under the influence",
-          "instrumental": false
-        },
-        {
-          "title": "It's Gone Viral",
-          "duration": "3:56",
-          "audio": "/audio/its-gone-viral.m4a",
-          "lyrics": "It’s gone viral\n\nInfect the mainstream with your personal daydream\nIt’s a global pandemic\nViral infections and viral affections\nAre making us all sick\n\nNothing stays, hidden forever\nNot your buried treasure\nNot your darkest, pleasures\nYou know that secret spot that you love so much\nWell, it’s not so secret anymore\nBecause\n\nIt’s gone viral\n\nSuccess seems so easy to reach\nIt’s all in the right, angle\nJust be obtuse\nWatch out for abuse\nWhat’s the size of the carrot you dangle\n\nLook what I'm eating, look at who’s cheating\nDon’t look now it’s the president tweeting\nEvery breath you take\nEvery move you make\nWe’ll be watching you\nBecause\n\nIt’s gone, it’s gone, it’s gone fucking viral\n\nI just want to see it all today\nI just can’t seem to make it go away\n\nI just want to hear it all today\nI just can’t seem to make it go away\n\nI just want to see it all today\nI just can’t seem to make it go away\n\nI just want to feel it all today\nI just can’t seem to make it go away",
-          "instrumental": false
-        },
-        {
-          "title": "Directed Energy Weapon",
-          "duration": null,
-          "audio": "/directed-energy-weapon.mp3",
-          "lyrics": "I’m walking to the bar\nIt’s Friday night\nShe’s walking with me\nI’m high on life\n\nWe drink and we sing\nPDA by the sink\nIt’s okay, cuz we’re fucking vibing\n\nThen her friend comes around\nNever met I’m a clown\nBad impressions they last forever\n\nSnide remarks side stares\nDagger eyes crosshairs\nHer target system is set upon my face\nShe’s a\n\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy\n\nYou go to work at 9am\nYou’re a ball point pen\nThat’s running out of ink\n\nYou walk in and he’s there\nWith that smug little stare\nClocking in\nBut I know he’s clocking me\n\nFuckers, trying to get ahead\nNever met a head\nThat he didn’t want to take\n\nSabotage underhand\nMotherfucker’s the man\nHe’s coming for my livelihood and\nHe’s a\n\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy",
-          "instrumental": false
-        },
-        {
-          "title": "Interlude",
-          "duration": null,
-          "audio": "/instrumental-interlude.mp3",
-          "lyrics": "",
-          "instrumental": true
-        },
-        {
-          "title": "Arcade",
-          "duration": null,
-          "audio": "/arcade.mp3",
-          "lyrics": "Take me to the arcade\nLooking for a touch of fast play\nSpend the day on the promenade\n\nLook at all the lights blaze\nKeeping my eyes on the prize\nRealize it’s a losing game\n\nOh I can’t stay\nAt the Arcade\n\nTry to leave the arcade\nPlayed too many games\nNeed some change\nDisengage\nDisassociate\n\nFeeling like a lost cause\nPlay play play\nTake take\nBreak break\nCan’t breakaway\n\nOh, I’m on my last life\nSo far to go I\nI need to level up\nAnd try to break the rut\nGet, get out of the game\nAnd try to be my own score\nIt’s time to get a new life\nCan win against myself\n\nOh I can’t stay\nAt the arcade",
-          "instrumental": false
-        }
-      ],
-      "links": [],
-      "video": null,
-      "releaseShowId": "2026-10-03-13th-floor-ep-release"
     }
-  ]
+  ],
+  "_hiddenReleases": {
+    "_note": "Temporarily hidden until EP announce — move entries back into `releases` to restore.",
+    "releases": [
+      {
+        "id": "so-many-cults-ep",
+        "type": "ep",
+        "featured": false,
+        "title": "So Many Cults",
+        "status": "upcoming",
+        "releaseDate": "2026-10-02",
+        "artwork": "/artwork/so-many-cults-ep.jpg",
+        "artworkHiRes": "/artwork/so-many-cults-ep-hires.png",
+        "artworkCredit": {
+          "name": "Andrew Cashen",
+          "url": "https://www.instagram.com/andrewcashen/"
+        },
+        "audio": null,
+        "description": null,
+        "creditsId": "smc-ep-sessions",
+        "tracklist": [
+          {
+            "title": "Under The Influence",
+            "duration": null,
+            "audio": "/under-the-influence.mp3",
+            "lyrics": "I remember the days\nWhen the digital haze\nWasn’t clouding my view\n\nClear as the sun\nNever felt overrun\nBy a tirade of truths\n\nNow my mind’s racing\nDisinformation's chasing me\n\nOh, I’m under the influence\nOh, I’m under the influence\n\nPupils dilate\nI begin to fixate\nGot the void in my hands\n\nPutting it down\nJust to turn back around\n‘cause my conscious demands\n\nHopelessly helping\nMyself to a wealth\nOf nothing\n\nOh, I’m under the influence\nOh, I’m under the influence\nOh, I’m under the influence",
+            "instrumental": false
+          },
+          {
+            "title": "It's Gone Viral",
+            "duration": "3:56",
+            "audio": "/audio/its-gone-viral.m4a",
+            "lyrics": "It’s gone viral\n\nInfect the mainstream with your personal daydream\nIt’s a global pandemic\nViral infections and viral affections\nAre making us all sick\n\nNothing stays, hidden forever\nNot your buried treasure\nNot your darkest, pleasures\nYou know that secret spot that you love so much\nWell, it’s not so secret anymore\nBecause\n\nIt’s gone viral\n\nSuccess seems so easy to reach\nIt’s all in the right, angle\nJust be obtuse\nWatch out for abuse\nWhat’s the size of the carrot you dangle\n\nLook what I'm eating, look at who’s cheating\nDon’t look now it’s the president tweeting\nEvery breath you take\nEvery move you make\nWe’ll be watching you\nBecause\n\nIt’s gone, it’s gone, it’s gone fucking viral\n\nI just want to see it all today\nI just can’t seem to make it go away\n\nI just want to hear it all today\nI just can’t seem to make it go away\n\nI just want to see it all today\nI just can’t seem to make it go away\n\nI just want to feel it all today\nI just can’t seem to make it go away",
+            "instrumental": false
+          },
+          {
+            "title": "Directed Energy Weapon",
+            "duration": null,
+            "audio": "/directed-energy-weapon.mp3",
+            "lyrics": "I’m walking to the bar\nIt’s Friday night\nShe’s walking with me\nI’m high on life\n\nWe drink and we sing\nPDA by the sink\nIt’s okay, cuz we’re fucking vibing\n\nThen her friend comes around\nNever met I’m a clown\nBad impressions they last forever\n\nSnide remarks side stares\nDagger eyes crosshairs\nHer target system is set upon my face\nShe’s a\n\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy\n\nYou go to work at 9am\nYou’re a ball point pen\nThat’s running out of ink\n\nYou walk in and he’s there\nWith that smug little stare\nClocking in\nBut I know he’s clocking me\n\nFuckers, trying to get ahead\nNever met a head\nThat he didn’t want to take\n\nSabotage underhand\nMotherfucker’s the man\nHe’s coming for my livelihood and\nHe’s a\n\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy weapon\nDirected energy",
+            "instrumental": false
+          },
+          {
+            "title": "Interlude",
+            "duration": null,
+            "audio": "/instrumental-interlude.mp3",
+            "lyrics": "",
+            "instrumental": true
+          },
+          {
+            "title": "Arcade",
+            "duration": null,
+            "audio": "/arcade.mp3",
+            "lyrics": "Take me to the arcade\nLooking for a touch of fast play\nSpend the day on the promenade\n\nLook at all the lights blaze\nKeeping my eyes on the prize\nRealize it’s a losing game\n\nOh I can’t stay\nAt the Arcade\n\nTry to leave the arcade\nPlayed too many games\nNeed some change\nDisengage\nDisassociate\n\nFeeling like a lost cause\nPlay play play\nTake take\nBreak break\nCan’t breakaway\n\nOh, I’m on my last life\nSo far to go I\nI need to level up\nAnd try to break the rut\nGet, get out of the game\nAnd try to be my own score\nIt’s time to get a new life\nCan win against myself\n\nOh I can’t stay\nAt the arcade",
+            "instrumental": false
+          }
+        ],
+        "links": [],
+        "video": null,
+        "releaseShowId": "2026-10-03-13th-floor-ep-release"
+      }
+    ]
+  }
 }

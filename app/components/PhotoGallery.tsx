@@ -49,7 +49,7 @@ export function PhotoGallery({ photos, showDownload = false, columns = 2 }: Phot
 
   return (
     <>
-      <div className={`grid ${COLUMN_CLASS[columns]} gap-3 w-full`}>
+      <div className={`grid ${COLUMN_CLASS[columns]} gap-x-5 gap-y-6 w-full`}>
         {photos.map((photo, index) => (
           <div key={photo.id} className="flex flex-col">
             <div className="group relative isolate aspect-square overflow-hidden bg-[#1a1a1a]">
@@ -67,20 +67,8 @@ export function PhotoGallery({ photos, showDownload = false, columns = 2 }: Phot
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               </button>
             </div>
-            <div className="text-[#666] text-[10px] mt-1.5 flex justify-end gap-3 items-start">
-              {photo.photographer ? (
-                <span>
-                  by{" "}
-                  {photo.photographerLink ? (
-                    <Link href={photo.photographerLink} target="_blank" rel="noopener noreferrer">{photo.photographer}</Link>
-                  ) : (
-                    photo.photographer
-                  )}
-                </span>
-              ) : (
-                <span />
-              )}
-              {showDownload && (
+            <div className="text-[#666] text-[10px] mt-1.5 flex justify-between gap-3 items-start">
+              {showDownload ? (
                 <a
                   href={photo.fullSize}
                   download
@@ -88,6 +76,18 @@ export function PhotoGallery({ photos, showDownload = false, columns = 2 }: Phot
                 >
                   Hi-Res <DownloadIcon />
                 </a>
+              ) : (
+                <span />
+              )}
+              {photo.photographer && (
+                <span className="text-right">
+                  by{" "}
+                  {photo.photographerLink ? (
+                    <Link href={photo.photographerLink} target="_blank" rel="noopener noreferrer">{photo.photographer}</Link>
+                  ) : (
+                    photo.photographer
+                  )}
+                </span>
               )}
             </div>
           </div>

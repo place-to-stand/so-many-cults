@@ -104,14 +104,28 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
   if (compact) {
     return (
       <li className="py-[18px] first:pt-0 border-b border-[#222] last:border-b-0">
-        <div className="min-w-0">
-          <DateLine date={show.date} className="mb-2.5" />
-          <div className="text-[15px] text-[#ededed] leading-snug">{show.title ?? <VenueName name={show.venue} />}</div>
-          {show.title && (
-            <div className="text-[15px] text-[#888] mt-0.5">
-              <VenueName name={show.venue} />
-            </div>
+        <div className="flex gap-4">
+          {show.poster && (
+            <LightboxImage
+              photos={[posterAsPhoto(show)]}
+              index={0}
+              alt={`Flyer: ${show.title ?? show.venue}`}
+              sizes="80px"
+              className="w-14 shrink-0"
+              imageClassName="border border-[#262626]"
+              showCredit={false}
+              showDownload
+            />
           )}
+          <div className="min-w-0">
+            <DateLine date={show.date} className="mb-2.5" />
+            <div className="text-[15px] text-[#ededed] leading-snug">{show.title ?? <VenueName name={show.venue} />}</div>
+            {show.title && (
+              <div className="text-[15px] text-[#888] mt-0.5">
+                <VenueName name={show.venue} />
+              </div>
+            )}
+          </div>
         </div>
       </li>
     );

@@ -77,7 +77,7 @@ export default function EPK() {
           </div>
           <div>
             <dt className="text-[10px] uppercase tracking-wider text-[#666]">Genre</dt>
-            <dd className="text-[#ccc] mt-1">Psych Rock</dd>
+            <dd className="text-[#ccc] mt-1">Psych Punk</dd>
           </div>
           {featuredRelease && (
             <div>
@@ -206,17 +206,17 @@ export default function EPK() {
 
         {/* Photos */}
         <Section id="photos" title="Photos">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          <div className="space-y-10">
             {pressPhotos.length > 0 && (
               <div>
                 <div className="text-[10px] uppercase tracking-wider text-[#666] mb-3">Press</div>
-                <PhotoGallery photos={pressPhotos} showDownload />
+                <PhotoGallery photos={pressPhotos} showDownload columns={3} />
               </div>
             )}
             {livePhotos.length > 0 && (
               <div>
                 <div className="text-[10px] uppercase tracking-wider text-[#666] mb-3">Live</div>
-                <PhotoGallery photos={livePhotos} showDownload />
+                <PhotoGallery photos={livePhotos} showDownload columns={3} />
               </div>
             )}
           </div>

@@ -64,8 +64,8 @@ export const descriptions = {
     return `Music from ${BAND_NAME}, ${BAND_SUBTITLE.toLowerCase()}: ${parts.join(" and ")}. Stream, pre-save, lyrics and liner notes.`;
   })(),
   videos: `Music videos from ${BAND_NAME}${videos[0] ? `, including "${videos[0].title}" (${videos[0].kind.toLowerCase()})` : ""}.`,
-  shows: `Upcoming and past shows from ${BAND_NAME} — Austin, TX psych rock — with dates, venues, set times and flyers.`,
-  photos: `Press and live photos of ${BAND_NAME}, Austin, TX psych rock.`,
+  shows: `Upcoming and past shows from ${BAND_NAME} — Austin, TX psych punk — with dates, venues, set times and flyers.`,
+  photos: `Press and live photos of ${BAND_NAME}, Austin, TX psych punk.`,
   about: shortBio,
 };
 
@@ -84,7 +84,7 @@ export function musicGroupJsonLd() {
     "@id": artistId,
     name: BAND_NAME,
     url: SITE_URL,
-    genre: "Psychedelic Rock",
+    genre: "Psych Punk",
     description: shortBio,
     image: abs(featuredPhoto.fullSize),
     logo: abs(logo.src),

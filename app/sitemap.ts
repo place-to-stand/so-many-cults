@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     entry("", d.site, "weekly", 1),
     entry("/music", d.music, "monthly", 0.9),
-    entry("/videos", d.videos, "monthly", 0.8),
+    // entry("/videos", d.videos, "monthly", 0.8), // hidden with the video
     entry("/shows", d.shows, "weekly", 0.8),
     entry("/photos", d.site, "monthly", 0.6),
     entry("/about", d.site, "monthly", 0.6),

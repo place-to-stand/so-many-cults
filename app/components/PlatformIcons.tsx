@@ -16,8 +16,14 @@ function PlatformIcon({ link, iconClass }: { link: ExternalLink; iconClass: stri
   const icon = createElement(iconFor(link.platform), { className: iconClass });
   if (!live) {
     return (
-      <span aria-label={`${link.label} (coming soon)`} title={`${link.label} — coming soon`} className="block text-[#3a3a3a] cursor-default">
+      <span aria-label={`${link.label} (coming soon)`} className="group/soon relative block text-[#3a3a3a] cursor-default">
         {icon}
+        <span
+          role="tooltip"
+          className="pointer-events-none absolute left-1/2 bottom-full mb-2 -translate-x-1/2 whitespace-nowrap border border-[#333] bg-[#161616] px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-[#aaa] opacity-0 transition-opacity duration-150 group-hover/soon:opacity-100"
+        >
+          Coming soon
+        </span>
       </span>
     );
   }

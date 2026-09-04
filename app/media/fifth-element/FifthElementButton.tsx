@@ -24,6 +24,8 @@ export default function FifthElementButton() {
     <Link
       className={`flex text-xl md:text-4xl font-bold uppercase bg-white text-black hover:no-underline! active:no-underline! py-2 px-4 items-center gap-2 transition-opacity duration-7000 ${isFadingIn ? 'opacity-100' : 'opacity-0'}`}
       href={instagramUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       ref={glitchRef}
     >Become A Follower Here <RiArrowLeftLine /></Link>
   );

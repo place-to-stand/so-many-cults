@@ -34,72 +34,6 @@
       "venue": "Press Photo",
       "showId": null,
       "source": "IMG_0389.jpg"
-    },
-    {
-      "id": "press-2026-04",
-      "thumbnail": "/photos/thumbnails/press-2026-04.jpg",
-      "fullSize": "/photos/press-2026-04.jpg",
-      "photographer": "Peppermint Girl Photography",
-      "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
-      "date": "2026-08-02",
-      "venue": "Press Photo",
-      "showId": null,
-      "source": "IMG_0328.jpg"
-    },
-    {
-      "id": "press-2026-05",
-      "thumbnail": "/photos/thumbnails/press-2026-05.jpg",
-      "fullSize": "/photos/press-2026-05.jpg",
-      "photographer": "Peppermint Girl Photography",
-      "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
-      "date": "2026-08-02",
-      "venue": "Press Photo",
-      "showId": null,
-      "source": "IMG_0345.jpg"
-    },
-    {
-      "id": "press-2026-06",
-      "thumbnail": "/photos/thumbnails/press-2026-06.jpg",
-      "fullSize": "/photos/press-2026-06.jpg",
-      "photographer": "Peppermint Girl Photography",
-      "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
-      "date": "2026-08-02",
-      "venue": "Press Photo",
-      "showId": null,
-      "source": "IMG_0407.jpg"
-    },
-    {
-      "id": "press-2026-07",
-      "thumbnail": "/photos/thumbnails/press-2026-07.jpg",
-      "fullSize": "/photos/press-2026-07.jpg",
-      "photographer": "Peppermint Girl Photography",
-      "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
-      "date": "2026-08-02",
-      "venue": "Press Photo",
-      "showId": null,
-      "source": "IMG_0428.jpg"
-    },
-    {
-      "id": "press-2026-08",
-      "thumbnail": "/photos/thumbnails/press-2026-08.jpg",
-      "fullSize": "/photos/press-2026-08.jpg",
-      "photographer": "Peppermint Girl Photography",
-      "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
-      "date": "2026-08-02",
-      "venue": "Press Photo",
-      "showId": null,
-      "source": "IMG_0437.jpg"
-    },
-    {
-      "id": "press-2026-09",
-      "thumbnail": "/photos/thumbnails/press-2026-09.jpg",
-      "fullSize": "/photos/press-2026-09.jpg",
-      "photographer": "Peppermint Girl Photography",
-      "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
-      "date": "2026-08-02",
-      "venue": "Press Photo",
-      "showId": null,
-      "source": "IMG_0450.jpg"
     }
   ],
   "live": [
@@ -124,16 +58,6 @@
       "showId": "2026-01-30-chess-club"
     },
     {
-      "id": "thomas-egan-3",
-      "thumbnail": "/photos/thumbnails/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--3.jpg",
-      "fullSize": "/photos/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--3.jpg",
-      "photographer": "Thomas Egan",
-      "photographerLink": "https://www.instagram.com/thomaseganphotography",
-      "date": "2026-01-30",
-      "venue": "Chess Club",
-      "showId": "2026-01-30-chess-club"
-    },
-    {
       "id": "chris-donahue-1",
       "thumbnail": "/photos/thumbnails/2026-01-30---so-many-cults-at-chess-club---by-chris-donahue--1.jpg",
       "fullSize": "/photos/2026-01-30---so-many-cults-at-chess-club---by-chris-donahue--1.jpg",
@@ -143,5 +67,88 @@
       "venue": "Chess Club",
       "showId": "2026-01-30-chess-club"
     }
-  ]
+  ],
+  "_hidden": {
+    "_note": "Temporarily hidden for launch — move entries back into `press` / `live` to restore.",
+    "press": [
+      {
+        "id": "press-2026-04",
+        "thumbnail": "/photos/thumbnails/press-2026-04.jpg",
+        "fullSize": "/photos/press-2026-04.jpg",
+        "photographer": "Peppermint Girl Photography",
+        "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
+        "date": "2026-08-02",
+        "venue": "Press Photo",
+        "showId": null,
+        "source": "IMG_0328.jpg"
+      },
+      {
+        "id": "press-2026-05",
+        "thumbnail": "/photos/thumbnails/press-2026-05.jpg",
+        "fullSize": "/photos/press-2026-05.jpg",
+        "photographer": "Peppermint Girl Photography",
+        "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
+        "date": "2026-08-02",
+        "venue": "Press Photo",
+        "showId": null,
+        "source": "IMG_0345.jpg"
+      },
+      {
+        "id": "press-2026-06",
+        "thumbnail": "/photos/thumbnails/press-2026-06.jpg",
+        "fullSize": "/photos/press-2026-06.jpg",
+        "photographer": "Peppermint Girl Photography",
+        "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
+        "date": "2026-08-02",
+        "venue": "Press Photo",
+        "showId": null,
+        "source": "IMG_0407.jpg"
+      },
+      {
+        "id": "press-2026-07",
+        "thumbnail": "/photos/thumbnails/press-2026-07.jpg",
+        "fullSize": "/photos/press-2026-07.jpg",
+        "photographer": "Peppermint Girl Photography",
+        "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
+        "date": "2026-08-02",
+        "venue": "Press Photo",
+        "showId": null,
+        "source": "IMG_0428.jpg"
+      },
+      {
+        "id": "press-2026-08",
+        "thumbnail": "/photos/thumbnails/press-2026-08.jpg",
+        "fullSize": "/photos/press-2026-08.jpg",
+        "photographer": "Peppermint Girl Photography",
+        "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
+        "date": "2026-08-02",
+        "venue": "Press Photo",
+        "showId": null,
+        "source": "IMG_0437.jpg"
+      },
+      {
+        "id": "press-2026-09",
+        "thumbnail": "/photos/thumbnails/press-2026-09.jpg",
+        "fullSize": "/photos/press-2026-09.jpg",
+        "photographer": "Peppermint Girl Photography",
+        "photographerLink": "https://www.instagram.com/peppermintgirlphotography/",
+        "date": "2026-08-02",
+        "venue": "Press Photo",
+        "showId": null,
+        "source": "IMG_0450.jpg"
+      }
+    ],
+    "live": [
+      {
+        "id": "thomas-egan-3",
+        "thumbnail": "/photos/thumbnails/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--3.jpg",
+        "fullSize": "/photos/2026-01-30---so-many-cults-at-chess-club---by-thomas-egan--3.jpg",
+        "photographer": "Thomas Egan",
+        "photographerLink": "https://www.instagram.com/thomaseganphotography",
+        "date": "2026-01-30",
+        "venue": "Chess Club",
+        "showId": "2026-01-30-chess-club"
+      }
+    ]
+  }
 }
