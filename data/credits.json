@@ -1,0 +1,241 @@
+{
+  "_note": "Liner-note credit blocks, referenced from releases.json via `creditsId` so releases can share one. Each section is a list of {label, value, url}. Convention: performance = person → instruments (rendered 'Name — role'); production/studio labels end in 'by'/'at'/'to'/'of'/'from' and render without a dash ('Mixed by Name'). An entry with an empty `value` renders its label alone (use for name-only lists like extras). A block may `extends` another block's id and list only the sections/entries it overrides (matched by section title + entry label). Entries may have an empty `value` when the label alone is the credit (e.g. a list of extras).",
+  "blocks": [
+    {
+      "id": "igv-sessions",
+      "sections": [
+        {
+          "title": "Performance",
+          "entries": [
+            {
+              "label": "Dave Pokk",
+              "value": "vocals, guitar",
+              "url": ""
+            },
+            {
+              "label": "Jason Desiderio",
+              "value": "synth, guitar",
+              "url": ""
+            },
+            {
+              "label": "Quinn Finney",
+              "value": "bass",
+              "url": ""
+            },
+            {
+              "label": "Dante Muñoz",
+              "value": "drums",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Recording",
+          "entries": [
+            {
+              "label": "Produced by",
+              "value": "Jason Desiderio & Dave Pokk",
+              "url": ""
+            },
+            {
+              "label": "Tracked by",
+              "value": "Jason Desiderio",
+              "url": ""
+            },
+            {
+              "label": "Mixed by",
+              "value": "Jason Desiderio & Matt Schaefer",
+              "url": ""
+            },
+            {
+              "label": "Mastered by",
+              "value": "Alan Douches",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Art & Words",
+          "entries": [
+            {
+              "label": "Songs written by",
+              "value": "So Many Cults",
+              "url": ""
+            },
+            {
+              "label": "Lyrics by",
+              "value": "Dave Pokk",
+              "url": ""
+            },
+            {
+              "label": "Artwork by",
+              "value": "Andrew Cashen",
+              "url": "https://www.instagram.com/andrewcashen/"
+            }
+          ]
+        },
+        {
+          "title": "Studios",
+          "entries": [
+            {
+              "label": "Recorded at",
+              "value": "The Good for Nothings Clubhouse",
+              "url": "https://thegoodfornothings.club/"
+            },
+            {
+              "label": "Mixed at",
+              "value": "The Good for Nothings Clubhouse & Precision Sound",
+              "url": "",
+              "parts": [
+                {
+                  "value": "The Good for Nothings Clubhouse",
+                  "url": "https://thegoodfornothings.club/"
+                },
+                {
+                  "value": "Precision Sound",
+                  "url": "https://www.precisionsoundstudios.com/"
+                }
+              ]
+            },
+            {
+              "label": "Mastered at",
+              "value": "West West Side Music",
+              "url": "https://westwestsidemusic.com/"
+            }
+          ]
+        },
+        {
+          "title": "Release",
+          "entries": [
+            {
+              "label": "℗ & © 2026 So Many Cults",
+              "value": "",
+              "url": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smc-ep-sessions",
+      "extends": "igv-sessions",
+      "sections": [
+        {
+          "title": "Performance",
+          "entries": [
+            {
+              "label": "Jason Desiderio",
+              "value": "synth, guitar, vocals",
+              "url": ""
+            },
+            {
+              "label": "Quinn Finney",
+              "value": "bass, theremin",
+              "url": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "video-its-gone-viral",
+      "sections": [
+        {
+          "title": "Crew",
+          "entries": [
+            {
+              "label": "Chris Donahue",
+              "value": "Director, Editor, Producer",
+              "url": "https://www.instagram.com/chrisdonahue"
+            },
+            {
+              "label": "Gabrielle Westfield",
+              "value": "Costumes, Set Dressing, Choreography",
+              "url": ""
+            },
+            {
+              "label": "Dave Pokk",
+              "value": "Producer",
+              "url": ""
+            },
+            {
+              "label": "Jason Desiderio",
+              "value": "Producer",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Footage",
+          "entries": [
+            {
+              "label": "Additional footage from",
+              "value": "The PriceMaster (full version)",
+              "url": "https://www.youtube.com/watch?v=CUmmxW7Ksc8"
+            },
+            {
+              "label": "Used with permission, special thanks to",
+              "value": "Initiates of the PriceMaster",
+              "url": "https://www.youtube.com/@PricemasterOfDenton"
+            },
+            {
+              "label": "BTS footage by",
+              "value": "Andrew Matocha (Tape Collector)",
+              "url": "https://www.instagram.com/tapecollectortx/"
+            }
+          ]
+        },
+        {
+          "title": "Garage Sale Shoppers",
+          "entries": [
+            {
+              "label": "Tony Hines",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Bradley DeLoatche",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Angela Newman",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Timothy James",
+              "value": "",
+              "url": ""
+            },
+            {
+              "label": "Blake Rodgers",
+              "value": "",
+              "url": ""
+            }
+          ]
+        },
+        {
+          "title": "Thanks",
+          "entries": [
+            {
+              "label": "Thanks to",
+              "value": "Adam Lancaster, for his help and guidance",
+              "url": ""
+            },
+            {
+              "label": "CRT TVs lent by",
+              "value": "Cake Burger Light Show",
+              "url": "https://www.instagram.com/cakeburgerlightshow/"
+            },
+            {
+              "label": "Fifty trillion thank yous to",
+              "value": "Nathan Austin, the genius behind the PriceMaster",
+              "url": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "_note": "Entries with an empty url are hidden everywhere on the site. Fill in the url to make a link appear. `platform` must match a key in app/data/links.ts PLATFORM_ICONS.",
+  "social": [
+    {
+      "platform": "instagram",
+      "label": "Instagram",
+      "url": "https://instagram.com/somanycults"
+    },
+    {
+      "platform": "youtube",
+      "label": "YouTube",
+      "url": "https://youtube.com/@somanycults"
+    }
+  ],
+  "streaming": [
+    {
+      "platform": "bandcamp",
+      "label": "Bandcamp",
+      "url": "https://somanycults.bandcamp.com/"
+    },
+    {
+      "platform": "spotify",
+      "label": "Spotify",
+      "url": "https://open.spotify.com/artist/7jvPXscWI11qBhf16KuSf5"
+    },
+    {
+      "platform": "youtube-music",
+      "label": "YouTube Music",
+      "url": ""
+    },
+    {
+      "platform": "apple-music",
+      "label": "Apple Music",
+      "url": "https://music.apple.com/us/artist/so-many-cults/6804288570"
+    },
+    {
+      "platform": "amazon-music",
+      "label": "Amazon Music",
+      "url": "https://music.amazon.com/artists/B0HG9L21TX/so-many-cults"
+    },
+    {
+      "platform": "tidal",
+      "label": "Tidal",
+      "url": "https://tidal.com/artist/84881273"
+    }
+  ]
+}

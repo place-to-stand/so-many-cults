@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import WaveSurfer from "wavesurfer.js";
+import { createPlaybackTracker, type PlaybackTracker } from "../lib/playback-analytics";
 
 interface Track {
   title: string;
@@ -13,6 +14,12 @@ interface PlaylistPlayerProps {
   height?: number;
   waveColor?: string;
   progressColor?: string;
+  /** "card" = boxed; "bare" = sits directly on the page. */
+  variant?: "card" | "bare";
+  /** Show the active track title above the waveform (the tracklist already highlights it). */
+  showTitle?: boolean;
+  /** Analytics context; when provided, play/progress/complete events are sent to PostHog. */
+  analytics?: { release?: string; player: string };
 }
 
 function formatTime(seconds: number): string {
@@ -26,6 +33,9 @@ export function PlaylistPlayer({
   height = 64,
   waveColor = "rgba(102, 102, 102, 0.6)",
   progressColor = "rgba(255, 255, 255, 0.9)",
+  variant = "card",
+  showTitle = true,
+  analytics,
 }: PlaylistPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
@@ -34,6 +44,13 @@ export function PlaylistPlayer({
   const isAdvancingTrackRef = useRef(false);
 
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // One playback tracker per loaded track.
+  const trackerRef = useRef<PlaybackTracker | null>(null);
+  useEffect(() => {
+    const t = tracks[activeIndex];
+    trackerRef.current = analytics && t ? createPlaybackTracker({ title: t.title, src: t.file, ...analytics }) : null;
+  }, [activeIndex, tracks, analytics]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
@@ -77,12 +94,13 @@ export function PlaylistPlayer({
 
   // Initialize wavesurfer once
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     isDestroyedRef.current = false;
 
-    while (containerRef.current.firstChild) {
-      containerRef.current.removeChild(containerRef.current.firstChild);
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
     }
 
     const audio = new Audio();
@@ -91,7 +109,7 @@ export function PlaylistPlayer({
     audioRef.current = audio;
 
     const ws = WaveSurfer.create({
-      container: containerRef.current,
+      container,
       height,
       waveColor,
       progressColor,
@@ -119,17 +137,25 @@ export function PlaylistPlayer({
     });
 
     ws.on("play", () => {
-      if (!isDestroyedRef.current) setIsPlaying(true);
+      if (isDestroyedRef.current) return;
+      setIsPlaying(true);
+      trackerRef.current?.onPlay();
     });
 
     ws.on("pause", () => {
       if (!isDestroyedRef.current) setIsPlaying(false);
     });
 
+    ws.on("finish", () => {
+      if (!isDestroyedRef.current) trackerRef.current?.onFinish(ws.getDuration());
+    });
+
     audio.addEventListener("ended", advanceToNextTrack);
 
     ws.on("timeupdate", (time) => {
-      if (!isDestroyedRef.current) setCurrentTime(time);
+      if (isDestroyedRef.current) return;
+      setCurrentTime(time);
+      trackerRef.current?.onTime(time, ws.getDuration());
     });
 
     ws.on("error", (err) => {
@@ -159,8 +185,8 @@ export function PlaylistPlayer({
         // Ignore
       }
 
-      while (containerRef.current?.firstChild) {
-        containerRef.current.removeChild(containerRef.current.firstChild);
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -201,10 +227,29 @@ export function PlaylistPlayer({
     [activeIndex, togglePlayPause]
   );
 
+  // Mute toggle: remembers the pre-mute level; dragging the slider un-mutes.
+  const [isMuted, setIsMuted] = useState(false);
+  const preMuteVolumeRef = useRef(0.8);
+  const toggleMute = useCallback(() => {
+    const ws = wavesurferRef.current;
+    if (isMuted) {
+      const restored = preMuteVolumeRef.current || 0.8;
+      setVolume(restored);
+      setIsMuted(false);
+      ws?.setVolume(restored);
+    } else {
+      preMuteVolumeRef.current = volume;
+      setVolume(0);
+      setIsMuted(true);
+      ws?.setVolume(0);
+    }
+  }, [isMuted, volume]);
+
   const handleVolumeChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const newVolume = parseFloat(e.target.value);
       setVolume(newVolume);
+      setIsMuted(newVolume === 0);
       if (wavesurferRef.current && !isDestroyedRef.current) {
         wavesurferRef.current.setVolume(newVolume);
       }
@@ -227,17 +272,19 @@ export function PlaylistPlayer({
   }, [activeIndex, tracks.length, isPlaying]);
 
   return (
-    <div className="space-y-3 p-4 rounded-lg bg-[#1a1a1a] border border-[#333]">
+    <div className={variant === "bare" ? "space-y-4" : "space-y-4 p-6 bg-[#1a1a1a] border border-[#333]"}>
       {/* Now playing label */}
-      <div className="font-medium text-sm truncate">
-        {tracks[activeIndex].title}
-      </div>
+      {showTitle && (
+        <div className="font-medium text-sm truncate">
+          {tracks[activeIndex].title}
+        </div>
+      )}
 
       {/* Waveform */}
       <div className="relative">
         <div
           ref={containerRef}
-          className={`w-full rounded overflow-hidden ${isLoading ? "opacity-50" : ""}`}
+          className={`w-full overflow-hidden cursor-pointer ${isLoading ? "opacity-50" : ""}`}
         />
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -266,12 +313,12 @@ export function PlaylistPlayer({
       </div>
 
       {/* Transport controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0 mb-3!">
         {/* Prev */}
         <button
           onClick={skipPrev}
           disabled={activeIndex === 0}
-          className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-30"
+          className="h-8 w-8 shrink-0 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 cursor-pointer disabled:cursor-default"
         >
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" />
@@ -282,7 +329,7 @@ export function PlaylistPlayer({
         <button
           onClick={togglePlayPause}
           disabled={isLoading}
-          className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-50"
+          className="h-10 w-10 shrink-0 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-default"
         >
           {isPlaying ? (
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -304,7 +351,7 @@ export function PlaylistPlayer({
         <button
           onClick={skipNext}
           disabled={activeIndex === tracks.length - 1}
-          className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-30"
+          className="h-8 w-8 shrink-0 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 cursor-pointer disabled:cursor-default"
         >
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
@@ -312,27 +359,30 @@ export function PlaylistPlayer({
         </button>
 
         {/* Time */}
-        <div className="flex-1 text-xs text-[#888] font-mono">
+        <div className="flex-1 min-w-0 whitespace-nowrap text-xs text-[#888] font-mono">
           <span>{formatTime(currentTime)}</span>
           <span className="mx-1">/</span>
           <span>{formatTime(totalDuration)}</span>
         </div>
 
         {/* Volume */}
-        <div className="flex items-center gap-2">
-          <svg
-            className="h-4 w-4 text-[#888]"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <div className="flex items-center gap-2 self-center">
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-label={isMuted ? "Unmute" : "Mute"}
+            aria-pressed={isMuted}
+            title={isMuted ? "Unmute" : "Mute"}
+            className="h-6 w-6 -m-1 flex items-center justify-center text-[#888] hover:text-white transition-colors cursor-pointer"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"
-            />
-          </svg>
+            <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMuted ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5L6 9H2v6h4l5 4V5zM16 9l5 6M21 9l-5 6" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z" />
+              )}
+            </svg>
+          </button>
           <input
             type="range"
             min="0"
@@ -340,23 +390,36 @@ export function PlaylistPlayer({
             step="0.01"
             value={volume}
             onChange={handleVolumeChange}
-            className="w-16 h-1 rounded-full appearance-none bg-[#333] cursor-pointer
+            aria-label="Volume"
+            className="block w-16 h-3 mr-1 appearance-none bg-transparent cursor-pointer
+              [&::-webkit-slider-runnable-track]:h-1
+              [&::-webkit-slider-runnable-track]:rounded-full
+              [&::-webkit-slider-runnable-track]:bg-[#333]
               [&::-webkit-slider-thumb]:appearance-none
               [&::-webkit-slider-thumb]:w-3
               [&::-webkit-slider-thumb]:h-3
+              [&::-webkit-slider-thumb]:-mt-1
               [&::-webkit-slider-thumb]:rounded-full
-              [&::-webkit-slider-thumb]:bg-white"
+              [&::-webkit-slider-thumb]:bg-white
+              [&::-moz-range-track]:h-1
+              [&::-moz-range-track]:rounded-full
+              [&::-moz-range-track]:bg-[#333]
+              [&::-moz-range-thumb]:w-3
+              [&::-moz-range-thumb]:h-3
+              [&::-moz-range-thumb]:border-0
+              [&::-moz-range-thumb]:rounded-full
+              [&::-moz-range-thumb]:bg-white"
           />
         </div>
       </div>
 
       {/* Tracklist */}
-      <ul className="border-t border-[#333] pt-3 space-y-0.5">
+      <ul className="border-t border-[#262626] pt-3 space-y-0.5">
         {tracks.map((track, i) => (
           <li key={track.file}>
             <button
               onClick={() => selectTrack(i)}
-              className={`w-full text-left px-3 py-2 rounded text-sm flex items-center gap-3 transition-colors ${
+              className={`w-full text-left px-3 py-2 text-sm flex items-center gap-3 transition-colors cursor-pointer ${
                 i === activeIndex
                   ? "bg-white/10 text-white"
                   : "text-[#888] hover:text-[#ccc] hover:bg-white/5"

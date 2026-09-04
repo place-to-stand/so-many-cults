@@ -1,22 +1,5 @@
-export const demoTracks = [
-  {
-    title: "Under The Influence (Demo)",
-    file: "/under-the-influence.mp3",
-  },
-  {
-    title: "It's Gone Viral (Demo)",
-    file: "/its-gone-viral.mp3",
-  },
-  {
-    title: "Directed Energy Weapons (Demo)",
-    file: "/directed-energy-weapons.mp3",
-  },
-  {
-    title: "Instrumental Interlude (Demo)",
-    file: "/instrumental-interlude.mp3",
-  },
-  {
-    title: "Arcade (Demo)",
-    file: "/arcade.mp3",
-  },
-];
+import tracksData from "@/data/tracks.json";
+
+export type Track = { title: string; file: string };
+
+export const demoTracks: Track[] = tracksData.demos;

@@ -1,0 +1,651 @@
+{
+  "_note": "Add a show by appending an object to `shows`. Order does not matter; the site sorts by date and splits upcoming/past automatically. `date` is YYYY-MM-DD (America/Chicago) or null for a TBA date. `title` is the event's own name (null for plain bills — the venue becomes the headline and `lineup` carries the bill). Only date, venue and lineup are required to render; everything else is optional and hidden when null. Addresses are kept for records but not rendered. `isReleaseShow: true` adds a release-show badge. `poster` is {thumbnail, fullSize} under /public/posters (null = no poster). `doors` (e.g. '8:00 PM') renders on its own line; `setTimes` is [{time, band}] rendered one per row; `time` is a freeform fallback (e.g. '12:00 PM – 6:00 PM').",
+  "shows": [
+    {
+      "id": "2026-10-03-13th-floor-ep-release",
+      "date": "2026-10-03",
+      "title": "So Many Cults EP + Killer Kaya Single Release",
+      "venue": "The 13th Floor",
+      "address": "711 Red River St, Austin, TX 78701",
+      "doors": "8:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "9:00 PM",
+          "band": "Heavy Velvet"
+        },
+        {
+          "time": "10:00 PM",
+          "band": "Killer Kaya"
+        },
+        {
+          "time": "11:00 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "12:00 AM",
+          "band": "Screamin' J"
+        }
+      ],
+      "price": "$12",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "So Many Cults",
+        "Killer Kaya",
+        "Screamin' J",
+        "Heavy Velvet"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": true,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2026-10-03-13th-floor-ep-release-final.jpg",
+        "fullSize": "/posters/2026-10-03-13th-floor-ep-release-final.jpg"
+      },
+      "visuals": {
+        "name": "Video Dream Light Show",
+        "url": "https://www.instagram.com/videodreamlightshow/"
+      }
+    },
+    {
+      "id": "2026-03-14-webberville-block-party-4",
+      "date": "2026-03-14",
+      "title": "Webberville Block Party 4",
+      "venue": "The Cavalier & Fleet Coffee",
+      "address": "2400 Webberville Rd, Austin, TX 78702",
+      "doors": null,
+      "time": "12:00 PM – 6:00 PM",
+      "setTimes": [
+        {
+          "time": "1:30 PM",
+          "band": "So Many Cults (Cavalier Stage)"
+        }
+      ],
+      "price": "Free",
+      "presenter": "The Cosmic Clash & Play to the Plants",
+      "festival": null,
+      "lineup": [
+        "Caitlin King Band",
+        "So Many Cults",
+        "The Sheila Divine (Boston, MA)",
+        "PINKLIDS (Boston, MA)",
+        "Nug (Portland, OR)",
+        "Killer Kaya",
+        "Benjamin Webster",
+        "Gus Percy",
+        "J Graves (Portland, OR)"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2026-03-14-webberville-block-party-4.jpg",
+        "fullSize": "/posters/2026-03-14-webberville-block-party-4.jpg"
+      }
+    },
+    {
+      "id": "2026-02-10-valhalla",
+      "date": "2026-02-10",
+      "title": null,
+      "venue": "Valhalla",
+      "address": "710 Red River St, Austin, TX 78701",
+      "doors": "8:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "9:00 PM",
+          "band": "Dark Starlings"
+        },
+        {
+          "time": "10:00 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "11:00 PM",
+          "band": "Couch Slippers"
+        }
+      ],
+      "price": "$5, 21+",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "Couch Slippers",
+        "So Many Cults",
+        "Dark Starlings"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2026-02-10-valhalla.jpg",
+        "fullSize": "/posters/2026-02-10-valhalla.jpg"
+      }
+    },
+    {
+      "id": "2026-01-30-chess-club",
+      "date": "2026-01-30",
+      "title": "Ash and the Endings Residency",
+      "venue": "Chess Club",
+      "address": "617 Red River St, Austin, TX 78701",
+      "doors": "5:30 PM",
+      "time": null,
+      "setTimes": [],
+      "price": null,
+      "presenter": "Shorty Presents",
+      "festival": null,
+      "lineup": [
+        "Ash and the Endings",
+        "So Many Cults",
+        "Wavy Eye"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2026-01-30-chess-club.jpg",
+        "fullSize": "/posters/2026-01-30-chess-club.jpg"
+      }
+    },
+    {
+      "id": "2025-09-26-chess-club",
+      "date": "2025-09-26",
+      "title": null,
+      "venue": "Chess Club",
+      "address": "617 Red River St, Austin, TX 78701",
+      "doors": "9:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "9:30 PM",
+          "band": "Wavy Eye"
+        },
+        {
+          "time": "10:30 PM",
+          "band": "Ash and the Endings"
+        },
+        {
+          "time": "11:30 PM",
+          "band": "So Many Cults"
+        }
+      ],
+      "price": "$12 cash, 21+",
+      "presenter": "Shorty Presents",
+      "festival": null,
+      "lineup": [
+        "Ash and the Endings",
+        "So Many Cults",
+        "Wavy Eye"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-09-26-chess-club.jpg",
+        "fullSize": "/posters/2025-09-26-chess-club.jpg"
+      }
+    },
+    {
+      "id": "2025-07-26-hot-summer-nights-elysium",
+      "date": "2025-07-26",
+      "title": "Hot Summer Nights 2025",
+      "venue": "Elysium",
+      "address": "705 Red River St, Austin, TX 78701",
+      "doors": null,
+      "time": "9:00 PM",
+      "setTimes": [],
+      "price": "Free",
+      "presenter": "Red River Cultural District",
+      "festival": null,
+      "lineup": [
+        "Pussy Gillette",
+        "So Many Cults",
+        "Narrow Haunts",
+        "Jenna Talia",
+        "DJxBK"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-07-26-hot-summer-nights-2025.jpg",
+        "fullSize": "/posters/2025-07-26-hot-summer-nights-2025.jpg"
+      }
+    },
+    {
+      "id": "2025-06-25-hotel-vegas",
+      "date": "2025-06-25",
+      "title": "Ash and the Endings Single Release",
+      "venue": "Hotel Vegas",
+      "address": "1502 E 6th St, Austin, TX 78702",
+      "doors": "9:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "10:00 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "10:45 PM",
+          "band": "Ash and the Endings"
+        },
+        {
+          "time": "11:30 PM",
+          "band": "Tigers Eye"
+        }
+      ],
+      "price": "$12 at the door, 21+",
+      "presenter": "Shorty Presents",
+      "festival": null,
+      "lineup": [
+        "So Many Cults",
+        "Ash and the Endings",
+        "Tigers Eye"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-06-25-hotel-vegas.jpg",
+        "fullSize": "/posters/2025-06-25-hotel-vegas.jpg"
+      }
+    },
+    {
+      "id": "2025-06-14-hotel-vegas-farm-sanctuary",
+      "date": "2025-06-14",
+      "title": "Austin Farm Sanctuary Fundraiser",
+      "venue": "Hotel Vegas",
+      "address": "1502 E 6th St, Austin, TX 78702",
+      "doors": null,
+      "time": "12:00 PM – 6:00 PM",
+      "setTimes": [],
+      "price": "Suggested $5–10 donation at the door",
+      "presenter": "Hotel Vegas Presents",
+      "festival": null,
+      "lineup": [
+        "So Many Cults",
+        "TC Superstar",
+        "Fehrenbacher",
+        "DJ Strawberry Blondie",
+        "DJ Skidd the Kidd"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-06-14-hotel-vegas-farm-sanctuary.jpg",
+        "fullSize": "/posters/2025-06-14-hotel-vegas-farm-sanctuary.jpg"
+      }
+    },
+    {
+      "id": "2025-04-05-far-out-lounge",
+      "date": "2025-04-05",
+      "title": "Aries Zodiac Party",
+      "venue": "The Far Out Lounge & Stage",
+      "address": "8504 S Congress Ave, Austin, TX 78745",
+      "doors": "7:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "8:00 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "9:00 PM",
+          "band": "SKLOSS"
+        },
+        {
+          "time": "10:00 PM",
+          "band": "SEXPOP"
+        },
+        {
+          "time": "11:00 PM",
+          "band": "Dead Canyon Family Reunion"
+        }
+      ],
+      "price": "$10 general admission, $5 for Aries",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "So Many Cults",
+        "SKLOSS",
+        "SEXPOP",
+        "Dead Canyon Family Reunion"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-04-05-far-out-lounge.jpg",
+        "fullSize": "/posters/2025-04-05-far-out-lounge.jpg"
+      }
+    },
+    {
+      "id": "2025-01-31-chess-club",
+      "date": "2025-01-31",
+      "title": null,
+      "venue": "Chess Club",
+      "address": "617 Red River St, Austin, TX 78701",
+      "doors": null,
+      "time": "9:00 PM",
+      "setTimes": [],
+      "price": "21+",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "Important Group",
+        "So Many Cults",
+        "Sanctum Sanctorum"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-01-31-chess-club.jpg",
+        "fullSize": "/posters/2025-01-31-chess-club.jpg"
+      }
+    },
+    {
+      "id": "2024-09-19-chess-club",
+      "date": "2024-09-19",
+      "title": null,
+      "venue": "Chess Club",
+      "address": "617 Red River St, Austin, TX 78701",
+      "doors": null,
+      "time": "9:00 PM",
+      "setTimes": [],
+      "price": "21+",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "Mulch Cult",
+        "Medieval Snails",
+        "So Many Cults"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2024-09-19-chess-club.jpg",
+        "fullSize": "/posters/2024-09-19-chess-club.jpg"
+      }
+    },
+    {
+      "id": "2025-11-29-kick-butt-coffee",
+      "date": "2025-11-29",
+      "title": "Swellin Album Release",
+      "venue": "Kick Butt Coffee",
+      "address": "5775 Airport Blvd, Austin, TX 78752",
+      "doors": "7:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "8:00 PM",
+          "band": "Authentic Graham"
+        },
+        {
+          "time": "8:45 PM",
+          "band": "Kids on Blast"
+        },
+        {
+          "time": "9:30 PM",
+          "band": "Mondo Cane"
+        },
+        {
+          "time": "10:15 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "11:00 PM",
+          "band": "Couch Slippers"
+        },
+        {
+          "time": "11:45 PM",
+          "band": "Swellin"
+        }
+      ],
+      "price": "$10, all ages",
+      "presenter": "Starfire Presents",
+      "festival": null,
+      "lineup": [
+        "Swellin",
+        "Kids on Blast",
+        "Couch Slippers",
+        "So Many Cults",
+        "Mondo Cane",
+        "Authentic Graham"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-11-29-kick-butt-coffee.jpg",
+        "fullSize": "/posters/2025-11-29-kick-butt-coffee.jpg"
+      }
+    },
+    {
+      "id": "2025-09-09-hole-in-the-wall",
+      "date": "2025-09-09",
+      "title": "Hidden Floors Tuesday Residency",
+      "venue": "Hole in the Wall",
+      "address": "2538 Guadalupe St, Austin, TX 78705",
+      "doors": "8:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "9:00 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "9:45 PM",
+          "band": "The Wizard"
+        },
+        {
+          "time": "10:30 PM",
+          "band": "Hidden Floors"
+        },
+        {
+          "time": "11:30 PM",
+          "band": "GOOD."
+        }
+      ],
+      "price": "Free, 21+",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "Hidden Floors",
+        "GOOD.",
+        "So Many Cults",
+        "The Wizard"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-09-09-hole-in-the-wall.jpg",
+        "fullSize": "/posters/2025-09-09-hole-in-the-wall.jpg"
+      }
+    },
+    {
+      "id": "2025-08-01-kick-butt-coffee",
+      "date": "2025-08-01",
+      "title": null,
+      "venue": "Kick Butt Coffee",
+      "address": "5775 Airport Blvd, Austin, TX 78752",
+      "doors": "7:00 PM",
+      "time": "Bands at 8:00 PM",
+      "setTimes": [],
+      "price": null,
+      "presenter": "Residue",
+      "festival": null,
+      "lineup": [
+        "Powdered Wig Machine",
+        "Residue",
+        "So Many Cults",
+        "Girl Dinner"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-08-01-kick-butt-coffee.jpg",
+        "fullSize": "/posters/2025-08-01-kick-butt-coffee.jpg"
+      }
+    },
+    {
+      "id": "2025-06-05-crow-bar",
+      "date": "2025-06-05",
+      "title": null,
+      "venue": "Crow Bar",
+      "address": "3116 S Congress Ave, Austin, TX 78704",
+      "doors": null,
+      "time": "9:00 PM",
+      "setTimes": [],
+      "price": null,
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "So Many Cults",
+        "Shysters",
+        "Penner"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-06-05-crow-bar.jpg",
+        "fullSize": "/posters/2025-06-05-crow-bar.jpg"
+      }
+    },
+    {
+      "id": "2025-04-10-valhalla",
+      "date": "2025-04-10",
+      "title": null,
+      "venue": "Valhalla",
+      "address": "710 Red River St, Austin, TX 78701",
+      "doors": "8:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "9:00 PM",
+          "band": "Vulpes Vulpes"
+        },
+        {
+          "time": "10:00 PM",
+          "band": "Stella Wolf"
+        },
+        {
+          "time": "11:00 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "12:00 AM",
+          "band": "Nonstop Admiral"
+        }
+      ],
+      "price": "$8, 21+",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "Nonstop Admiral",
+        "So Many Cults",
+        "Stella Wolf",
+        "Vulpes Vulpes"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-04-10-valhalla.jpg",
+        "fullSize": "/posters/2025-04-10-valhalla.jpg"
+      }
+    },
+    {
+      "id": "2025-04-03-hotel-vegas-vegas-on-the-spot",
+      "date": "2025-04-03",
+      "title": "Vegas on the Spot",
+      "venue": "Hotel Vegas",
+      "address": "1502 E 6th St, Austin, TX 78702",
+      "doors": "6:00 PM",
+      "time": null,
+      "setTimes": [
+        {
+          "time": "7:15 PM",
+          "band": "So Many Cults"
+        },
+        {
+          "time": "8:00 PM",
+          "band": "Walkabouts"
+        }
+      ],
+      "price": "21+",
+      "presenter": "Hotel Vegas",
+      "festival": null,
+      "lineup": [
+        "So Many Cults",
+        "Walkabouts"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-04-03-hotel-vegas-vegas-on-the-spot.jpg",
+        "fullSize": "/posters/2025-04-03-hotel-vegas-vegas-on-the-spot.jpg"
+      }
+    },
+    {
+      "id": "2025-01-07-13th-floor",
+      "date": "2025-01-07",
+      "title": "The Loud Goodbye",
+      "venue": "The 13th Floor",
+      "address": "711 Red River St, Austin, TX 78701",
+      "doors": "8:00 PM",
+      "time": null,
+      "setTimes": [],
+      "price": "Free",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "So Many Cults",
+        "Caitlin King",
+        "TFS",
+        "OOGWEI",
+        "DJ Tati",
+        "DJ Mad Whit"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2025-01-07-13th-floor.jpg",
+        "fullSize": "/posters/2025-01-07-13th-floor.jpg"
+      }
+    },
+    {
+      "id": "2024-08-02-far-out-lounge",
+      "date": "2024-08-02",
+      "title": null,
+      "venue": "The Far Out Lounge & Stage",
+      "address": "8504 S Congress Ave, Austin, TX 78745",
+      "doors": "8:00 PM",
+      "time": null,
+      "setTimes": [],
+      "price": "$12",
+      "presenter": null,
+      "festival": null,
+      "lineup": [
+        "Exotic Fruitica",
+        "So Many Cults",
+        "Castle Club",
+        "Subpar Snatch"
+      ],
+      "description": null,
+      "ticketUrl": "",
+      "isReleaseShow": false,
+      "poster": {
+        "thumbnail": "/posters/thumbnails/2024-08-02-far-out-lounge.jpg",
+        "fullSize": "/posters/2024-08-02-far-out-lounge.jpg"
+      }
+    }
+  ]
+}

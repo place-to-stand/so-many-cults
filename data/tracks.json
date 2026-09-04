@@ -1,0 +1,25 @@
+{
+  "_note": "Demo tracks used by the EPK playlist player. Files live in /public.",
+  "demos": [
+    {
+      "title": "Under The Influence",
+      "file": "/under-the-influence.mp3"
+    },
+    {
+      "title": "It's Gone Viral",
+      "file": "/its-gone-viral.mp3"
+    },
+    {
+      "title": "Directed Energy Weapon",
+      "file": "/directed-energy-weapon.mp3"
+    },
+    {
+      "title": "Interlude",
+      "file": "/instrumental-interlude.mp3"
+    },
+    {
+      "title": "Arcade",
+      "file": "/arcade.mp3"
+    }
+  ]
+}

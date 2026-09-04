@@ -2,13 +2,20 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import WaveSurfer from "wavesurfer.js";
+import { createPlaybackTracker, type PlaybackTracker } from "../lib/playback-analytics";
 
 interface WaveformPlayerProps {
   audioUrl: string;
   title: string;
+  /** Hide the in-player title (e.g. when the surrounding card already shows it). */
+  showTitle?: boolean;
+  /** "card" = boxed player; "bare" = waveform sits directly on the page between hairlines. */
+  variant?: "card" | "bare";
   height?: number;
   waveColor?: string;
   progressColor?: string;
+  /** Analytics context; when provided, play/progress/complete events are sent to PostHog. */
+  analytics?: { release?: string; player: string };
 }
 
 function formatTime(seconds: number): string {
@@ -20,10 +27,17 @@ function formatTime(seconds: number): string {
 export function WaveformPlayer({
   audioUrl,
   title,
+  showTitle = true,
+  variant = "card",
   height = 64,
   waveColor = "rgba(102, 102, 102, 0.6)",
   progressColor = "rgba(255, 255, 255, 0.9)",
+  analytics,
 }: WaveformPlayerProps) {
+  const trackerRef = useRef<PlaybackTracker | null>(null);
+  useEffect(() => {
+    trackerRef.current = analytics ? createPlaybackTracker({ title, src: audioUrl, ...analytics }) : null;
+  }, [audioUrl, title, analytics]);
   const containerRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const isDestroyedRef = useRef(false);
@@ -36,13 +50,14 @@ export function WaveformPlayer({
 
   // Initialize wavesurfer
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     isDestroyedRef.current = false;
 
     // Clear any existing content
-    while (containerRef.current.firstChild) {
-      containerRef.current.removeChild(containerRef.current.firstChild);
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
     }
 
     // Create audio element for MediaElement backend
@@ -51,7 +66,7 @@ export function WaveformPlayer({
     audio.preload = "auto";
 
     const ws = WaveSurfer.create({
-      container: containerRef.current,
+      container,
       height,
       waveColor,
       progressColor,
@@ -79,7 +94,9 @@ export function WaveformPlayer({
     });
 
     ws.on("play", () => {
-      if (!isDestroyedRef.current) setIsPlaying(true);
+      if (isDestroyedRef.current) return;
+      setIsPlaying(true);
+      trackerRef.current?.onPlay();
     });
 
     ws.on("pause", () => {
@@ -87,11 +104,15 @@ export function WaveformPlayer({
     });
 
     ws.on("finish", () => {
-      if (!isDestroyedRef.current) setIsPlaying(false);
+      if (isDestroyedRef.current) return;
+      setIsPlaying(false);
+      trackerRef.current?.onFinish(ws.getDuration());
     });
 
     ws.on("timeupdate", (time) => {
-      if (!isDestroyedRef.current) setCurrentTime(time);
+      if (isDestroyedRef.current) return;
+      setCurrentTime(time);
+      trackerRef.current?.onTime(time, ws.getDuration());
     });
 
     ws.on("error", (err) => {
@@ -115,8 +136,8 @@ export function WaveformPlayer({
         // Ignore
       }
 
-      while (containerRef.current?.firstChild) {
-        containerRef.current.removeChild(containerRef.current.firstChild);
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
       }
     };
   }, [audioUrl, height, waveColor, progressColor]);
@@ -127,10 +148,29 @@ export function WaveformPlayer({
     }
   }, []);
 
+  // Mute toggle: remembers the pre-mute level; dragging the slider un-mutes.
+  const [isMuted, setIsMuted] = useState(false);
+  const preMuteVolumeRef = useRef(0.8);
+  const toggleMute = useCallback(() => {
+    const ws = wavesurferRef.current;
+    if (isMuted) {
+      const restored = preMuteVolumeRef.current || 0.8;
+      setVolume(restored);
+      setIsMuted(false);
+      ws?.setVolume(restored);
+    } else {
+      preMuteVolumeRef.current = volume;
+      setVolume(0);
+      setIsMuted(true);
+      ws?.setVolume(0);
+    }
+  }, [isMuted, volume]);
+
   const handleVolumeChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const newVolume = parseFloat(e.target.value);
       setVolume(newVolume);
+      setIsMuted(newVolume === 0);
       if (wavesurferRef.current && !isDestroyedRef.current) {
         wavesurferRef.current.setVolume(newVolume);
       }
@@ -139,15 +179,21 @@ export function WaveformPlayer({
   );
 
   return (
-    <div className="space-y-3 p-4 rounded-lg bg-[#1a1a1a] border border-[#333]">
+    <div
+      className={
+        variant === "bare"
+          ? "space-y-4"
+          : `space-y-4 p-6 ${showTitle ? "" : "pt-8"} bg-[#1a1a1a] border border-[#333]`
+      }
+    >
       {/* Title */}
-      <div className="font-medium text-sm truncate">{title}</div>
+      {showTitle && <div className="font-medium text-sm truncate">{title}</div>}
 
       {/* Waveform container */}
       <div className="relative">
         <div
           ref={containerRef}
-          className={`w-full rounded overflow-hidden ${isLoading ? "opacity-50" : ""}`}
+          className={`w-full overflow-hidden cursor-pointer ${isLoading ? "opacity-50" : ""}`}
         />
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -176,12 +222,12 @@ export function WaveformPlayer({
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         {/* Play/Pause button */}
         <button
           onClick={togglePlayPause}
           disabled={isLoading}
-          className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-50"
+          className="h-10 w-10 shrink-0 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-default"
         >
           {isPlaying ? (
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -196,27 +242,30 @@ export function WaveformPlayer({
         </button>
 
         {/* Time display */}
-        <div className="flex-1 text-xs text-[#888] font-mono">
+        <div className="flex-1 min-w-0 whitespace-nowrap text-xs text-[#888] font-mono">
           <span>{formatTime(currentTime)}</span>
           <span className="mx-1">/</span>
           <span>{formatTime(totalDuration)}</span>
         </div>
 
         {/* Volume control */}
-        <div className="flex items-center gap-2">
-          <svg
-            className="h-4 w-4 text-[#888]"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <div className="flex items-center gap-2 self-center">
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-label={isMuted ? "Unmute" : "Mute"}
+            aria-pressed={isMuted}
+            title={isMuted ? "Unmute" : "Mute"}
+            className="h-6 w-6 -m-1 flex items-center justify-center text-[#888] hover:text-white transition-colors cursor-pointer"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"
-            />
-          </svg>
+            <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMuted ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5L6 9H2v6h4l5 4V5zM16 9l5 6M21 9l-5 6" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z" />
+              )}
+            </svg>
+          </button>
           <input
             type="range"
             min="0"
@@ -224,12 +273,25 @@ export function WaveformPlayer({
             step="0.01"
             value={volume}
             onChange={handleVolumeChange}
-            className="w-16 h-1 rounded-full appearance-none bg-[#333] cursor-pointer
+            aria-label="Volume"
+            className="block w-16 h-3 mr-1 appearance-none bg-transparent cursor-pointer
+              [&::-webkit-slider-runnable-track]:h-1
+              [&::-webkit-slider-runnable-track]:rounded-full
+              [&::-webkit-slider-runnable-track]:bg-[#333]
               [&::-webkit-slider-thumb]:appearance-none
               [&::-webkit-slider-thumb]:w-3
               [&::-webkit-slider-thumb]:h-3
+              [&::-webkit-slider-thumb]:-mt-1
               [&::-webkit-slider-thumb]:rounded-full
-              [&::-webkit-slider-thumb]:bg-white"
+              [&::-webkit-slider-thumb]:bg-white
+              [&::-moz-range-track]:h-1
+              [&::-moz-range-track]:rounded-full
+              [&::-moz-range-track]:bg-[#333]
+              [&::-moz-range-thumb]:w-3
+              [&::-moz-range-thumb]:h-3
+              [&::-moz-range-thumb]:border-0
+              [&::-moz-range-thumb]:rounded-full
+              [&::-moz-range-thumb]:bg-white"
           />
         </div>
       </div>

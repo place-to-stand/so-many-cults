@@ -1,0 +1,55 @@
+{
+  "_note": "Venue directory. `name` must match the `venue` string used in shows.json exactly; shows whose venue has a url here render the venue as a link. Add a venue once and every show at it links automatically.",
+  "venues": [
+    {
+      "name": "Chess Club",
+      "url": "https://chessclubaustin.com/",
+      "address": "617 Red River St, Austin, TX 78701"
+    },
+    {
+      "name": "Hotel Vegas",
+      "url": "https://texashotelvegas.com/",
+      "address": "1502 E 6th St, Austin, TX 78702"
+    },
+    {
+      "name": "Valhalla",
+      "url": "https://www.facebook.com/valhallatavern/",
+      "address": "710 Red River St, Austin, TX 78701"
+    },
+    {
+      "name": "Elysium",
+      "url": "http://www.elysiumonline.net/",
+      "address": "705 Red River St, Austin, TX 78701"
+    },
+    {
+      "name": "The Far Out Lounge & Stage",
+      "url": "https://thefaroutaustin.com/",
+      "address": "8504 S Congress Ave, Austin, TX 78745"
+    },
+    {
+      "name": "The Cavalier & Fleet Coffee",
+      "url": "https://thecavalieratx.com/",
+      "address": "2400 Webberville Rd, Austin, TX 78702"
+    },
+    {
+      "name": "Kick Butt Coffee",
+      "url": "https://kickbuttcoffee.com/",
+      "address": "5775 Airport Blvd, Austin, TX 78752"
+    },
+    {
+      "name": "Hole in the Wall",
+      "url": "https://www.theholeinthewallaustin.com/",
+      "address": "2538 Guadalupe St, Austin, TX 78705"
+    },
+    {
+      "name": "Crow Bar",
+      "url": "https://crowbaraustin.com/",
+      "address": "3116 S Congress Ave, Austin, TX 78704"
+    },
+    {
+      "name": "The 13th Floor",
+      "url": "https://the13thflooraustin.com/",
+      "address": "711 Red River St, Austin, TX 78701"
+    }
+  ]
+}
