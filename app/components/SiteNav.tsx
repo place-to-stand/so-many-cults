@@ -20,7 +20,7 @@ export function SiteNav() {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Closing via Escape / the X returns focus to the toggle. Link taps just close (the new page takes focus).
   // preventScroll: focusing an off-screen toggle would otherwise scroll the page back to the header.
@@ -38,7 +38,9 @@ export function SiteNav() {
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     style.overflow = "hidden";
     if (scrollbarWidth > 0) style.paddingRight = `${scrollbarWidth}px`;
-    firstLinkRef.current?.focus({ preventScroll: true });
+    // Focus the overlay itself, not the first link: keyboard users still Tab straight into the menu, but a
+    // tap doesn't paint a focus ring on "Music".
+    menuRef.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
@@ -111,7 +113,9 @@ export function SiteNav() {
         aria-modal="true"
         aria-label="Menu"
         inert={!open}
-        className={`sm:hidden fixed inset-0 z-50 flex flex-col bg-background font-mono transition-opacity duration-200 ease-out motion-reduce:transition-none ${
+        ref={menuRef}
+        tabIndex={-1}
+        className={`sm:hidden fixed inset-0 z-50 flex flex-col bg-background font-mono outline-none transition-opacity duration-200 ease-out motion-reduce:transition-none ${
           open ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -134,12 +138,11 @@ export function SiteNav() {
             open ? "translate-y-0" : "-translate-y-2"
           }`}
         >
-          {siteNav.map((item, i) => {
+          {siteNav.map((item) => {
             const active = isActive(item.href);
             return (
               <li key={item.href} className="border-b border-[#1f1f1f]">
                 <Link
-                  ref={i === 0 ? firstLinkRef : undefined}
                   href={item.href}
                   onClick={() => setOpen(false)}
                   {...(item.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
