@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FiArrowRight, FiMail } from "react-icons/fi";
 import { featuredPhoto } from "../data/photos";
 import { BAND_NAME, BAND_SUBTITLE, BAND_WEBSITE, BAND_EMAIL } from "../data/band";
+import { pageMetadata, descriptions } from "../data/seo";
 import { platformGroups, siteNav } from "../data/links";
 import { featuredRelease, releaseTypeLabel } from "../data/releases";
 import { blurProps } from "../data/blur";
@@ -13,21 +14,15 @@ import { formatDateParts } from "../data/dates";
 import { PlatformIcons } from "../components/PlatformIcons";
 import { LightboxImage } from "../components/LightboxImage";
 
-export const metadata: Metadata = {
-  title: BAND_NAME,
-  description: BAND_SUBTITLE,
-  openGraph: {
-    title: BAND_NAME,
-    description: BAND_SUBTITLE,
-    images: [{ url: "/og-link-in-bio.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: BAND_NAME,
-    description: BAND_SUBTITLE,
-    images: ["/og-link-in-bio.png"],
-  },
-};
+// Shared from social bios, not meant for search: noindex (and left out of the sitemap) so the
+// homepage is what ranks. Still gets full OG tags since this is the URL that gets pasted around.
+export const metadata: Metadata = pageMetadata({
+  title: `${BAND_NAME} — Links`,
+  description: descriptions.linkInBio,
+  path: "/link-in-bio",
+  image: { url: "/og-link-in-bio.png", alt: `${BAND_NAME} — ${BAND_SUBTITLE}`, width: 1200, height: 630 },
+  noindex: true,
+});
 
 export const revalidate = 3600;
 
