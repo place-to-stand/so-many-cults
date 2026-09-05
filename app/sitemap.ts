@@ -3,7 +3,7 @@ import { SITE_URL } from "./data/band";
 import { latestDates } from "./data/seo";
 import { todayISO } from "./data/dates";
 
-// /epk is intentionally omitted: it is a share-only link for press (noindex).
+// /epk and /link-in-bio are intentionally omitted: share-only links for press and social bios (both noindex).
 export default function sitemap(): MetadataRoute.Sitemap {
   const d = latestDates(todayISO());
   const entry = (path: string, lastModified: string, changeFrequency: "weekly" | "monthly", priority: number) => ({
@@ -19,6 +19,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/shows", d.shows, "weekly", 0.8),
     entry("/photos", d.site, "monthly", 0.6),
     entry("/about", d.site, "monthly", 0.6),
-    entry("/link-in-bio", d.site, "monthly", 0.3),
   ];
 }

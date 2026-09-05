@@ -27,10 +27,11 @@ export function pageMetadata({
   title: string;
   description: string;
   path: string;
-  image?: { url: string; alt: string };
+  image?: { url: string; alt: string; width?: number; height?: number };
   noindex?: boolean;
 }): Metadata {
   const url = abs(path);
+  const ogImage = { url: abs(image.url), alt: image.alt, ...(image.width && image.height ? { width: image.width, height: image.height } : {}) };
   return {
     title,
     description,
@@ -42,20 +43,24 @@ export function pageMetadata({
       title,
       description,
       url,
-      images: [{ url: abs(image.url), alt: image.alt }],
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [{ url: abs(image.url), alt: image.alt }],
+      images: [ogImage],
     },
   };
 }
 
-/** Human descriptions assembled from the data so they stay current. */
+/**
+ * Meta descriptions, assembled from the data where it helps them stay current.
+ * Search engines truncate around 160 characters, so keep each one in the 110–160 range
+ * (the full `shortBio` is ~300 and gets cut mid-sentence in results).
+ */
 export const descriptions = {
-  home: shortBio,
+  home: `${BAND_NAME} are an Austin, Texas psych punk band. Heavy, hypnotic grooves out of the Red River Cultural District. New music, upcoming shows and photos.`,
   music: (() => {
     const parts = releases
       .filter((r) => r.releaseDate)
@@ -65,8 +70,9 @@ export const descriptions = {
   })(),
   videos: `Music videos from ${BAND_NAME}${videos[0] ? `, including "${videos[0].title}" (${videos[0].kind.toLowerCase()})` : ""}.`,
   shows: `Upcoming and past shows from ${BAND_NAME} — Austin, TX psych punk — with dates, venues, set times and flyers.`,
-  photos: `Press and live photos of ${BAND_NAME}, Austin, TX psych punk.`,
-  about: shortBio,
+  photos: `Press photos and live shots of ${BAND_NAME}, Austin, Texas psych punk, including the band on stage at Chess Club. Photographer credits on every shot.`,
+  about: `Formed in Austin in 2024, ${BAND_NAME} blend desert rock, swampy psychedelia and garage-rock urgency into psych punk built for loud rooms. Meet the band.`,
+  linkInBio: `Listen to ${BAND_NAME}, catch the next show in Austin and follow along: streaming links, merch, shows and booking, all in one place.`,
 };
 
 /* ---------- JSON-LD ---------- */
@@ -90,7 +96,12 @@ export function musicGroupJsonLd() {
     logo: abs(logo.src),
     foundingDate: "2024",
     foundingLocation: { "@type": "Place", name: "Austin, Texas" },
-    member: members.map((m) => ({ "@type": "Person", name: m.name, roleName: m.role })),
+    // `roleName` is not a Person property; schema.org wants the role wrapped in a Role node.
+    member: members.map((m) => ({
+      "@type": "PerformanceRole",
+      roleName: m.role.split(",").map((r) => r.trim()),
+      member: { "@type": "Person", name: m.name },
+    })),
     sameAs,
   };
 }
