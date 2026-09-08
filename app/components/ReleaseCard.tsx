@@ -79,6 +79,7 @@ export function ReleaseCard({
   const links = getReleaseLinks(release);
   const released = release.status === "released";
   // The release date always lives in the liner notes; the headline only carries it before release.
+  const downloads = (release.downloads ?? []).filter((dl) => dl.file.trim() !== "");
   const credits = (() => {
     const base = getCredits(release.creditsId);
     if (!release.releaseDate) return base;
@@ -148,13 +149,6 @@ export function ReleaseCard({
             </div>
           ) : null}
 
-          {showDownloads && release.artworkHiRes && (
-            <div className="mt-5 text-xs text-[#777]">
-              <a href={release.artworkHiRes} download className="inline-flex items-center gap-1.5 text-[#bbb] hover:text-white transition-colors">
-                <FiDownload className="shrink-0" /> Hi-res artwork
-              </a>
-            </div>
-          )}
         </div>
       </div>
 
@@ -162,6 +156,26 @@ export function ReleaseCard({
           Below lg the card stacks, so a single-track player's bottom rule would sit right above the first
           row's top rule; drop that row's rule and tighten the gap so there's one hairline, not two. */}
       <div className={`mt-8 lg:mt-10 ${singleTrackPlayer ? "max-lg:mt-2 max-lg:[&>*:first-child]:border-t-0" : ""}`}>
+        {showDownloads && (downloads.length > 0 || release.artworkHiRes) && (
+          <MetaRow label="Downloads">
+            <ul className="space-y-1.5 text-xs leading-[26px]">
+              {downloads.map((dl) => (
+                <li key={dl.label}>
+                  <a href={dl.file} download className="inline-flex items-center gap-1.5 text-[#bbb] hover:text-white transition-colors">
+                    <FiDownload className="shrink-0" /> {dl.label}
+                  </a>
+                </li>
+              ))}
+              {release.artworkHiRes && (
+                <li>
+                  <a href={release.artworkHiRes} download className="inline-flex items-center gap-1.5 text-[#bbb] hover:text-white transition-colors">
+                    <FiDownload className="shrink-0" /> {release.title} — Hi-Res Artwork
+                  </a>
+                </li>
+              )}
+            </ul>
+          </MetaRow>
+        )}
         <MetaRow label={linksLabel}>
           {links.length > 0 ? <LinkButtons links={links} /> : <LinkButtons links={PLACEHOLDER_PLATFORMS} placeholder />}
         </MetaRow>
