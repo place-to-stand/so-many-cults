@@ -1,5 +1,5 @@
 {
-  "_note": "The first release with `featured: true` drives the homepage hero, /music, and the EPK. `status` is 'upcoming' or 'released'; before release, links are shown as pre-save links. Empty urls are hidden. `artwork` is the web-size image (null falls back to the band logo); `artworkHiRes` is the print/press download shown on the EPK. `video.url` supports YouTube watch/short/youtu.be links; null hides the video section. `releaseShowId` points to an id in shows.json. `type` is single, ep, or album. `audio` is a path under /public to a streamable file for the on-site player (null hides it). `artworkCredit` {name, url} is shown under the cover and in the lightbox caption (null hides it). `creditsId` references a block in credits.json. `tracklist` is [{title, duration, lyrics}] — lyrics as a plain string with \\n line breaks (blank line between verses). Tracks with empty lyrics still list; the Lyrics row hides if no track has lyrics. Each track may have `audio`; a release with 2+ playable tracks renders the multi-track player, otherwise the single-track player uses `audio` on the release. Mark a track `instrumental: true` to label it as having no lyrics.",
+  "_note": "The first release with `featured: true` drives the homepage hero, /music, and the EPK. `status` is 'upcoming' or 'released'; before release, links are shown as pre-save links. Empty urls are hidden. `artwork` is the web-size image (null falls back to the band logo); `artworkHiRes` is the print/press download shown on the EPK. `video.url` supports YouTube watch/short/youtu.be links; null hides the video section. `releaseShowId` points to an id in shows.json. `type` is single, ep, or album. `audio` is a path under /public to a streamable file for the on-site player (null hides it). `artworkCredit` {name, url} is shown under the cover and in the lightbox caption (null hides it). `creditsId` references a block in credits.json. `tracklist` is [{title, duration, lyrics}] — lyrics as a plain string with \\n line breaks (blank line between verses). Tracks with empty lyrics still list; the Lyrics row hides if no track has lyrics. Each track may have `audio`; a release with 2+ playable tracks renders the multi-track player, otherwise the single-track player uses `audio` on the release. Mark a track `instrumental: true` to label it as having no lyrics. `downloads` is [{label, file}] of press-ready files (masters etc.) listed on the EPK; entries with an empty file are hidden.",
   "releases": [
     {
       "id": "debut-single",
@@ -64,7 +64,21 @@
         "director": null,
         "premiereDate": null
       },
-      "releaseShowId": null
+      "releaseShowId": null,
+      "downloads": [
+        {
+          "label": "It's Gone Viral — Master (WAV, 16/44.1)",
+          "file": "/audio/masters/its-gone-viral-master.wav"
+        },
+        {
+          "label": "It's Gone Viral — Radio Edit (WAV, 16/44.1)",
+          "file": "/audio/masters/its-gone-viral-radio-edit.wav"
+        },
+        {
+          "label": "It's Gone Viral — Instrumental (WAV, 16/44.1)",
+          "file": "/audio/masters/its-gone-viral-instrumental.wav"
+        }
+      ]
     }
   ],
   "_hiddenReleases": {
@@ -77,8 +91,8 @@
         "title": "So Many Cults",
         "status": "upcoming",
         "releaseDate": "2026-10-02",
-        "artwork": "/artwork/so-many-cults-ep.jpg",
-        "artworkHiRes": "/artwork/so-many-cults-ep-hires.png",
+        "artwork": "/artwork/so-many-cults-ep-v2.jpg",
+        "artworkHiRes": "/artwork/so-many-cults-ep-v2-hires.png",
         "artworkCredit": {
           "name": "Andrew Cashen",
           "url": "https://www.instagram.com/andrewcashen/"

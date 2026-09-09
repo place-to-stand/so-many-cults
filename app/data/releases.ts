@@ -21,7 +21,11 @@ export type ReleaseVideo = {
   premiereDate: string | null;
 };
 
+export type ReleaseDownload = { label: string; file: string };
+
 export type Release = {
+  /** Press-ready files (masters etc.) listed on the EPK; empty `file` hides the entry. */
+  downloads?: ReleaseDownload[];
   id: string;
   type: "single" | "album" | "ep";
   featured: boolean;

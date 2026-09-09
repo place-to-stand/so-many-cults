@@ -45,7 +45,7 @@ export function VideoCard({
           <div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-2 sm:gap-6 items-start border-t border-[#262626] py-4">
             <div className="text-[11px] leading-[26px] uppercase tracking-[0.18em] text-[#8a8a8a]">Credits</div>
             <div className="min-w-0">
-              <CreditsAccordion sections={credits} defaultOpen={creditsOpen} noun="credits" columns={2} />
+              <CreditsAccordion sections={credits} defaultOpen={creditsOpen} noun="credits" columns={1} />
             </div>
           </div>
           <div className="border-t border-[#262626]" />

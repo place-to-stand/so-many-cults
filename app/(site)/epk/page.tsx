@@ -260,13 +260,7 @@ export default function EPK() {
             <div>
               <div className="text-[10px] uppercase tracking-wider text-[#666] mb-3">Downloads</div>
               <ul className="space-y-2">
-                {featuredRelease?.artworkHiRes && (
-                  <li>
-                    <a href={featuredRelease.artworkHiRes} download className="inline-flex items-center gap-1.5 text-[#ccc] hover:text-white">
-                      <FiDownload className="shrink-0" /> {featuredRelease.title} — hi-res artwork
-                    </a>
-                  </li>
-                )}
+                <li><a href="#release" className="text-[#ccc] hover:text-white">Masters &amp; hi-res artwork (see Release)</a></li>
                 {recordRelease?.artworkHiRes && (
                   <li>
                     <a href={recordRelease.artworkHiRes} download className="inline-flex items-center gap-1.5 text-[#ccc] hover:text-white">
