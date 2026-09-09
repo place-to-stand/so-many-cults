@@ -29,7 +29,7 @@ export function CreditsAccordion({
   /** Word used in the toggle label, e.g. "liner notes" or "credits". */
   noun?: string;
   /** Fixed column count (filled top-to-bottom, then left-to-right). Omit for auto-fit columns. */
-  columns?: 2;
+  columns?: 1 | 2;
 }) {
   if (sections.length === 0) return null;
   // Fixed columns pack sections top-to-bottom (no shared row heights), so a short
@@ -37,6 +37,7 @@ export function CreditsAccordion({
   // The split point balances estimated height (entries + heading), not section count.
   const groups = (() => {
     if (!columns) return sections.map((s) => [s]);
+    if (columns === 1) return [sections];
     const weight = (sec: CreditSection) => sec.entries.length + 1.5;
     const total = sections.reduce((sum, sec) => sum + weight(sec), 0);
     let best = 1;
@@ -97,7 +98,7 @@ export function CreditsAccordion({
     <Disclosure defaultOpen={defaultOpen} summary={`Show ${noun}`} summaryOpen={`Hide ${noun}`}>
       <div
         className={`pt-5 pb-1 grid gap-x-8 gap-y-6 ${
-          columns ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]"
+          columns === 1 ? "grid-cols-1" : columns ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]"
         }`}
       >
         {groups.map((group) => (
