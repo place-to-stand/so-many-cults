@@ -49,6 +49,11 @@
       "platform": "bandsintown",
       "label": "Bandsintown",
       "url": "https://www.bandsintown.com/a/15664766"
+    },
+    {
+      "platform": "musicbrainz",
+      "label": "MusicBrainz",
+      "url": "https://musicbrainz.org/artist/6553bd1c-adc1-4994-a646-b16be3fc1f35"
     }
   ]
 }
