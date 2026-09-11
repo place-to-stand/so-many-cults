@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
 import { BAND_NAME, BAND_SUBTITLE, SITE_URL, shortBio, members, logo } from "./band";
-import { socialLinks, streamingLinks } from "./links";
+import { socialLinks, streamingLinks, profileLinks } from "./links";
 import { releases, featuredRelease, releaseTypeLabel, type Release } from "./releases";
 import { allShows, type Show } from "./shows";
 import { getVenue } from "./venues";
 import { videos, youtubeEmbedUrl, type Video } from "./videos";
 import { featuredPhoto } from "./photos";
-import { formatLongDate } from "./dates";
+import { BAND_TIME_ZONE, formatLongDate } from "./dates";
 
 const abs = (path: string) => (path.startsWith("http") ? path : `${SITE_URL}${path}`);
 
-/** Default share image: the featured release artwork, else the featured photo. */
+/**
+ * Default share image: a 1200×630 card (app/og.png/route.tsx) built from the featured release artwork,
+ * else the featured photo. The query string changes with the featured release so social apps,
+ * which cache previews by URL, pick up the new card.
+ */
 export const defaultShareImage = {
-  url: featuredRelease?.artwork ?? featuredPhoto.thumbnail,
-  alt: featuredRelease?.artwork ? `${featuredRelease.title} — ${BAND_NAME}` : `${BAND_NAME} live`,
+  url: `/og.png?v=${featuredRelease?.artwork ? featuredRelease.id : "photo"}`,
+  alt: featuredRelease?.artwork ? `${featuredRelease.title} — ${BAND_NAME}` : `${BAND_NAME} — ${BAND_SUBTITLE}`,
+  width: 1200,
+  height: 630,
 };
 
 /** Page-specific metadata with canonical URL and matching OG / Twitter cards. */
@@ -82,8 +88,21 @@ export const artistId = `${SITE_URL}/#band`;
 /** Minimal typed reference to the band, safe to embed on pages that don't carry the full MusicGroup node. */
 const artistRef = { "@type": "MusicGroup", "@id": artistId, name: BAND_NAME, url: SITE_URL };
 
+/** Tells Google which name to show for the site in results. Belongs on the homepage only. */
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: BAND_NAME,
+    alternateName: "So Many Cults",
+    url: SITE_URL,
+    publisher: artistRef,
+  };
+}
+
 export function musicGroupJsonLd() {
-  const sameAs = [...socialLinks, ...streamingLinks].map((l) => l.url);
+  const sameAs = [...socialLinks, ...streamingLinks, ...profileLinks].map((l) => l.url);
   return {
     "@context": "https://schema.org",
     "@type": "MusicGroup",
@@ -135,15 +154,55 @@ export function musicJsonLd() {
   return releases.map(releaseJsonLd);
 }
 
-function eventJsonLd(show: Show, today: string) {
+/** Every clock time in a string, as minutes after midnight: "12:00 PM – 6:00 PM" → [720, 1080]. */
+function clockTimes(text: string | null): number[] {
+  return [...(text ?? "").matchAll(/(\d{1,2}):(\d{2})\s*([AP]M)/gi)].map(
+    ([, h, m, meridiem]) => ((Number(h) % 12) + (meridiem.toUpperCase() === "PM" ? 12 : 0)) * 60 + Number(m),
+  );
+}
+
+/**
+ * ("2026-10-03", 1200) → "2026-10-03T20:00:00-05:00", using Austin's UTC offset on that date so DST is right.
+ * Minutes past 1440 roll into the next day (a set that runs past midnight).
+ */
+function austinDateTime(date: string, minutes: number): string {
+  const day = new Date(`${date}T12:00:00Z`);
+  day.setUTCDate(day.getUTCDate() + Math.floor(minutes / 1440));
+  const offset =
+    new Intl.DateTimeFormat("en-US", { timeZone: BAND_TIME_ZONE, timeZoneName: "longOffset" })
+      .formatToParts(day)
+      .find((p) => p.type === "timeZoneName")
+      ?.value.replace("GMT", "") || "+00:00";
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const time = minutes % 1440;
+  return `${day.toISOString().slice(0, 10)}T${pad(Math.floor(time / 60))}:${pad(time % 60)}:00${offset}`;
+}
+
+/** Ticket price as a number: "$12 cash, 21+" → 12, "Free, 21+" → 0, "21+" → null. */
+function ticketPrice(price: string | null): number | null {
+  const dollars = price?.match(/\$(\d+(?:\.\d+)?)/);
+  if (dollars) return Number(dollars[1]);
+  return price && /\bfree\b/i.test(price) ? 0 : null;
+}
+
+function eventJsonLd(show: Show & { date: string }, today: string) {
   const venue = getVenue(show.venue);
   const address = show.address ?? venue?.address ?? null;
   const name = show.title ? `${show.title} — ${BAND_NAME} at ${show.venue}` : `${BAND_NAME} at ${show.venue}`;
+  // The event starts when doors open; without doors, a freeform `time` gives the start (and an end, if it's a range).
+  const [doors] = clockTimes(show.doors);
+  const [timeStart, timeEnd] = clockTimes(show.time);
+  const start = doors ?? timeStart;
+  const end = start === undefined || timeEnd === undefined ? undefined : timeEnd < start ? timeEnd + 1440 : timeEnd;
+  const price = ticketPrice(show.price);
+  const isUpcoming = show.date >= today;
   return {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
     name,
-    ...(show.date ? { startDate: show.date } : {}),
+    startDate: start === undefined ? show.date : austinDateTime(show.date, start),
+    ...(end !== undefined ? { endDate: austinDateTime(show.date, end) } : {}),
+    ...(doors !== undefined ? { doorTime: austinDateTime(show.date, doors) } : {}),
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {
@@ -158,15 +217,23 @@ function eventJsonLd(show: Show, today: string) {
     ],
     organizer: show.presenter ? { "@type": "Organization", name: show.presenter } : artistRef,
     ...(show.poster ? { image: abs(show.poster.fullSize) } : {}),
-    ...(show.ticketUrl
-      ? { offers: { "@type": "Offer", url: show.ticketUrl, availability: show.date && show.date >= today ? "https://schema.org/InStock" : "https://schema.org/SoldOut" } }
+    // Only upcoming shows carry an offer: past dates have nothing on sale, and calling them "sold out" would be untrue.
+    ...(isUpcoming && (show.ticketUrl || price !== null)
+      ? {
+          offers: {
+            "@type": "Offer",
+            ...(show.ticketUrl ? { url: show.ticketUrl } : {}),
+            ...(price !== null ? { price, priceCurrency: "USD" } : {}),
+            availability: "https://schema.org/InStock",
+          },
+        }
       : {}),
     url: `${SITE_URL}/shows`,
   };
 }
 
 export function showsJsonLd(today: string) {
-  return allShows.filter((s) => s.date).map((s) => eventJsonLd(s, today));
+  return allShows.filter((s): s is Show & { date: string } => !!s.date).map((s) => eventJsonLd(s, today));
 }
 
 function videoJsonLd(video: Video) {
