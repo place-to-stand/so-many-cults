@@ -20,7 +20,6 @@ export const metadata: Metadata = pageMetadata({
   title: `${BAND_NAME} — Links`,
   description: descriptions.linkInBio,
   path: "/link-in-bio",
-  image: { url: "/og-link-in-bio.png", alt: `${BAND_NAME} — ${BAND_SUBTITLE}`, width: 1200, height: 630 },
   noindex: true,
 });
 
