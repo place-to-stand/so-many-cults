@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { pageMetadata, descriptions, musicGroupJsonLd } from "../data/seo";
+import { pageMetadata, descriptions, musicGroupJsonLd, websiteJsonLd } from "../data/seo";
 import { JsonLd } from "../components/JsonLd";
 import { featuredPhoto, pressPhotos } from "../data/photos";
 import { BAND_NAME, BAND_SUBTITLE, shortBio } from "../data/band";
@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <div className="px-6 sm:px-10 pt-8 sm:pt-12 pb-8 sm:pb-16">
       <main className="mx-auto max-w-5xl font-mono">
-        <JsonLd data={musicGroupJsonLd()} />
+        <JsonLd data={[musicGroupJsonLd(), websiteJsonLd()]} />
         {/* Hero */}
         <section className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-10 items-center">
           <div className="text-center lg:text-left">

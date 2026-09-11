@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { BAND_NAME, BAND_SUBTITLE, SITE_URL } from "./data/band";
-import { featuredPhoto } from "./data/photos";
+import { defaultShareImage } from "./data/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,13 +27,13 @@ export const metadata: Metadata = {
     title: BAND_NAME,
     description: BAND_SUBTITLE,
     type: "website",
-    images: [{ url: featuredPhoto.thumbnail, width: 800, height: 800, alt: `${BAND_NAME} live` }],
+    images: [defaultShareImage],
   },
   twitter: {
     card: "summary_large_image",
     title: BAND_NAME,
     description: BAND_SUBTITLE,
-    images: [featuredPhoto.thumbnail],
+    images: [defaultShareImage],
   },
 };
 

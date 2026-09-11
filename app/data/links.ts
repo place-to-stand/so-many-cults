@@ -63,6 +63,9 @@ export const allStreamingLinks: ExternalLink[] = linksData.streaming;
 /** Streaming/store profiles with a URL set. */
 export const streamingLinks: ExternalLink[] = onlyFilled(linksData.streaming);
 
+/** Listings declared only to search engines (JSON-LD sameAs); never rendered on the site. */
+export const profileLinks: ExternalLink[] = onlyFilled(linksData.profiles);
+
 export const contactLink: SiteLink = {
   label: "Contact",
   href: `mailto:${BAND_EMAIL}`,

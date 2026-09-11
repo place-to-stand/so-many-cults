@@ -1,7 +1,14 @@
 import React from "react";
+import type { Metadata } from "next";
 import FifthElementButton from "./FifthElementButton";
 import FifthElementVideos from "./FifthElementVideos";
+import { BAND_NAME } from "../../data/band";
 
+// Landing page for a QR code shown at a gig: not linked from the site and kept out of search results.
+export const metadata: Metadata = {
+  title: `Fifth Element — ${BAND_NAME}`,
+  robots: { index: false, follow: false },
+};
 
 export default function FifthElement() {
   return (
