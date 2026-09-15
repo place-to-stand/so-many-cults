@@ -5,7 +5,13 @@ import posthog from "posthog-js";
 
 const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 
-if (key) {
+// Skip local dev so localhost sessions and dev-overlay compile errors don't pollute
+// analytics, error tracking, or the weekly digest.
+const isLocalhost =
+  typeof window !== "undefined" &&
+  /^(localhost|127\.0\.0\.1|\[::1\])$/.test(window.location.hostname);
+
+if (key && !isLocalhost) {
   posthog.init(key, {
     // Same-origin proxy (see next.config.ts rewrites) so ad blockers don't drop events.
     api_host: "/ingest",
