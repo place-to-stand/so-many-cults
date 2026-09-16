@@ -4,7 +4,7 @@
  * so the two never drift.
  */
 import { BAND_NAME, BAND_SUBTITLE, BAND_EMAIL, BAND_CITY, SITE_URL, members, ffo, shortBio, extendedBio } from "./band";
-import { socialLinks, streamingLinks, bandsintownUrl } from "./links";
+import { socialLinks, streamingLinks, bandsintownUrl, MERCH_URL } from "./links";
 import { releases, getReleaseLinks, releaseTypeLabel, hasVideo, type Release } from "./releases";
 import { getUpcomingShows, getPastShows, type Show } from "./shows";
 import { getVenueUrl } from "./venues";
@@ -264,7 +264,7 @@ export function llmsTxt(today = todayISO()): string {
     `- Someone wants to book the band, interview them, request press photos, or license a song. Send them to the email above; press photos are on the photos page.`,
     `- Someone wants to know who is in the band, what they sound like, or which bands they are similar to (for fans of ${ffo.join(", ")}).`,
     "",
-    "Not the place for: merch (sold at https://shop.thegoodfornothings.club/collections/so-many-cults), ticket purchases (each show links to the seller), or streaming audio (use the streaming profiles below).",
+    `Not the place for: merch (sold at ${MERCH_URL}; ${SITE_URL}/merch redirects there), ticket purchases (each show links to the seller), or streaming audio (use the streaming profiles below).`,
     "",
     "## Pages",
     "",
