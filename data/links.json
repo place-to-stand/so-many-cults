@@ -1,5 +1,6 @@
 {
-  "_note": "Entries with an empty url are hidden everywhere on the site. Fill in the url to make a link appear. `platform` must match a key in app/data/links.ts PLATFORM_ICONS. `profiles` are never shown on the site: they're only declared to search engines (the band's JSON-LD sameAs), for listings like Bandsintown or MusicBrainz.",
+  "_note": "Entries with an empty url are hidden everywhere on the site. Fill in the url to make a link appear. `platform` must match a key in app/data/links.ts PLATFORM_ICONS. `profiles` are never shown on the site: they're only declared to search engines (the band's JSON-LD sameAs), for listings like Bandsintown or MusicBrainz. `store` is the merch shop: it's the Merch nav link and where /merch redirects (next.config.ts).",
+  "store": "https://shop.thegoodfornothings.club/collections/so-many-cults",
   "social": [
     {
       "platform": "instagram",

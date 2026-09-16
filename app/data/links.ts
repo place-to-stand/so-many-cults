@@ -50,6 +50,9 @@ export function iconFor(platform: string): IconComponent {
 
 const onlyFilled = (links: ExternalLink[]) => links.filter((l) => l.url.trim() !== "");
 
+/** Merch shop (external). Also the target of the /merch redirect in next.config.ts. */
+export const MERCH_URL: string = linksData.store;
+
 /** Social platforms then streaming platforms, whether or not a URL is set yet. Rendered as two groups. */
 export const platformGroups: ExternalLink[][] = [linksData.social, linksData.streaming];
 export const allPlatformLinks: ExternalLink[] = platformGroups.flat();
@@ -81,8 +84,8 @@ export const siteNav: SiteLink[] = [
   { label: "Music", href: "/music", icon: FiMusic, isExternal: false },
   { label: "Videos", href: "/videos", icon: FiVideo, isExternal: false },
   { label: "Shows", href: "/shows", icon: FiCalendar, isExternal: false },
-  // Store is not live yet; URL is the planned collection so it isn't forgotten.
-  { label: "Merch", href: "https://shop.thegoodfornothings.club/collections/so-many-cults", icon: FiShoppingBag, isExternal: true },
+  // Store is not live yet; URL is the planned collection so it isn't forgotten. /merch redirects there too.
+  { label: "Merch", href: MERCH_URL, icon: FiShoppingBag, isExternal: true },
   { label: "Photos", href: "/photos", icon: FiCamera, isExternal: false },
   { label: "About", href: "/about", icon: FiInfo, isExternal: false },
 ];

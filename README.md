@@ -20,6 +20,7 @@ npm run build
 | `/llms.txt` | Site overview for AI agents in the [llms.txt](https://llmstxt.org) format, built from the data |
 | `/epk` | Electronic press kit. **Not linked publicly** — share the URL with press directly (`noindex`, excluded from sitemap) |
 | `/link-in-bio` | Link-tree page for social bios |
+| `/merch` | Redirects to the external store (`store` in `data/links.json`, also the Merch nav link) |
 | `/media/fifth-element` | Standalone promo page |
 
 Every page in the table (except the share-only ones) is also available as Markdown from the same URL: send `Accept: text/markdown` and `proxy.ts` answers with `text/markdown` built from the same data (`app/data/markdown.ts`). Unknown paths return a real 404, as HTML (`app/not-found.tsx`) or Markdown, with links to the site map.

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import links from "./data/links.json";
 
 const nextConfig: NextConfig = {
   images: {
@@ -6,6 +7,13 @@ const nextConfig: NextConfig = {
     // originals are 5000px+ (kept hi-res for EPK downloads), so that variant came out at ~2 MB.
     // 2048 still covers 2x retina laptops; nothing on the site needs a wider raster.
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+  },
+  // /merch is a vanity URL for the external store (the Merch nav link points there directly). Temporary
+  // redirect on purpose: the store isn't live yet and the collection URL may still change, and browsers
+  // cache 308s. `{/}?` also catches /merch/ because skipTrailingSlashRedirect (below) turns off Next's own
+  // trailing-slash normalisation. Config redirects run before proxy.ts, so Markdown clients get it too.
+  async redirects() {
+    return [{ source: "/merch{/}?", destination: links.store, permanent: false }];
   },
   // Reverse-proxy PostHog through our own origin so tracking isn't blocked by ad blockers.
   async rewrites() {
