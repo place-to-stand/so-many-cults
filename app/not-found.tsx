@@ -28,8 +28,9 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col font-(family-name:--font-geist-sans)">
       <SiteNav />
-      <div className="flex-1 px-6 sm:px-10 pt-8 sm:pt-12">
-        <main className="mx-auto max-w-5xl font-mono">
+      {/* The block sits centered in the space between nav and footer; text stays left-aligned inside it. */}
+      <div className="flex-1 flex items-center justify-center px-6 sm:px-10 py-8 sm:py-12">
+        <main className="w-full max-w-2xl font-mono">
           <div className="flex items-center gap-3 text-[13px] uppercase tracking-[0.18em] text-[#9a9a9a]">
             <span className="text-[#f2f2f2]">Error</span>
             <span>404</span>
@@ -37,7 +38,7 @@ export default function NotFound() {
           <h1 className="mt-4 text-3xl font-bold text-[#f2f2f2]">Page not found</h1>
 
           {/* Liner-note rows, same anatomy as the show card's info block */}
-          <div className="mt-6 max-w-2xl border-t border-[#262626] pt-6 space-y-5">
+          <div className="mt-6 border-t border-[#262626] pt-6 space-y-5">
             <InfoRow label="Status">
               <p className="text-sm leading-[22px] text-[#999]">Nothing lives at this address. It moved, or the link had a typo.</p>
             </InfoRow>
@@ -63,7 +64,7 @@ export default function NotFound() {
             </InfoRow>
           </div>
 
-          <div className="mt-6 max-w-2xl border-t border-[#262626] pt-5">
+          <div className="mt-6 border-t border-[#262626] pt-5">
             <Link
               href="/"
               className="inline-block text-xs uppercase tracking-[0.15em] px-[18px] py-2 bg-white font-bold text-black hover:bg-[#ddd] hover:no-underline transition-colors"
