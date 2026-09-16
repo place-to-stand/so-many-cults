@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BAND_NAME } from "./data/band";
 import { MARKDOWN_PAGES } from "./data/markdown";
+import { SiteNav } from "./components/SiteNav";
 import { SiteFooter } from "./components/SiteFooter";
 
 export const metadata: Metadata = {
@@ -26,13 +27,7 @@ function InfoRow({ label, children }: { label: string; children: React.ReactNode
 export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col font-(family-name:--font-geist-sans)">
-      <header className="font-mono px-6 sm:px-10 py-5">
-        <div className="mx-auto max-w-5xl">
-          <Link href="/" className="text-lg font-bold tracking-tight hover:no-underline">
-            {BAND_NAME}
-          </Link>
-        </div>
-      </header>
+      <SiteNav />
       <div className="flex-1 px-6 sm:px-10 pt-8 sm:pt-12">
         <main className="mx-auto max-w-5xl font-mono">
           <div className="flex items-center gap-3 text-[13px] uppercase tracking-[0.18em] text-[#9a9a9a]">
