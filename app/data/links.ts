@@ -63,8 +63,11 @@ export const allStreamingLinks: ExternalLink[] = linksData.streaming;
 /** Streaming/store profiles with a URL set. */
 export const streamingLinks: ExternalLink[] = onlyFilled(linksData.streaming);
 
-/** Listings declared only to search engines (JSON-LD sameAs); never rendered on the site. */
+/** Listings declared to search engines (JSON-LD sameAs); not shown in the icon rows. */
 export const profileLinks: ExternalLink[] = onlyFilled(linksData.profiles);
+
+/** Bandsintown artist page, linked from the shows page (also in sameAs via `profileLinks`). */
+export const bandsintownUrl: string | undefined = profileLinks.find((l) => l.platform === "bandsintown")?.url;
 
 export const contactLink: SiteLink = {
   label: "Contact",

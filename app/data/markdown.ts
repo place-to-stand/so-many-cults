@@ -4,7 +4,7 @@
  * so the two never drift.
  */
 import { BAND_NAME, BAND_SUBTITLE, BAND_EMAIL, BAND_CITY, SITE_URL, members, ffo, shortBio, extendedBio } from "./band";
-import { socialLinks, streamingLinks } from "./links";
+import { socialLinks, streamingLinks, bandsintownUrl } from "./links";
 import { releases, getReleaseLinks, releaseTypeLabel, hasVideo, type Release } from "./releases";
 import { getUpcomingShows, getPastShows, type Show } from "./shows";
 import { getVenueUrl } from "./venues";
@@ -182,7 +182,7 @@ export function showsMarkdown(today = todayISO()): string {
   const past = getPastShows(today);
   return doc(
     `Shows — ${BAND_NAME}`,
-    `Dates are in Central Time (${BAND_CITY}). Booking: ${link(BAND_EMAIL, `mailto:${BAND_EMAIL}`)}.`,
+    `Dates are in Central Time (${BAND_CITY}). Booking: ${link(BAND_EMAIL, `mailto:${BAND_EMAIL}`)}.${bandsintownUrl ? ` Track the band on ${link("Bandsintown", bandsintownUrl)}.` : ""}`,
     `## Upcoming shows\n\n${upcoming.length ? upcoming.map((s) => showMarkdown(s, true)).join("\n\n") : "No shows announced yet. Check back soon."}`,
     `## Past shows\n\n${past.length ? past.map((s) => showMarkdown(s, false)).join("\n\n") : "No past shows listed."}`,
   );

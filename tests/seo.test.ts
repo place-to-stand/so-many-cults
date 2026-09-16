@@ -12,6 +12,7 @@ describe("homepage JSON-LD", () => {
     expect(band.url).toBe(SITE_URL);
     expect(band.sameAs.length).toBeGreaterThan(3);
     for (const url of band.sameAs) expect(url).toMatch(/^https:\/\//);
+    expect(band.sameAs).toContain("https://www.bandsintown.com/a/15664766-so-many-cults");
   });
 
   it("carries contact details and an address", () => {

@@ -94,7 +94,7 @@ Each release in `data/releases.json` has a `tracklist` of `{ title, duration, ly
 
 Paste URLs into `data/links.json`. Platforms with icons: `instagram`, `tiktok`, `youtube`, `facebook`, `spotify`, `apple-music`, `bandcamp`, `youtube-music`, `amazon-music`, `tidal`, `soundcloud`. Anything else gets a generic link icon (add to `PLATFORM_ICONS` in `app/data/links.ts` if you want a specific one).
 
-Listings that should only be declared to search engines (Bandsintown, MusicBrainz, Wikidata…) go in `profiles`: they're added to the band's structured-data `sameAs` but never shown on the site.
+Listings declared to search engines (Bandsintown, MusicBrainz, Wikidata…) go in `profiles`: they're added to the band's structured-data `sameAs` and kept out of the icon rows. The Bandsintown entry is also linked at the bottom of `/shows`.
 
 ### Add press / live photos
 
