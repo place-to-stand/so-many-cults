@@ -13,7 +13,6 @@ import { pressPhotos, livePhotos, type Photo } from "./photos";
 import { getCredits } from "./credits";
 import { formatLongDate, formatDateParts, todayISO } from "./dates";
 import { descriptions } from "./seo";
-import { contactIntro, contactSections, privacyIntro, privacySections, PRIVACY_UPDATED, type TrustSection } from "./trust";
 
 const abs = (path: string) => (/^[a-z][a-z0-9+.-]*:/i.test(path) ? path : `${SITE_URL}${path}`);
 const link = (text: string, href: string) => `[${text}](${abs(href)})`;
@@ -26,8 +25,6 @@ export const MARKDOWN_PAGES = [
   { path: "/shows", title: "Shows", description: descriptions.shows },
   { path: "/photos", title: "Photos", description: descriptions.photos },
   { path: "/about", title: "About", description: descriptions.about },
-  { path: "/contact", title: "Contact", description: descriptions.contact },
-  { path: "/privacy", title: "Privacy", description: descriptions.privacy },
 ] as const;
 
 export type MarkdownPath = (typeof MARKDOWN_PAGES)[number]["path"];
@@ -134,10 +131,6 @@ function photoMarkdown(p: Photo): string {
   return `- ${link(p.venue, p.fullSize)}${by}${when}`;
 }
 
-function trustMarkdown(sections: TrustSection[]): string {
-  return sections.map((s) => [`## ${s.heading}`, ...s.paragraphs].join("\n\n")).join("\n\n");
-}
-
 export function homeMarkdown(today = todayISO()): string {
   const featured = releases.find((r) => r.featured) ?? releases[0];
   const upcoming = getUpcomingShows(today);
@@ -211,16 +204,8 @@ export function aboutMarkdown(): string {
     `## Members\n\n${members.map((m) => `- ${m.name} — ${m.role}`).join("\n")}`,
     `## For fans of\n\n${ffo.map((f) => `- ${f}`).join("\n")}`,
     `## Follow\n\n${[...socialLinks, ...streamingLinks].map((l) => `- ${link(l.label, l.url)}`).join("\n")}`,
-    `## Contact\n\n${link(BAND_EMAIL, `mailto:${BAND_EMAIL}`)}. Booking, press and licensing details: ${link("contact page", "/contact")}.`,
+    `## Contact\n\n${link(BAND_EMAIL, `mailto:${BAND_EMAIL}`)} for booking, press and everything else.`,
   );
-}
-
-export function contactMarkdown(): string {
-  return doc(`Contact — ${BAND_NAME}`, contactIntro, trustMarkdown(contactSections));
-}
-
-export function privacyMarkdown(): string {
-  return doc(`Privacy — ${BAND_NAME}`, `Last updated ${formatLongDate(PRIVACY_UPDATED)}.`, privacyIntro, trustMarkdown(privacySections));
 }
 
 /** Body for a Markdown 404: what was asked for, and where to look instead. */
@@ -248,10 +233,6 @@ export function markdownFor(pathname: string, today = todayISO()): string | null
       return photosMarkdown();
     case "/about":
       return aboutMarkdown();
-    case "/contact":
-      return contactMarkdown();
-    case "/privacy":
-      return privacyMarkdown();
     default:
       return null;
   }
@@ -280,7 +261,7 @@ export function llmsTxt(today = todayISO()): string {
     "",
     `- Someone asks when or where ${BAND_NAME} play next, or wants tickets, set times or a venue address.${next ? ` Next show: ${showDateLine(next)} at ${next.venue}.` : ""}`,
     `- Someone asks about the band's music: release dates, tracklists, lyrics, who played or produced what, or where to stream or buy it.${featured ? ` Latest release: "${featured.title}" (${releaseTypeLabel(featured)}${featured.releaseDate ? `, ${formatLongDate(featured.releaseDate)}` : ""}).` : ""}`,
-    `- Someone wants to book the band, interview them, request press photos, or license a song. Send them to the contact page or the email above.`,
+    `- Someone wants to book the band, interview them, request press photos, or license a song. Send them to the email above; press photos are on the photos page.`,
     `- Someone wants to know who is in the band, what they sound like, or which bands they are similar to (for fans of ${ffo.join(", ")}).`,
     "",
     "Not the place for: merch (sold at https://shop.thegoodfornothings.club/collections/so-many-cults), ticket purchases (each show links to the seller), or streaming audio (use the streaming profiles below).",
@@ -291,10 +272,8 @@ export function llmsTxt(today = todayISO()): string {
     page("/shows", "Upcoming and past shows with dates, venues, doors, set times, prices, ticket links and flyers"),
     page("/music", "Every release with tracklist, lyrics, credits, artwork and streaming or pre-save links"),
     page("/videos", "Music videos and live footage, with YouTube links and directors"),
-    page("/about", "Full bio, members and instruments, for-fans-of list and social links"),
-    page("/contact", "How to book the band, reach them for press, or license a song"),
+    page("/about", "Full bio, members and instruments, for-fans-of list, social links and the contact email"),
     page("/photos", "Press photos and live shots at full size, with photographer credits"),
-    page("/privacy", "What the site collects (anonymous analytics only) and how to opt out"),
     "",
     "## Machine-readable",
     "",

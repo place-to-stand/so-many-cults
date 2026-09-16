@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { BAND_NAME, BAND_EMAIL, members, extendedBio } from "../../data/band";
 import { platformGroups } from "../../data/links";
 import { PlatformIcons } from "../../components/PlatformIcons";
@@ -57,9 +56,6 @@ export default function AboutPage() {
               <a href={`mailto:${BAND_EMAIL}`} className="text-sm">
                 {BAND_EMAIL}
               </a>
-              <Link href="/contact" className="block mt-2 text-xs text-[#888] hover:text-white">
-                Booking, press and licensing →
-              </Link>
             </div>
           </aside>
         </div>

@@ -79,8 +79,6 @@ export const descriptions = {
   photos: `Press photos and live shots of ${BAND_NAME}, Austin, Texas psych punk, including the band on stage at Chess Club. Photographer credits on every shot.`,
   about: `Formed in Austin in 2024, ${BAND_NAME} blend desert rock, swampy psychedelia and garage-rock urgency into psych punk built for loud rooms. Meet the band.`,
   linkInBio: `Listen to ${BAND_NAME}, catch the next show in Austin and follow along: streaming links, merch, shows and booking, all in one place.`,
-  contact: `How to reach ${BAND_NAME}, Austin, Texas psych punk: booking, press and interview requests, song licensing and where to follow the band. One email, read by the band.`,
-  privacy: `What ${BAND_NAME}'s website collects when you visit: anonymous analytics only, no accounts or forms. Which tools are used, what they store and how to opt out.`,
 };
 
 /* ---------- JSON-LD ---------- */
@@ -126,7 +124,7 @@ export function musicGroupJsonLd() {
       "@type": "ContactPoint",
       contactType: "booking and press",
       email: BAND_EMAIL,
-      url: `${SITE_URL}/contact`,
+      url: `${SITE_URL}/about`,
       availableLanguage: "en",
     },
     foundingDate: "2024",
@@ -141,35 +139,6 @@ export function musicGroupJsonLd() {
   };
 }
 
-/** /contact: a ContactPage whose subject is the band, so agents can tie the email to the entity. */
-export function contactPageJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "@id": `${SITE_URL}/contact#page`,
-    name: `Contact — ${BAND_NAME}`,
-    description: descriptions.contact,
-    url: `${SITE_URL}/contact`,
-    about: artistRef,
-    mainEntity: { ...artistRef, email: BAND_EMAIL },
-    isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website` },
-  };
-}
-
-/** /privacy: a plain WebPage with its last-edit date. */
-export function privacyPageJsonLd(dateModified: string) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": `${SITE_URL}/privacy#page`,
-    name: `Privacy — ${BAND_NAME}`,
-    description: descriptions.privacy,
-    url: `${SITE_URL}/privacy`,
-    about: artistRef,
-    dateModified,
-    isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website` },
-  };
-}
 
 function releaseJsonLd(release: Release) {
   const isSingle = release.type === "single";

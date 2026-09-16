@@ -1,6 +1,5 @@
 import { BAND_NAME, BAND_EMAIL, BAND_SUBTITLE } from "../data/band";
-import Link from "next/link";
-import { platformGroups, footerLinks } from "../data/links";
+import { platformGroups } from "../data/links";
 import { PlatformIcons } from "./PlatformIcons";
 
 export function SiteFooter() {
@@ -14,13 +13,6 @@ export function SiteFooter() {
           <a href={`mailto:${BAND_EMAIL}`} className="block mt-1 hover:text-[#ccc]">
             {BAND_EMAIL}
           </a>
-          <nav aria-label="Site information" className="mt-3 flex gap-x-4">
-            {footerLinks.map((l) => (
-              <Link key={l.href} href={l.href} className="hover:text-[#ccc]">
-                {l.label}
-              </Link>
-            ))}
-          </nav>
         </div>
         <PlatformIcons groups={platformGroups} size="sm" />
         </div>

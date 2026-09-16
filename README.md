@@ -17,8 +17,6 @@ npm run build
 | `/shows` | Upcoming and past shows |
 | `/photos` | Press photos (hi-res) and live photos |
 | `/about` | Bio, members, FFO, contact |
-| `/contact` | Booking, press and licensing details (copy in `app/data/trust.ts`) |
-| `/privacy` | What the site collects and how to opt out (copy in `app/data/trust.ts`; bump `PRIVACY_UPDATED` when it changes) |
 | `/llms.txt` | Site overview for AI agents in the [llms.txt](https://llmstxt.org) format, built from the data |
 | `/epk` | Electronic press kit. **Not linked publicly** — share the URL with press directly (`noindex`, excluded from sitemap) |
 | `/link-in-bio` | Link-tree page for social bios |
@@ -27,7 +25,7 @@ npm run build
 Every page in the table (except the share-only ones) is also available as Markdown from the same URL: send `Accept: text/markdown` and `proxy.ts` answers with `text/markdown` built from the same data (`app/data/markdown.ts`). Unknown paths return a real 404, as HTML (`app/not-found.tsx`) or Markdown, with links to the site map.
 
 ```bash
-npm test        # vitest: negotiation, Markdown pages, llms.txt format, JSON-LD, trust-page copy
+npm test        # vitest: negotiation, Markdown pages, llms.txt format, JSON-LD
 ```
 
 ## Content lives in `data/*.json`

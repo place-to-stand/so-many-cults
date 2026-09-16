@@ -64,11 +64,9 @@ describe("markdownFor", () => {
     expect(md).toContain("https://instagram.com/somanycults");
   });
 
-  it("renders the trust pages with the band email", () => {
-    expect(markdownFor("/contact", TODAY)).toContain(`](mailto:${BAND_EMAIL})`);
-    expect(markdownFor("/contact", TODAY)).not.toContain(`${SITE_URL}mailto:`);
-    expect(markdownFor("/privacy", TODAY)).toContain("PostHog");
-    expect(markdownFor("/privacy", TODAY)).toContain("Last updated");
+  it("puts the band email on the About page without mangling the mailto link", () => {
+    expect(markdownFor("/about", TODAY)).toContain(`](mailto:${BAND_EMAIL})`);
+    expect(markdownFor("/about", TODAY)).not.toContain(`${SITE_URL}mailto:`);
   });
 });
 

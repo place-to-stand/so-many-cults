@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { musicGroupJsonLd, contactPageJsonLd, privacyPageJsonLd, websiteJsonLd } from "@/app/data/seo";
+import { musicGroupJsonLd, websiteJsonLd } from "@/app/data/seo";
 import { SITE_URL, BAND_EMAIL, members } from "@/app/data/band";
 
 describe("homepage JSON-LD", () => {
@@ -16,7 +16,7 @@ describe("homepage JSON-LD", () => {
 
   it("carries contact details and an address", () => {
     expect(band.email).toBe(BAND_EMAIL);
-    expect(band.contactPoint.url).toBe(`${SITE_URL}/contact`);
+    expect(band.contactPoint.url).toBe(`${SITE_URL}/about`);
     expect(band.address.addressLocality).toBe("Austin");
   });
 
@@ -34,17 +34,3 @@ describe("homepage JSON-LD", () => {
   });
 });
 
-describe("trust page JSON-LD", () => {
-  it("contact is a ContactPage about the band", () => {
-    const page = contactPageJsonLd();
-    expect(page["@type"]).toBe("ContactPage");
-    expect(page.url).toBe(`${SITE_URL}/contact`);
-    expect(page.mainEntity.email).toBe(BAND_EMAIL);
-  });
-
-  it("privacy is a WebPage with a modified date", () => {
-    const page = privacyPageJsonLd("2026-09-16");
-    expect(page["@type"]).toBe("WebPage");
-    expect(page.dateModified).toBe("2026-09-16");
-  });
-});
