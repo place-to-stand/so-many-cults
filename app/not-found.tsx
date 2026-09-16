@@ -49,7 +49,7 @@ export default function NotFound() {
             <InfoRow label="Go to">
               <nav aria-label="Site map" className="grid grid-cols-2 gap-x-10 gap-y-1.5 text-sm leading-[22px] text-[#f2f2f2]">
                 {MARKDOWN_PAGES.map((page) => (
-                  <Link key={page.path} href={page.path} className="hover:text-white">
+                  <Link key={page.path} href={page.path} className="justify-self-start hover:text-white">
                     {page.title}
                   </Link>
                 ))}
