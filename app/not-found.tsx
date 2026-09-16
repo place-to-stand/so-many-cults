@@ -28,20 +28,18 @@ export default function NotFound() {
           <p className="text-[11px] uppercase tracking-[0.18em] text-[#666]">Error 404</p>
           <h1 className="mt-2 text-3xl font-bold">Page not found</h1>
           <p className="mt-4 text-sm text-[#888] max-w-md leading-relaxed">
-            There is no page at this address. It may have moved, or the link had a typo. Everything on the site is
-            reachable from the pages below.
+            There is no page at this address. It may have moved, or the link had a typo.
           </p>
           <section className="mt-12 sm:mt-16" aria-labelledby="site-map">
             <h2 id="site-map" className="text-[11px] uppercase tracking-[0.18em] text-[#666]">
               Site map
             </h2>
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs uppercase tracking-wider">
               {MARKDOWN_PAGES.map((page) => (
                 <li key={page.path}>
-                  <Link href={page.path} className="text-[#ededed] hover:text-white">
+                  <Link href={page.path} className="text-[#888] hover:text-[#ccc] hover:no-underline">
                     {page.title}
                   </Link>
-                  <span className="text-[#666]"> — {page.description}</span>
                 </li>
               ))}
             </ul>
