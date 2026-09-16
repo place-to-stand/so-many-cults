@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BAND_NAME, BAND_SUBTITLE, SITE_URL, shortBio, members, logo } from "./band";
+import { BAND_NAME, BAND_SUBTITLE, BAND_EMAIL, SITE_URL, shortBio, members, logo } from "./band";
 import { socialLinks, streamingLinks, profileLinks } from "./links";
 import { releases, featuredRelease, releaseTypeLabel, type Release } from "./releases";
 import { allShows, type Show } from "./shows";
@@ -101,29 +101,44 @@ export function websiteJsonLd() {
   };
 }
 
+const bandAddress = { "@type": "PostalAddress", addressLocality: "Austin", addressRegion: "TX", addressCountry: "US" };
+
 export function musicGroupJsonLd() {
   const sameAs = [...socialLinks, ...streamingLinks, ...profileLinks].map((l) => l.url);
   return {
     "@context": "https://schema.org",
-    "@type": "MusicGroup",
+    // MusicGroup is a subtype of Organization; naming both lets parsers that only know the
+    // generic identity types (Organization, Person...) still read the band's name, url and sameAs.
+    "@type": ["MusicGroup", "Organization"],
     "@id": artistId,
     name: BAND_NAME,
     url: SITE_URL,
+    mainEntityOfPage: SITE_URL,
     genre: "Psych Punk",
     description: shortBio,
     image: abs(featuredPhoto.fullSize),
     logo: abs(logo.src),
+    email: BAND_EMAIL,
+    address: bandAddress,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "booking and press",
+      email: BAND_EMAIL,
+      url: `${SITE_URL}/about`,
+      availableLanguage: "en",
+    },
     foundingDate: "2024",
-    foundingLocation: { "@type": "Place", name: "Austin, Texas" },
+    foundingLocation: { "@type": "Place", name: "Austin, Texas", address: bandAddress },
     // `roleName` is not a Person property; schema.org wants the role wrapped in a Role node.
     member: members.map((m) => ({
       "@type": "PerformanceRole",
       roleName: m.role.split(",").map((r) => r.trim()),
-      member: { "@type": "Person", name: m.name },
+      member: { "@type": "Person", name: m.name, jobTitle: m.role, memberOf: artistRef, url: `${SITE_URL}/about` },
     })),
     sameAs,
   };
 }
+
 
 function releaseJsonLd(release: Release) {
   const isSingle = release.type === "single";

@@ -14,6 +14,14 @@ const nextConfig: NextConfig = {
       { source: "/ingest/:path*", destination: "https://us.i.posthog.com/:path*" },
     ];
   },
+  // Every page can be served as HTML or Markdown from the same URL (Accept negotiation in proxy.ts), so
+  // shared caches must key on Accept. The Markdown responses set it themselves; this adds it to the HTML
+  // variant. Vercel applies route headers to the final response. Note that `next start` (the Node server)
+  // overwrites Vary on prerendered app pages with its own value, so the header only shows there on
+  // route handlers such as /llms.txt.
+  async headers() {
+    return [{ source: "/:path*", headers: [{ key: "Vary", value: "Accept" }] }];
+  },
   // PostHog's API uses trailing slashes; don't let Next redirect them away.
   skipTrailingSlashRedirect: true,
 };

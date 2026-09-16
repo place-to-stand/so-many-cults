@@ -12,10 +12,11 @@ export function SiteNav() {
   const pathname = usePathname();
   // On desktop the homepage hero already carries the wordmark, so the nav hides it there (animated on
   // route change). On mobile the hero heading is hidden instead, so the nav wordmark always shows.
-  // Decided from the layout segment rather than the pathname: during ISR regeneration on Vercel the
-  // root route can render with pathname "/index", which made the server send the wordmark visible.
+  // Decided from the layout segment rather than the pathname alone: during ISR regeneration on Vercel the
+  // root route can render with pathname "/index", which made the server send the wordmark visible. The
+  // global 404 also has no segment, so the pathname check keeps the wordmark on unknown paths.
   const segment = useSelectedLayoutSegment();
-  const isHome = segment === null;
+  const isHome = segment === null && (pathname === "/" || pathname === "/index");
 
   const [open, setOpen] = useState(false);
   const menuId = useId();

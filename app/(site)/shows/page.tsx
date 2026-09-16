@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { BAND_NAME, BAND_EMAIL } from "../../data/band";
+import { bandsintownUrl } from "../../data/links";
 import { getUpcomingShows, getPastShows } from "../../data/shows";
 import { ShowList } from "../../components/ShowList";
 import { SectionHeading } from "../../components/SectionHeading";
@@ -39,6 +41,14 @@ export default function ShowsPage() {
         </section>
 
         <p className="mt-16 text-sm text-[#888]">
+          {bandsintownUrl && (
+            <>
+              <Link href={bandsintownUrl} target="_blank" rel="noopener noreferrer" className="text-[#ccc] hover:text-white">
+                Bandsintown
+              </Link>
+              <span className="mx-3 text-[#444]">·</span>
+            </>
+          )}
           Booking:{" "}
           <a href={`mailto:${BAND_EMAIL}`} className="text-[#ccc] hover:text-white">
             {BAND_EMAIL}

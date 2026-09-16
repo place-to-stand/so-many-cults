@@ -17,9 +17,16 @@ npm run build
 | `/shows` | Upcoming and past shows |
 | `/photos` | Press photos (hi-res) and live photos |
 | `/about` | Bio, members, FFO, contact |
+| `/llms.txt` | Site overview for AI agents in the [llms.txt](https://llmstxt.org) format, built from the data |
 | `/epk` | Electronic press kit. **Not linked publicly** — share the URL with press directly (`noindex`, excluded from sitemap) |
 | `/link-in-bio` | Link-tree page for social bios |
 | `/media/fifth-element` | Standalone promo page |
+
+Every page in the table (except the share-only ones) is also available as Markdown from the same URL: send `Accept: text/markdown` and `proxy.ts` answers with `text/markdown` built from the same data (`app/data/markdown.ts`). Unknown paths return a real 404, as HTML (`app/not-found.tsx`) or Markdown, with links to the site map.
+
+```bash
+npm test        # vitest: negotiation, Markdown pages, llms.txt format, JSON-LD
+```
 
 ## Content lives in `data/*.json`
 
@@ -87,7 +94,7 @@ Each release in `data/releases.json` has a `tracklist` of `{ title, duration, ly
 
 Paste URLs into `data/links.json`. Platforms with icons: `instagram`, `tiktok`, `youtube`, `facebook`, `spotify`, `apple-music`, `bandcamp`, `youtube-music`, `amazon-music`, `tidal`, `soundcloud`. Anything else gets a generic link icon (add to `PLATFORM_ICONS` in `app/data/links.ts` if you want a specific one).
 
-Listings that should only be declared to search engines (Bandsintown, MusicBrainz, Wikidata…) go in `profiles`: they're added to the band's structured-data `sameAs` but never shown on the site.
+Listings declared to search engines (Bandsintown, MusicBrainz, Wikidata…) go in `profiles`: they're added to the band's structured-data `sameAs` and kept out of the icon rows. The Bandsintown entry is also linked at the bottom of `/shows`.
 
 ### Add press / live photos
 
