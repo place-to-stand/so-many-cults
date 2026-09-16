@@ -84,6 +84,13 @@ export const siteNav: SiteLink[] = [
   { label: "About", href: "/about", icon: FiInfo, isExternal: false },
 ];
 
+/** Small text links in the footer: the trust pages agents and people check before trusting a site. */
+export const footerLinks: { label: string; href: string }[] = [
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+  { label: "Privacy", href: "/privacy" },
+];
+
 function toSiteLink(link: ExternalLink): SiteLink {
   return { label: link.label, href: link.url, icon: iconFor(link.platform), isExternal: true };
 }

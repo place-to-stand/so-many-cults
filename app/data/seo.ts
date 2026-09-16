@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BAND_NAME, BAND_SUBTITLE, SITE_URL, shortBio, members, logo } from "./band";
+import { BAND_NAME, BAND_SUBTITLE, BAND_EMAIL, SITE_URL, shortBio, members, logo } from "./band";
 import { socialLinks, streamingLinks, profileLinks } from "./links";
 import { releases, featuredRelease, releaseTypeLabel, type Release } from "./releases";
 import { allShows, type Show } from "./shows";
@@ -79,6 +79,8 @@ export const descriptions = {
   photos: `Press photos and live shots of ${BAND_NAME}, Austin, Texas psych punk, including the band on stage at Chess Club. Photographer credits on every shot.`,
   about: `Formed in Austin in 2024, ${BAND_NAME} blend desert rock, swampy psychedelia and garage-rock urgency into psych punk built for loud rooms. Meet the band.`,
   linkInBio: `Listen to ${BAND_NAME}, catch the next show in Austin and follow along: streaming links, merch, shows and booking, all in one place.`,
+  contact: `How to reach ${BAND_NAME}, Austin, Texas psych punk: booking, press and interview requests, song licensing and where to follow the band. One email, read by the band.`,
+  privacy: `What ${BAND_NAME}'s website collects when you visit: anonymous analytics only, no accounts or forms. Which tools are used, what they store and how to opt out.`,
 };
 
 /* ---------- JSON-LD ---------- */
@@ -101,27 +103,71 @@ export function websiteJsonLd() {
   };
 }
 
+const bandAddress = { "@type": "PostalAddress", addressLocality: "Austin", addressRegion: "TX", addressCountry: "US" };
+
 export function musicGroupJsonLd() {
   const sameAs = [...socialLinks, ...streamingLinks, ...profileLinks].map((l) => l.url);
   return {
     "@context": "https://schema.org",
-    "@type": "MusicGroup",
+    // MusicGroup is a subtype of Organization; naming both lets parsers that only know the
+    // generic identity types (Organization, Person...) still read the band's name, url and sameAs.
+    "@type": ["MusicGroup", "Organization"],
     "@id": artistId,
     name: BAND_NAME,
     url: SITE_URL,
+    mainEntityOfPage: SITE_URL,
     genre: "Psych Punk",
     description: shortBio,
     image: abs(featuredPhoto.fullSize),
     logo: abs(logo.src),
+    email: BAND_EMAIL,
+    address: bandAddress,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "booking and press",
+      email: BAND_EMAIL,
+      url: `${SITE_URL}/contact`,
+      availableLanguage: "en",
+    },
     foundingDate: "2024",
-    foundingLocation: { "@type": "Place", name: "Austin, Texas" },
+    foundingLocation: { "@type": "Place", name: "Austin, Texas", address: bandAddress },
     // `roleName` is not a Person property; schema.org wants the role wrapped in a Role node.
     member: members.map((m) => ({
       "@type": "PerformanceRole",
       roleName: m.role.split(",").map((r) => r.trim()),
-      member: { "@type": "Person", name: m.name },
+      member: { "@type": "Person", name: m.name, jobTitle: m.role, memberOf: artistRef, url: `${SITE_URL}/about` },
     })),
     sameAs,
+  };
+}
+
+/** /contact: a ContactPage whose subject is the band, so agents can tie the email to the entity. */
+export function contactPageJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": `${SITE_URL}/contact#page`,
+    name: `Contact — ${BAND_NAME}`,
+    description: descriptions.contact,
+    url: `${SITE_URL}/contact`,
+    about: artistRef,
+    mainEntity: { ...artistRef, email: BAND_EMAIL },
+    isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website` },
+  };
+}
+
+/** /privacy: a plain WebPage with its last-edit date. */
+export function privacyPageJsonLd(dateModified: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/privacy#page`,
+    name: `Privacy — ${BAND_NAME}`,
+    description: descriptions.privacy,
+    url: `${SITE_URL}/privacy`,
+    about: artistRef,
+    dateModified,
+    isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website` },
   };
 }
 
