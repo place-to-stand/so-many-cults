@@ -44,7 +44,7 @@ export default function ShowsPage() {
           {bandsintownUrl && (
             <>
               <Link href={bandsintownUrl} target="_blank" rel="noopener noreferrer" className="text-[#ccc] hover:text-white">
-                Bandsintown ↗
+                Bandsintown
               </Link>
               <span className="mx-3 text-[#444]">·</span>
             </>
