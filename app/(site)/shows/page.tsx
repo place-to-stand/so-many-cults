@@ -45,7 +45,8 @@ export default function ShowsPage() {
           </Disclosure>
         </section>
 
-        <p className="mt-16 text-sm text-[#888]">
+        {/* Flex row so the icon link and the plain text share one centre line */}
+        <p className="mt-16 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-[#888]">
           {bandsintownUrl && (
             <>
               <Link
@@ -56,13 +57,15 @@ export default function ShowsPage() {
               >
                 <BandsintownIcon className="shrink-0" /> Bandsintown
               </Link>
-              <span className="mx-3 text-[#444]">·</span>
+              <span aria-hidden className="text-[#444]">·</span>
             </>
           )}
-          Booking:{" "}
-          <a href={`mailto:${BAND_EMAIL}`} className="text-[#ccc] hover:text-white">
-            {BAND_EMAIL}
-          </a>
+          <span>
+            Booking:{" "}
+            <a href={`mailto:${BAND_EMAIL}`} className="text-[#ccc] hover:text-white">
+              {BAND_EMAIL}
+            </a>
+          </span>
         </p>
       </main>
     </div>
