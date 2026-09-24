@@ -27,7 +27,7 @@
           "band": "Screamin' J"
         }
       ],
-      "price": "$12",
+      "price": "$15",
       "presenter": null,
       "festival": null,
       "lineup": [
@@ -40,8 +40,8 @@
       "ticketUrl": "https://dice.fm/event/g58qq5-heavy-velvet-killer-kaya-so-many-cults-screamin-j-3rd-oct-the-13th-floor-austin-tickets",
       "isReleaseShow": true,
       "poster": {
-        "thumbnail": "/posters/thumbnails/2026-10-03-13th-floor-ep-release-final.jpg",
-        "fullSize": "/posters/2026-10-03-13th-floor-ep-release-final.jpg"
+        "thumbnail": "/posters/thumbnails/2026-10-03-13th-floor-ep-release-v2.jpg",
+        "fullSize": "/posters/2026-10-03-13th-floor-ep-release-v2.jpg"
       },
       "visuals": {
         "name": "Video Dream Light Show",

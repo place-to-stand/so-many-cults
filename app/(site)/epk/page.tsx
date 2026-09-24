@@ -22,7 +22,7 @@ import {
   logo,
 } from "../../data/band";
 import { socialLinks, streamingLinks } from "../../data/links";
-import { featuredRelease, recordRelease, getReleaseShow, releaseTypeLabel } from "../../data/releases";
+import { releases, featuredRelease, recordRelease, getReleaseShow, releaseTypeLabel } from "../../data/releases";
 import { blurProps } from "../../data/blur";
 import { latestVideo } from "../../data/videos";
 import { VideoCard } from "../../components/VideoCard";
@@ -48,11 +48,16 @@ export default function EPK() {
   const upcoming = getUpcomingShows();
   const past = getPastShows().slice(0, 8);
   const releaseShow = recordRelease ? getReleaseShow(recordRelease) : undefined;
+  // Once the EP is the featured release its card already covers it, so the EP block gives way to
+  // the release before it (keeps the single's masters on the EPK).
+  const showRecordSection = recordRelease !== undefined && recordRelease !== featuredRelease;
+  const previousRelease = showRecordSection ? undefined : releases.find((r) => r !== featuredRelease);
 
   const contents = [
     featuredRelease && { id: "release", label: "Release" },
     latestVideo && { id: "video", label: "Video" },
-    recordRelease && { id: "ep", label: releaseTypeLabel(recordRelease) },
+    showRecordSection && recordRelease && { id: "ep", label: releaseTypeLabel(recordRelease) },
+    previousRelease && { id: "previous", label: releaseTypeLabel(previousRelease) },
     { id: "bio", label: "Bio" },
     { id: "photos", label: "Photos" },
     { id: "shows", label: "Shows" },
@@ -111,8 +116,15 @@ export default function EPK() {
           </Section>
         )}
 
+        {/* Previous release, when the EP has taken the featured slot */}
+        {previousRelease && (
+          <Section id="previous" title={`Debut ${releaseTypeLabel(previousRelease)}`}>
+            <ReleaseCard release={previousRelease} showDownloads />
+          </Section>
+        )}
+
         {/* EP + release show */}
-        {recordRelease && (
+        {showRecordSection && recordRelease && (
           <Section id="ep" title={`Debut ${releaseTypeLabel(recordRelease)}`}>
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,444px)_1fr] gap-8 lg:gap-10 items-start">
               <div>

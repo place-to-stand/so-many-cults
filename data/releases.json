@@ -4,7 +4,7 @@
     {
       "id": "debut-single",
       "type": "single",
-      "featured": true,
+      "featured": false,
       "title": "It's Gone Viral",
       "status": "released",
       "releaseDate": "2026-09-04",
@@ -83,9 +83,9 @@
     {
       "id": "so-many-cults-ep",
       "type": "ep",
-      "featured": false,
+      "featured": true,
       "title": "So Many Cults",
-      "status": "upcoming",
+      "status": "released",
       "releaseDate": "2026-10-02",
       "artwork": "/artwork/so-many-cults-ep-v3.jpg",
       "artworkHiRes": "/artwork/so-many-cults-ep-v3-3000.jpg",
