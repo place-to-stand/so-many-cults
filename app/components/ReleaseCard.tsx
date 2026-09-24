@@ -102,7 +102,7 @@ export function ReleaseCard({
 
         <div className="min-w-0 lg:pt-2">
           {/* Meta line: type · date — small, wide-tracked, deliberately quiet */}
-          <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-[#9a9a9a]">
+          <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#9a9a9a]">
             <span>{kind}</span>
             {!released && (
               <>
