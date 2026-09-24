@@ -43,7 +43,6 @@ Typed accessors in `app/data/*.ts` are the only code that reads the JSON — pag
 | `data/venues.json` | Venue directory (name → website); venues listed here render as links on show cards |
 | `data/photos.json` | Press and live photos |
 | `data/credits.json` | Liner-note credit blocks (shared between releases via `creditsId`) |
-| `data/tracks.json` | Demo tracks for the EPK player |
 | `data/videos.json` | Music videos (YouTube URLs, newest first → homepage "Latest Video") + fifth-element page videos |
 
 **Rule used everywhere:** an empty `url` (`""`) or a `null` field is hidden. Fill it in and it appears. No code changes needed.

@@ -7,7 +7,7 @@ export type PlaybackMeta = {
   title: string;
   /** Release the track belongs to (single / EP title), if any. */
   release?: string;
-  /** Which player surfaced it: "single", "ep-playlist", "epk-demos". */
+  /** Which player surfaced it: "single" or "ep-playlist". */
   player: string;
   /** Audio file path, handy for joining across renames. */
   src: string;
