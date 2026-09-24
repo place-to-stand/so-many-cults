@@ -45,17 +45,19 @@ export default function ShowsPage() {
           </Disclosure>
         </section>
 
-        {/* Flex row so the icon link and the plain text share one centre line */}
-        <p className="mt-16 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-[#888]">
+        {/* Baseline-aligned row so every piece of text shares one baseline (centring the boxes left the icon
+            link's text 2px high); the icon is inline and nudged to sit centred on the text */}
+        <p className="mt-16 flex flex-wrap items-baseline gap-x-3 gap-y-2 text-sm text-[#888]">
           {bandsintownUrl && (
             <>
               <Link
                 href={bandsintownUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[#ccc] hover:text-white"
+                className="text-[#ccc] hover:text-white"
               >
-                <BandsintownIcon className="shrink-0" /> Bandsintown
+                <BandsintownIcon className="inline-block align-[-0.125em] mr-1.5" />
+                Bandsintown
               </Link>
               <span aria-hidden className="text-[#444]">·</span>
             </>
