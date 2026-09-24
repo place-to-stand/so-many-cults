@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 /**
  * Accessible accordion that animates open/closed (grid-rows 0fr → 1fr + fade),
@@ -14,6 +14,7 @@ export function Disclosure({
   summaryClassName = "",
   contentClassName = "",
   arrowClassName = "size-3",
+  openForHashes,
 }: {
   summary: React.ReactNode;
   /** Optional alternate label while open (e.g. "Hide …"). */
@@ -24,9 +25,34 @@ export function Disclosure({
   contentClassName?: string;
   /** Size/colour classes for the triangle indicator (e.g. "size-3", "size-5 text-[#888]"). */
   arrowClassName?: string;
+  /** Element ids inside the content: a URL hash naming one opens the disclosure and scrolls to it. */
+  openForHashes?: string[];
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
+  const hashKey = openForHashes?.join(" ") ?? "";
+  // Hash target to scroll to once the content is laid out open (a fresh object per jump, so a repeat
+  // hash re-scrolls). While set, the expand skips its animation so the page is already full height when
+  // we scroll; a click on the toggle clears it and brings the animation back.
+  const [jump, setJump] = useState<{ target: string } | null>(null);
+
+  useEffect(() => {
+    if (!hashKey) return;
+    const targets = new Set(hashKey.split(" "));
+    const reveal = () => {
+      const target = decodeURIComponent(window.location.hash.slice(1));
+      if (!targets.has(target)) return;
+      setJump({ target });
+      setOpen(true);
+    };
+    reveal();
+    window.addEventListener("hashchange", reveal);
+    return () => window.removeEventListener("hashchange", reveal);
+  }, [hashKey]);
+
+  useEffect(() => {
+    if (jump) document.getElementById(jump.target)?.scrollIntoView({ block: "start" });
+  }, [jump]);
 
   return (
     <div>
@@ -34,7 +60,10 @@ export function Disclosure({
         type="button"
         aria-expanded={open}
         aria-controls={id}
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => {
+          setJump(null);
+          setOpen((o) => !o);
+        }}
         className={`flex items-center gap-2 h-[26px] leading-none text-xs text-[#c4c4c4] hover:text-white transition-colors select-none cursor-pointer ${summaryClassName}`}
       >
         <svg
@@ -48,7 +77,7 @@ export function Disclosure({
       </button>
       <div
         id={id}
-        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
+        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${jump ? "transition-none" : ""} ${
           open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >

@@ -35,6 +35,7 @@ export default function ShowsPage() {
             summaryClassName="gap-3 hover:text-white [&_h2]:transition-colors [&:hover_h2]:text-white"
             arrowClassName="size-4 text-[#888]"
             contentClassName="pt-7"
+            openForHashes={past.map((s) => s.id)}
           >
             <ShowList shows={past} emptyMessage="No past shows listed." />
           </Disclosure>

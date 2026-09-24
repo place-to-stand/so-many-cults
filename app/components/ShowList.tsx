@@ -102,8 +102,11 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
   const isUs = (band: string) => band.toLowerCase().startsWith("so many cults");
 
   if (compact) {
+    // The whole row links to the show's full card on /shows via a stretched link (::after over the row);
+    // the poster sits above it so it still opens the lightbox. Venue is plain text here, since one row
+    // can't hold two links.
     return (
-      <li className="py-[18px] first:pt-0 border-b border-[#222] last:border-b-0">
+      <li className="relative py-[18px] first:pt-0 border-b border-[#222] last:border-b-0">
         <div className="flex gap-4">
           {show.poster && (
             <LightboxImage
@@ -111,7 +114,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
               index={0}
               alt={`Flyer: ${show.title ?? show.venue}`}
               sizes="80px"
-              className="w-14 shrink-0"
+              className="relative z-10 w-14 shrink-0"
               imageClassName="border border-[#262626]"
               showCredit={false}
               showDownload
@@ -119,12 +122,13 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
           )}
           <div className="min-w-0">
             <DateLine date={show.date} className="mb-2.5" />
-            <div className="text-[15px] text-[#ededed] leading-snug">{show.title ?? <VenueName name={show.venue} />}</div>
-            {show.title && (
-              <div className="text-[15px] text-[#888] mt-0.5">
-                <VenueName name={show.venue} />
-              </div>
-            )}
+            <Link
+              href={`/shows#${show.id}`}
+              className="block text-[15px] text-[#ededed] leading-snug hover:text-white after:absolute after:inset-0"
+            >
+              {show.title ?? show.venue}
+            </Link>
+            {show.title && <div className="text-[15px] text-[#888] mt-0.5">{show.venue}</div>}
           </div>
         </div>
       </li>
@@ -132,7 +136,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
   }
 
   return (
-    <li className="py-12 first:pt-0 last:pb-0">
+    <li id={show.id} className="py-12 first:pt-0 last:pb-0 scroll-mt-8">
       <div className="flex flex-col sm:flex-row gap-7 md:gap-10">
         {/* Poster: full width above the details on phones, a fixed column beside them from sm up */}
         <div className="w-full sm:w-60 md:w-80 lg:w-96 shrink-0">
