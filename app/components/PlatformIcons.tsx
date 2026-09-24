@@ -12,9 +12,20 @@ const SIZES: Record<Size, { icon: string; gap: string; divider: string }> = {
   lg: { icon: "h-5 w-5 sm:h-6 sm:w-6", gap: "gap-4 sm:gap-5", divider: "h-5 sm:h-6" },
 };
 
+/**
+ * Optical size corrections. Bandsintown's mark is a solid square that fills its whole box, so at the
+ * same size it reads heavier than the round and open marks beside it. Scaling (not resizing) the
+ * glyph keeps its box, and so the row's spacing, identical.
+ */
+const OPTICAL_SCALE: Record<string, string> = {
+  bandsintown: "scale-[0.8]",
+};
+
 function PlatformIcon({ link, iconClass }: { link: ExternalLink; iconClass: string }) {
   const live = link.url.trim() !== "";
-  const icon = createElement(iconFor(link.platform), { className: iconClass });
+  const icon = createElement(iconFor(link.platform), {
+    className: `${iconClass} ${OPTICAL_SCALE[link.platform] ?? ""}`,
+  });
   if (!live) {
     return (
       <span aria-label={`${link.label} (coming soon)`} className="group/soon relative block text-[#3a3a3a] cursor-default">
