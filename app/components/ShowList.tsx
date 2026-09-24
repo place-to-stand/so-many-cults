@@ -75,10 +75,14 @@ function Poster({ show }: { show: Show }) {
 }
 
 
-/** Label column + content, liner-notes style (matches the release card's meta labels). */
+/**
+ * Label column + content, liner-notes style (matches the release card's meta labels). Sized by the info
+ * block's container, not the viewport: below 22rem (phones, and tablets where the poster sits beside the
+ * details) the label stacks above its content so lineups with set times don't overflow.
+ */
 function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-[116px_minmax(0,1fr)] gap-x-6 items-start">
+    <div className="grid grid-cols-1 gap-y-1 @min-[22rem]:grid-cols-[116px_minmax(0,1fr)] @min-[22rem]:gap-x-6 items-start">
       <div className="text-[11px] leading-[22px] uppercase tracking-[0.18em] text-[#666]">{label}</div>
       <div className="min-w-0">{children}</div>
     </div>
@@ -169,15 +173,16 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
           )}
 
           {/* Liner-note info block: labeled rows, breathing room instead of hairlines */}
-          <div className="mt-6 border-t border-[#262626] pt-6 space-y-5">
+          <div className="@container mt-6 border-t border-[#262626] pt-6 space-y-5">
             {(show.doors || show.time) && (
               <InfoRow label={show.doors ? "Doors" : "Time"}>
                 <div className="text-sm leading-[22px] text-[#999]">{show.doors ?? show.time}</div>
               </InfoRow>
             )}
             {lineupRows.length > 0 && (
+              // Band column may shrink (a long name wraps) so the set times never push past the card.
               <InfoRow label="With">
-                <div className="grid grid-cols-[max-content_max-content] gap-x-8 sm:gap-x-10 gap-y-1.5 text-sm leading-[22px]">
+                <div className="grid grid-cols-[minmax(0,max-content)_max-content] gap-x-8 sm:gap-x-10 gap-y-1.5 text-sm leading-[22px]">
                   {lineupRows.map(({ band, time }) => (
                     <Fragment key={band}>
                       <span className={isUs(band) ? "font-bold text-[#f2f2f2]" : "text-[#999]"}>{band}</span>

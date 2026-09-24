@@ -46,8 +46,9 @@ export default function ShowsPage() {
         </section>
 
         {/* Baseline-aligned row so every piece of text shares one baseline (centring the boxes left the icon
-            link's text 2px high); the icon is inline and nudged to sit centred on the text */}
-        <p className="mt-16 flex flex-wrap items-baseline gap-x-3 gap-y-2 text-sm text-[#888]">
+            link's text 2px high); the icon is inline and nudged to sit centred on the text. Below sm the two
+            stack without the separator, which would otherwise dangle at the end of the first line. */}
+        <p className="mt-16 flex flex-col gap-y-2 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-3 text-sm text-[#888]">
           {bandsintownUrl && (
             <>
               <Link
@@ -59,7 +60,7 @@ export default function ShowsPage() {
                 <BandsintownIcon className="inline-block align-[-0.125em] mr-1.5" />
                 Bandsintown
               </Link>
-              <span aria-hidden className="text-[#444]">·</span>
+              <span aria-hidden className="hidden sm:inline text-[#444]">·</span>
             </>
           )}
           <span>
