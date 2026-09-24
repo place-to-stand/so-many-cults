@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useState } from "react";
 
 /**
  * Accessible accordion that animates open/closed (grid-rows 0fr → 1fr + fade),
@@ -31,27 +31,30 @@ export function Disclosure({
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
   const hashKey = openForHashes?.join(" ") ?? "";
-  // Hash target to scroll to once the content is laid out open (a fresh object per jump, so a repeat
-  // hash re-scrolls). While set, the expand skips its animation so the page is already full height when
-  // we scroll; a click on the toggle clears it and brings the animation back.
-  const [jump, setJump] = useState<{ target: string } | null>(null);
+  // Set while a URL hash has opened the disclosure: the expand skips its animation so the page is full
+  // height straight away (a click on the toggle clears it and brings the animation back). `scroll` is
+  // only for in-page hash changes; on arrival the page-level HashGlide does the scrolling. A fresh
+  // object per hash, so repeating a hash re-scrolls.
+  const [jump, setJump] = useState<{ target: string; scroll: boolean } | null>(null);
 
-  useEffect(() => {
+  // Layout effect: on arrival the content is already open when the page first paints.
+  useLayoutEffect(() => {
     if (!hashKey) return;
     const targets = new Set(hashKey.split(" "));
-    const reveal = () => {
+    const reveal = (scroll: boolean) => {
       const target = decodeURIComponent(window.location.hash.slice(1));
       if (!targets.has(target)) return;
-      setJump({ target });
+      setJump({ target, scroll });
       setOpen(true);
     };
-    reveal();
-    window.addEventListener("hashchange", reveal);
-    return () => window.removeEventListener("hashchange", reveal);
+    const onHashChange = () => reveal(true);
+    reveal(false);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
   }, [hashKey]);
 
   useEffect(() => {
-    if (jump) document.getElementById(jump.target)?.scrollIntoView({ block: "start" });
+    if (jump?.scroll) document.getElementById(jump.target)?.scrollIntoView({ block: "start" });
   }, [jump]);
 
   return (

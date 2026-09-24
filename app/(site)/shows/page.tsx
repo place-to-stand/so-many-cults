@@ -8,6 +8,7 @@ import { SectionHeading } from "../../components/SectionHeading";
 import { Disclosure } from "../../components/Disclosure";
 import { pageMetadata, descriptions, showsJsonLd } from "../../data/seo";
 import { JsonLd } from "../../components/JsonLd";
+import { HashGlide } from "../../components/HashGlide";
 import { todayISO } from "../../data/dates";
 
 export const metadata: Metadata = pageMetadata({ title: `Shows — ${BAND_NAME}`, description: descriptions.shows, path: "/shows" });
@@ -22,6 +23,7 @@ export default function ShowsPage() {
     <div className="px-6 sm:px-10 pt-8 sm:pt-12">
       <main className="mx-auto max-w-5xl font-mono">
         <JsonLd data={showsJsonLd(todayISO())} />
+        <HashGlide />
         <h1 className="text-3xl font-bold">Shows</h1>
 
         <section className="mt-12 sm:mt-16">

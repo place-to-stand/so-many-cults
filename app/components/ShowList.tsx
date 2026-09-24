@@ -124,6 +124,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
             <DateLine date={show.date} className="mb-2.5" />
             <Link
               href={`/shows#${show.id}`}
+              scroll={false}
               className="block text-[15px] text-[#ededed] leading-snug hover:text-white after:absolute after:inset-0"
             >
               {show.title ?? show.venue}
