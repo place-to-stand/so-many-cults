@@ -9,7 +9,7 @@ import {
   FaSoundcloud,
   FaAmazon,
 } from "react-icons/fa";
-import { SiApplemusic, SiTidal, SiYoutubemusic } from "react-icons/si";
+import { SiApplemusic, SiBandsintown, SiTidal, SiYoutubemusic } from "react-icons/si";
 import { FiCalendar, FiMail, FiLink, FiMusic, FiCamera, FiInfo, FiVideo, FiShoppingBag } from "react-icons/fi";
 import linksData from "@/data/links.json";
 import { BAND_EMAIL } from "./band";
@@ -42,6 +42,7 @@ export const PLATFORM_ICONS: Record<string, IconComponent> = {
   "amazon-music": FaAmazon,
   tidal: SiTidal,
   soundcloud: FaSoundcloud,
+  bandsintown: SiBandsintown,
 };
 
 export function iconFor(platform: string): IconComponent {

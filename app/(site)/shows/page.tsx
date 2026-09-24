@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BAND_NAME, BAND_EMAIL } from "../../data/band";
-import { bandsintownUrl } from "../../data/links";
+import { bandsintownUrl, iconFor } from "../../data/links";
 import { getUpcomingShows, getPastShows } from "../../data/shows";
 import { ShowList } from "../../components/ShowList";
 import { SectionHeading } from "../../components/SectionHeading";
@@ -14,6 +14,8 @@ import { todayISO } from "../../data/dates";
 export const metadata: Metadata = pageMetadata({ title: `Shows — ${BAND_NAME}`, description: descriptions.shows, path: "/shows" });
 
 export const revalidate = 3600;
+
+const BandsintownIcon = iconFor("bandsintown");
 
 export default function ShowsPage() {
   const upcoming = getUpcomingShows();
@@ -46,8 +48,13 @@ export default function ShowsPage() {
         <p className="mt-16 text-sm text-[#888]">
           {bandsintownUrl && (
             <>
-              <Link href={bandsintownUrl} target="_blank" rel="noopener noreferrer" className="text-[#ccc] hover:text-white">
-                Bandsintown
+              <Link
+                href={bandsintownUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[#ccc] hover:text-white"
+              >
+                <BandsintownIcon className="shrink-0" /> Bandsintown
               </Link>
               <span className="mx-3 text-[#444]">·</span>
             </>
