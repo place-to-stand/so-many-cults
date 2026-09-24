@@ -21,7 +21,8 @@ import {
   extendedBio,
   logo,
 } from "../../data/band";
-import { socialLinks, streamingLinks } from "../../data/links";
+import { socialLinks, streamingLinks, platformGroups } from "../../data/links";
+import { PlatformIcons } from "../../components/PlatformIcons";
 import { releases, featuredRelease, recordRelease, getReleaseShow, releaseTypeLabel } from "../../data/releases";
 import { blurProps } from "../../data/blur";
 import { latestVideo } from "../../data/videos";
@@ -71,8 +72,13 @@ export default function EPK() {
         {/* Header */}
         <div>
           <div className="text-xs uppercase tracking-[0.18em] text-[#777]">Electronic Press Kit</div>
-          <h1 className="text-4xl sm:text-5xl font-bold mt-3">{BAND_NAME}</h1>
-          <p className="text-sm text-[#888] mt-2">{BAND_SUBTITLE}</p>
+          {/* Stacked title, tagline, icons on narrow screens; from lg the icons move to the right of the
+              title, centred on it (title + gap + the 325px icon row need ~740px, past md's content width) */}
+          <div className="mt-3 grid grid-cols-1 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-x-8">
+            <h1 className="text-4xl sm:text-5xl font-bold lg:col-start-1 lg:row-start-1">{BAND_NAME}</h1>
+            <p className="text-sm text-[#888] mt-2 lg:col-start-1 lg:row-start-2">{BAND_SUBTITLE}</p>
+            <PlatformIcons groups={platformGroups} size="sm" className="mt-5 lg:mt-0 lg:col-start-2 lg:row-start-1" />
+          </div>
         </div>
 
         {/* At a glance */}

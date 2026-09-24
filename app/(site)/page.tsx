@@ -35,7 +35,7 @@ export default function Home() {
             <h1 className="sr-only sm:not-sr-only text-4xl sm:text-5xl font-bold">{BAND_NAME}</h1>
             <p className="sm:mt-4 text-sm text-[#666] leading-relaxed max-w-md mx-auto lg:mx-0">{shortBio}</p>
             <div className="mt-8 flex justify-center lg:justify-start">
-              <PlatformIcons groups={platformGroups} size="lg" />
+              <PlatformIcons groups={platformGroups} size="lg" justify="justify-center lg:justify-start" />
             </div>
           </div>
           <div>

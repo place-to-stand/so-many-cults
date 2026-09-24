@@ -125,7 +125,7 @@ export default function LinkInBio() {
           {merch && <Row href={merch.href} eyebrow="Store" title="Merch" external />}
         </div>
 
-        <PlatformIcons groups={platformGroups} size="md" className="justify-center" />
+        <PlatformIcons groups={platformGroups} size="md" justify="justify-center" />
 
         <footer className="flex items-center justify-between text-xs text-[#666] pt-2">
           <Link href="/" className="hover:text-[#aaa]">{BAND_WEBSITE}</Link>
