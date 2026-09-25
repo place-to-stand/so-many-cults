@@ -115,7 +115,8 @@ function releaseMarkdown(release: Release): string {
       lines.push(`- ${section.title}:`);
       for (const e of section.entries) {
         const names = e.parts?.length ? e.parts.map((p) => (p.url ? link(p.value, p.url) : p.value)).join(" & ") : e.url ? link(e.value, e.url) : e.value;
-        lines.push(`  - ${e.label ? `${e.label}: ` : ""}${names}`);
+        // A label-only entry ("℗ & © 2026 So Many Cults") has no value, so no trailing colon.
+        lines.push(`  - ${e.label && names ? `${e.label}: ` : e.label}${names}`);
       }
     }
   }
@@ -125,6 +126,14 @@ function releaseMarkdown(release: Release): string {
   }
   return lines.join("\n");
 }
+/** " Listen: [Bandcamp](…) · …" for a release's live links (with a leading space), or "" when none are live. */
+function listenLine(release: Release): string {
+  const links = getReleaseLinks(release);
+  if (!links.length) return "";
+  const verb = release.status === "released" ? "Listen" : "Pre-save";
+  return ` ${verb}: ${links.map((l) => link(l.label, l.url)).join(" · ")}.`;
+}
+
 function photoMarkdown(p: Photo): string {
   const by = p.photographer ? ` by ${p.photographerLink ? link(p.photographer, p.photographerLink) : p.photographer}` : "";
   const when = p.date ? ` (${formatLongDate(p.date)})` : "";
@@ -139,7 +148,7 @@ export function homeMarkdown(today = todayISO()): string {
     `${BAND_NAME} — ${BAND_SUBTITLE}`,
     shortBio,
     `Follow: ${[...socialLinks, ...streamingLinks].map((l) => link(l.label, l.url)).join(" · ")}`,
-    featured && `## Latest release\n\n${link(featured.title, "/music")} (${releaseTypeLabel(featured)}${featured.releaseDate ? `, ${formatLongDate(featured.releaseDate)}` : ""}). Full details, lyrics and streaming links on the ${link("music page", "/music")}.`,
+    featured && `## Latest release\n\n${link(featured.title, "/music")} (${releaseTypeLabel(featured)}${featured.releaseDate ? `, ${formatLongDate(featured.releaseDate)}` : ""}).${listenLine(featured)} Full details, lyrics and streaming links on the ${link("music page", "/music")}.`,
     latest && `## Latest video\n\n${link(latest.title, "/videos")} (${latest.kind}, ${formatLongDate(latest.date)}): ${latest.url}`,
     `## Upcoming shows\n\n${upcoming.length ? upcoming.map((s) => showMarkdown(s, true)).join("\n\n") : "No shows announced yet. Check back soon."}\n\nAll shows, past and upcoming: ${link("shows page", "/shows")}.`,
   );
@@ -260,7 +269,7 @@ export function llmsTxt(today = todayISO()): string {
     "When to use this site:",
     "",
     `- Someone asks when or where ${BAND_NAME} play next, or wants tickets, set times or a venue address.${next ? ` Next show: ${showDateLine(next)} at ${next.venue}.` : ""}`,
-    `- Someone asks about the band's music: release dates, tracklists, lyrics, who played or produced what, or where to stream or buy it.${featured ? ` Latest release: "${featured.title}" (${releaseTypeLabel(featured)}${featured.releaseDate ? `, ${formatLongDate(featured.releaseDate)}` : ""}).` : ""}`,
+    `- Someone asks about the band's music: release dates, tracklists, lyrics, who played or produced what, or where to stream or buy it.${featured ? ` Latest release: "${featured.title}" (${releaseTypeLabel(featured)}${featured.releaseDate ? `, ${formatLongDate(featured.releaseDate)}` : ""}).${listenLine(featured)}` : ""}`,
     `- Someone wants to book the band, interview them, request press photos, or license a song. Send them to the email above; press photos are on the photos page.`,
     `- Someone wants to know who is in the band, what they sound like, or which bands they are similar to (for fans of ${ffo.join(", ")}).`,
     "",
@@ -270,7 +279,7 @@ export function llmsTxt(today = todayISO()): string {
     "",
     page("/", "Latest release, latest video, upcoming shows and the short bio in one place"),
     page("/shows", "Upcoming and past shows with dates, venues, doors, set times, prices, ticket links and flyers"),
-    page("/music", "Every release with tracklist, lyrics, credits, artwork and streaming or pre-save links"),
+    page("/music", `Every release with tracklist, lyrics, credits, artwork and ${releases.some((r) => r.status === "upcoming") ? "streaming or pre-save" : "streaming"} links`),
     page("/videos", "Music videos and live footage, with YouTube links and directors"),
     page("/about", "Full bio, members and instruments, for-fans-of list, social links and the contact email"),
     page("/photos", "Press photos and live shots at full size, with photographer credits"),
@@ -279,7 +288,11 @@ export function llmsTxt(today = todayISO()): string {
     "",
     `- ${link("sitemap.xml", "/sitemap.xml")}: Every indexable URL with last-modified dates`,
     `- ${link("robots.txt", "/robots.txt")}: Crawl rules (everything public is allowed)`,
-    `- ${link("Homepage JSON-LD", "/")}: schema.org MusicGroup, MusicAlbum, MusicEvent and VideoObject data is embedded in each HTML page`,
+    // schema.org JSON-LD, embedded in each page's HTML: one entry per page so each type points where it lives.
+    `- ${link("Homepage JSON-LD", "/")}: schema.org MusicGroup (with its releases) and WebSite; the MusicGroup is also on ${link("about", "/about")}`,
+    `- ${link("Music JSON-LD", "/music")}: schema.org MusicAlbum per release, with MusicRecording tracks and streaming links`,
+    `- ${link("Shows JSON-LD", "/shows")}: schema.org MusicEvent per show, with tickets, venue and lineup`,
+    `- ${link("Videos JSON-LD", "/videos")}: schema.org VideoObject per video`,
     "",
     "## Optional",
     "",
