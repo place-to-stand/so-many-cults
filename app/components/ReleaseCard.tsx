@@ -11,7 +11,7 @@ import { formatLongDate, formatDateParts } from "../data/dates";
 import { logo } from "../data/band";
 import { LinkButtons } from "./LinkButtons";
 import { VideoEmbed } from "./VideoEmbed";
-import { FiDownload } from "react-icons/fi";
+import { FiDownload, FiImage, FiMusic } from "react-icons/fi";
 
 function Artwork({ release }: { release: Release }) {
   const photo = artworkAsPhoto(release);
@@ -45,6 +45,13 @@ function numericDate(iso: string): string {
   const d = formatDateParts(iso);
   const m = String(new Date(`${iso}T12:00:00Z`).getUTCMonth() + 1).padStart(2, "0");
   return `${m}.${d.day.padStart(2, "0")}.${d.year}`;
+}
+
+/** Download icon by file type, so masters and artwork are easy to tell apart in the Downloads row. */
+function DownloadIcon({ file }: { file: string }) {
+  if (/\.(wav|aiff?|flac|mp3|m4a)$/i.test(file)) return <FiMusic className="shrink-0" />;
+  if (/\.(jpe?g|png|webp|tiff?)$/i.test(file)) return <FiImage className="shrink-0" />;
+  return <FiDownload className="shrink-0" />;
 }
 
 /** Quiet hairline row: tiny label on the left, content on the right. */
@@ -102,7 +109,7 @@ export function ReleaseCard({
 
         <div className="min-w-0 lg:pt-2">
           {/* Meta line: type · date — small, wide-tracked, deliberately quiet */}
-          <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-[#9a9a9a]">
+          <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#9a9a9a]">
             <span>{kind}</span>
             {!released && (
               <>
@@ -162,14 +169,14 @@ export function ReleaseCard({
               {downloads.map((dl) => (
                 <li key={dl.label}>
                   <a href={dl.file} download className="inline-flex items-center gap-1.5 text-[#bbb] hover:text-white transition-colors">
-                    <FiDownload className="shrink-0" /> {dl.label}
+                    <DownloadIcon file={dl.file} /> {dl.label}
                   </a>
                 </li>
               ))}
               {release.artworkHiRes && (
                 <li>
                   <a href={release.artworkHiRes} download className="inline-flex items-center gap-1.5 text-[#bbb] hover:text-white transition-colors">
-                    <FiDownload className="shrink-0" /> {release.title} — Hi-Res Artwork
+                    <DownloadIcon file={release.artworkHiRes} /> {release.title} — Hi-Res Artwork
                   </a>
                 </li>
               )}
@@ -177,7 +184,8 @@ export function ReleaseCard({
           </MetaRow>
         )}
         <MetaRow label={linksLabel}>
-          {links.length > 0 ? <LinkButtons links={links} /> : <LinkButtons links={PLACEHOLDER_PLATFORMS} placeholder />}
+          {/* Once any platform is live, list them all: live ones link, empty ones stay "Coming soon" pills */}
+          {links.length > 0 ? <LinkButtons links={release.links} /> : <LinkButtons links={PLACEHOLDER_PLATFORMS} placeholder />}
         </MetaRow>
         {release.tracklist.some((t) => t.lyrics.trim()) && (
           <MetaRow label="Lyrics">

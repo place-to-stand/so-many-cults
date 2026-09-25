@@ -43,7 +43,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // data-scroll-behavior: Next switches the site-wide smooth scroll (globals.css) off while changing
+    // pages, so a new page lands in place instead of sliding from the last page's scroll position.
+    // In-page scrolling (hash links, HashGlide) stays smooth.
+    <html lang="en" data-scroll-behavior="smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

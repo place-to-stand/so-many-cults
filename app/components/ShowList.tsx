@@ -75,10 +75,14 @@ function Poster({ show }: { show: Show }) {
 }
 
 
-/** Label column + content, liner-notes style (matches the release card's meta labels). */
+/**
+ * Label column + content, liner-notes style (matches the release card's meta labels). Sized by the info
+ * block's container, not the viewport: below 22rem (phones, and tablets where the poster sits beside the
+ * details) the label stacks above its content so lineups with set times don't overflow.
+ */
 function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-[116px_minmax(0,1fr)] gap-x-6 items-start">
+    <div className="grid grid-cols-1 gap-y-1 @min-[22rem]:grid-cols-[116px_minmax(0,1fr)] @min-[22rem]:gap-x-6 items-start">
       <div className="text-[11px] leading-[22px] uppercase tracking-[0.18em] text-[#666]">{label}</div>
       <div className="min-w-0">{children}</div>
     </div>
@@ -102,8 +106,11 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
   const isUs = (band: string) => band.toLowerCase().startsWith("so many cults");
 
   if (compact) {
+    // The whole row links to the show's full card on /shows via a stretched link (::after over the row);
+    // the poster sits above it so it still opens the lightbox. Venue is plain text here, since one row
+    // can't hold two links.
     return (
-      <li className="py-[18px] first:pt-0 border-b border-[#222] last:border-b-0">
+      <li className="relative py-[18px] first:pt-0 border-b border-[#222] last:border-b-0">
         <div className="flex gap-4">
           {show.poster && (
             <LightboxImage
@@ -111,7 +118,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
               index={0}
               alt={`Flyer: ${show.title ?? show.venue}`}
               sizes="80px"
-              className="w-14 shrink-0"
+              className="relative z-10 w-14 shrink-0"
               imageClassName="border border-[#262626]"
               showCredit={false}
               showDownload
@@ -119,12 +126,14 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
           )}
           <div className="min-w-0">
             <DateLine date={show.date} className="mb-2.5" />
-            <div className="text-[15px] text-[#ededed] leading-snug">{show.title ?? <VenueName name={show.venue} />}</div>
-            {show.title && (
-              <div className="text-[15px] text-[#888] mt-0.5">
-                <VenueName name={show.venue} />
-              </div>
-            )}
+            <Link
+              href={`/shows#${show.id}`}
+              scroll={false}
+              className="block text-[15px] text-[#ededed] leading-snug hover:text-white after:absolute after:inset-0"
+            >
+              {show.title ?? show.venue}
+            </Link>
+            {show.title && <div className="text-[15px] text-[#888] mt-0.5">{show.venue}</div>}
           </div>
         </div>
       </li>
@@ -132,7 +141,7 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
   }
 
   return (
-    <li className="py-12 first:pt-0 last:pb-0">
+    <li id={show.id} className="py-12 first:pt-0 last:pb-0 scroll-mt-8">
       <div className="flex flex-col sm:flex-row gap-7 md:gap-10">
         {/* Poster: full width above the details on phones, a fixed column beside them from sm up */}
         <div className="w-full sm:w-60 md:w-80 lg:w-96 shrink-0">
@@ -164,15 +173,16 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
           )}
 
           {/* Liner-note info block: labeled rows, breathing room instead of hairlines */}
-          <div className="mt-6 border-t border-[#262626] pt-6 space-y-5">
+          <div className="@container mt-6 border-t border-[#262626] pt-6 space-y-5">
             {(show.doors || show.time) && (
               <InfoRow label={show.doors ? "Doors" : "Time"}>
                 <div className="text-sm leading-[22px] text-[#999]">{show.doors ?? show.time}</div>
               </InfoRow>
             )}
             {lineupRows.length > 0 && (
+              // Band column may shrink (a long name wraps) so the set times never push past the card.
               <InfoRow label="With">
-                <div className="grid grid-cols-[max-content_max-content] gap-x-8 sm:gap-x-10 gap-y-1.5 text-sm leading-[22px]">
+                <div className="grid grid-cols-[minmax(0,max-content)_max-content] gap-x-8 sm:gap-x-10 gap-y-1.5 text-sm leading-[22px]">
                   {lineupRows.map(({ band, time }) => (
                     <Fragment key={band}>
                       <span className={isUs(band) ? "font-bold text-[#f2f2f2]" : "text-[#999]"}>{band}</span>
@@ -205,17 +215,30 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
             )}
           </div>
 
-          {show.ticketUrl && (
-            <div className="mt-6 border-t border-[#262626] pt-5 flex items-center gap-4">
-              <Link
-                href={show.ticketUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block text-xs uppercase tracking-[0.15em] px-[18px] py-2 bg-white font-bold text-black hover:bg-[#ddd] hover:no-underline transition-colors"
-              >
-                Tickets
-              </Link>
-              {show.price && <span className="text-sm text-[#ccc]">{show.price}</span>}
+          {(show.ticketUrl || show.rsvpUrl) && (
+            <div className="mt-6 border-t border-[#262626] pt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
+              {show.ticketUrl && (
+                <Link
+                  href={show.ticketUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-xs uppercase tracking-[0.15em] px-[18px] py-2 border border-white bg-white font-bold text-black hover:bg-[#ddd] hover:border-[#ddd] hover:no-underline transition-colors"
+                >
+                  Tickets
+                </Link>
+              )}
+              {/* Secondary to Tickets: outlined, same size */}
+              {show.rsvpUrl && (
+                <Link
+                  href={show.rsvpUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-xs uppercase tracking-[0.15em] px-[18px] py-2 border border-white font-bold text-white hover:bg-white hover:text-black hover:no-underline transition-colors"
+                >
+                  RSVP
+                </Link>
+              )}
+              {show.ticketUrl && show.price && <span className="text-sm text-[#ccc]">{show.price}</span>}
             </div>
           )}
         </div>

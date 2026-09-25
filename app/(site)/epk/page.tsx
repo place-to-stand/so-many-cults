@@ -21,8 +21,9 @@ import {
   extendedBio,
   logo,
 } from "../../data/band";
-import { socialLinks, streamingLinks } from "../../data/links";
-import { featuredRelease, recordRelease, getReleaseShow, releaseTypeLabel } from "../../data/releases";
+import { socialLinks, streamingLinks, platformGroups } from "../../data/links";
+import { PlatformIcons } from "../../components/PlatformIcons";
+import { releases, featuredRelease, recordRelease, getReleaseShow, releaseTypeLabel } from "../../data/releases";
 import { blurProps } from "../../data/blur";
 import { latestVideo } from "../../data/videos";
 import { VideoCard } from "../../components/VideoCard";
@@ -48,11 +49,16 @@ export default function EPK() {
   const upcoming = getUpcomingShows();
   const past = getPastShows().slice(0, 8);
   const releaseShow = recordRelease ? getReleaseShow(recordRelease) : undefined;
+  // Once the EP is the featured release its card already covers it, so the EP block gives way to
+  // the release before it (keeps the single's masters on the EPK).
+  const showRecordSection = recordRelease !== undefined && recordRelease !== featuredRelease;
+  const previousRelease = showRecordSection ? undefined : releases.find((r) => r !== featuredRelease);
 
   const contents = [
     featuredRelease && { id: "release", label: "Release" },
     latestVideo && { id: "video", label: "Video" },
-    recordRelease && { id: "ep", label: releaseTypeLabel(recordRelease) },
+    showRecordSection && recordRelease && { id: "ep", label: releaseTypeLabel(recordRelease) },
+    previousRelease && { id: "previous", label: releaseTypeLabel(previousRelease) },
     { id: "bio", label: "Bio" },
     { id: "photos", label: "Photos" },
     { id: "shows", label: "Shows" },
@@ -66,8 +72,13 @@ export default function EPK() {
         {/* Header */}
         <div>
           <div className="text-xs uppercase tracking-[0.18em] text-[#777]">Electronic Press Kit</div>
-          <h1 className="text-4xl sm:text-5xl font-bold mt-3">{BAND_NAME}</h1>
-          <p className="text-sm text-[#888] mt-2">{BAND_SUBTITLE}</p>
+          {/* Stacked title, tagline, icons on narrow screens; from lg the icons move to the right of the
+              title, centred on it (title + gap + the 325px icon row need ~740px, past md's content width) */}
+          <div className="mt-3 grid grid-cols-1 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-x-8">
+            <h1 className="text-4xl sm:text-5xl font-bold lg:col-start-1 lg:row-start-1">{BAND_NAME}</h1>
+            <p className="text-sm text-[#888] mt-2 lg:col-start-1 lg:row-start-2">{BAND_SUBTITLE}</p>
+            <PlatformIcons groups={platformGroups} size="sm" className="mt-5 lg:mt-0 lg:col-start-2 lg:row-start-1" />
+          </div>
         </div>
 
         {/* At a glance */}
@@ -111,8 +122,15 @@ export default function EPK() {
           </Section>
         )}
 
+        {/* Previous release, when the EP has taken the featured slot */}
+        {previousRelease && (
+          <Section id="previous" title={`Debut ${releaseTypeLabel(previousRelease)}`}>
+            <ReleaseCard release={previousRelease} showDownloads />
+          </Section>
+        )}
+
         {/* EP + release show */}
-        {recordRelease && (
+        {showRecordSection && recordRelease && (
           <Section id="ep" title={`Debut ${releaseTypeLabel(recordRelease)}`}>
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,444px)_1fr] gap-8 lg:gap-10 items-start">
               <div>
@@ -261,13 +279,6 @@ export default function EPK() {
               <div className="text-[10px] uppercase tracking-wider text-[#666] mb-3">Downloads</div>
               <ul className="space-y-2">
                 <li><a href="#release" className="text-[#ccc] hover:text-white">Masters &amp; hi-res artwork (see Release)</a></li>
-                {recordRelease?.artworkHiRes && (
-                  <li>
-                    <a href={recordRelease.artworkHiRes} download className="inline-flex items-center gap-1.5 text-[#ccc] hover:text-white">
-                      <FiDownload className="shrink-0" /> {recordRelease.title} — hi-res artwork
-                    </a>
-                  </li>
-                )}
                 <li><a href="#photos" className="text-[#ccc] hover:text-white">Press photos (see above)</a></li>
               </ul>
             </div>

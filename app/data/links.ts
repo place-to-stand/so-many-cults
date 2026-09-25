@@ -9,7 +9,7 @@ import {
   FaSoundcloud,
   FaAmazon,
 } from "react-icons/fa";
-import { SiApplemusic, SiTidal, SiYoutubemusic } from "react-icons/si";
+import { SiApplemusic, SiBandsintown, SiTidal, SiYoutubemusic } from "react-icons/si";
 import { FiCalendar, FiMail, FiLink, FiMusic, FiCamera, FiInfo, FiVideo, FiShoppingBag } from "react-icons/fi";
 import linksData from "@/data/links.json";
 import { BAND_EMAIL } from "./band";
@@ -42,6 +42,7 @@ export const PLATFORM_ICONS: Record<string, IconComponent> = {
   "amazon-music": FaAmazon,
   tidal: SiTidal,
   soundcloud: FaSoundcloud,
+  bandsintown: SiBandsintown,
 };
 
 export function iconFor(platform: string): IconComponent {
@@ -69,8 +70,8 @@ export const streamingLinks: ExternalLink[] = onlyFilled(linksData.streaming);
 /** Listings declared to search engines (JSON-LD sameAs); not shown in the icon rows. */
 export const profileLinks: ExternalLink[] = onlyFilled(linksData.profiles);
 
-/** Bandsintown artist page, linked from the shows page (also in sameAs via `profileLinks`). */
-export const bandsintownUrl: string | undefined = profileLinks.find((l) => l.platform === "bandsintown")?.url;
+/** Bandsintown artist page: in the social icon row, and linked by name from the shows page. */
+export const bandsintownUrl: string | undefined = socialLinks.find((l) => l.platform === "bandsintown")?.url;
 
 export const contactLink: SiteLink = {
   label: "Contact",

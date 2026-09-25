@@ -1,5 +1,5 @@
 {
-  "_note": "Add a show by appending an object to `shows`. Order does not matter; the site sorts by date and splits upcoming/past automatically. `date` is YYYY-MM-DD (America/Chicago) or null for a TBA date. `title` is the event's own name (null for plain bills — the venue becomes the headline and `lineup` carries the bill). Only date, venue and lineup are required to render; everything else is optional and hidden when null. Addresses are kept for records but not rendered. `isReleaseShow: true` adds a release-show badge. `poster` is {thumbnail, fullSize} under /public/posters (null = no poster). `doors` (e.g. '8:00 PM') renders on its own line; `setTimes` is [{time, band}] rendered one per row; `time` is a freeform fallback (e.g. '12:00 PM – 6:00 PM').",
+  "_note": "Add a show by appending an object to `shows`. Order does not matter; the site sorts by date and splits upcoming/past automatically. `date` is YYYY-MM-DD (America/Chicago) or null for a TBA date. `title` is the event's own name (null for plain bills — the venue becomes the headline and `lineup` carries the bill). Only date, venue and lineup are required to render; everything else is optional and hidden when null. Addresses are kept for records but not rendered. `isReleaseShow: true` adds a release-show badge. `poster` is {thumbnail, fullSize} under /public/posters (null = no poster). `doors` (e.g. '8:00 PM') renders on its own line; `setTimes` is [{time, band}] rendered one per row; `time` is a freeform fallback (e.g. '12:00 PM – 6:00 PM'). `rsvpUrl` (optional, e.g. a Partiful event) adds an RSVP button next to Tickets.",
   "shows": [
     {
       "id": "2026-10-03-13th-floor-ep-release",
@@ -27,7 +27,7 @@
           "band": "Screamin' J"
         }
       ],
-      "price": "$12",
+      "price": "$15",
       "presenter": null,
       "festival": null,
       "lineup": [
@@ -38,10 +38,11 @@
       ],
       "description": null,
       "ticketUrl": "https://dice.fm/event/g58qq5-heavy-velvet-killer-kaya-so-many-cults-screamin-j-3rd-oct-the-13th-floor-austin-tickets",
+      "rsvpUrl": "https://partiful.com/e/Ol5YCUpgPW3MeAseASHF",
       "isReleaseShow": true,
       "poster": {
-        "thumbnail": "/posters/thumbnails/2026-10-03-13th-floor-ep-release-final.jpg",
-        "fullSize": "/posters/2026-10-03-13th-floor-ep-release-final.jpg"
+        "thumbnail": "/posters/thumbnails/2026-10-03-13th-floor-ep-release-v2.jpg",
+        "fullSize": "/posters/2026-10-03-13th-floor-ep-release-v2.jpg"
       },
       "visuals": {
         "name": "Video Dream Light Show",

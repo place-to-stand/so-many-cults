@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
   },
   // PostHog's API uses trailing slashes; don't let Next redirect them away.
   skipTrailingSlashRedirect: true,
+  // /og.png reads cover art from public/ through a computed path, so the file tracer bundles all of
+  // public/ into its function, and the WAV masters alone push that past Vercel's 250 MB function limit.
+  // Audio is only ever served statically, so keep it out of every function bundle.
+  outputFileTracingExcludes: { "*": ["./public/audio/**"] },
 };
 
 export default nextConfig;

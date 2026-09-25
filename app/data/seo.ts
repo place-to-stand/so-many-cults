@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BAND_NAME, BAND_SUBTITLE, BAND_EMAIL, SITE_URL, shortBio, members, logo } from "./band";
 import { socialLinks, streamingLinks, profileLinks } from "./links";
-import { releases, featuredRelease, releaseTypeLabel, type Release } from "./releases";
+import { releases, featuredRelease, releaseTypeLabel, getReleaseLinks, type Release } from "./releases";
 import { allShows, type Show } from "./shows";
 import { getVenue } from "./venues";
 import { videos, youtubeEmbedUrl, type Video } from "./videos";
@@ -12,12 +12,16 @@ const abs = (path: string) => (path.startsWith("http") ? path : `${SITE_URL}${pa
 
 /**
  * Default share image: a 1200×630 card (app/og.png/route.tsx) built from the featured release artwork,
- * else the featured photo. The query string changes with the featured release so social apps,
- * which cache previews by URL, pick up the new card.
+ * else the featured photo. The query string is the artwork's file name, so social apps (which cache
+ * previews by URL) pick up a new card whenever the featured release or its cover changes.
  */
+const shareArtworkKey = featuredRelease?.artwork?.split("/").pop()?.replace(/\.[a-z0-9]+$/i, "");
 export const defaultShareImage = {
-  url: `/og.png?v=${featuredRelease?.artwork ? featuredRelease.id : "photo"}`,
-  alt: featuredRelease?.artwork ? `${featuredRelease.title} — ${BAND_NAME}` : `${BAND_NAME} — ${BAND_SUBTITLE}`,
+  url: `/og.png?v=${shareArtworkKey ?? "photo"}`,
+  // Type in the alt so it reads sensibly when a release shares the band's name ("So Many Cults EP cover").
+  alt: featuredRelease?.artwork
+    ? `${featuredRelease.title} ${releaseTypeLabel(featuredRelease)} cover — ${BAND_NAME}`
+    : `${BAND_NAME} — ${BAND_SUBTITLE}`,
   width: 1200,
   height: 630,
 };
@@ -68,11 +72,14 @@ export function pageMetadata({
 export const descriptions = {
   home: `${BAND_NAME} are an Austin, Texas psych punk band. Heavy, hypnotic grooves out of the Red River Cultural District. New music, upcoming shows and photos.`,
   music: (() => {
+    // Newest first; "EP" keeps its capitals, "single" / "album" read as ordinary words.
+    const kind = (r: Release) => (r.type === "ep" ? "EP" : releaseTypeLabel(r).toLowerCase());
     const parts = releases
       .filter((r) => r.releaseDate)
-      .sort((a, b) => (a.releaseDate ?? "").localeCompare(b.releaseDate ?? ""))
-      .map((r) => `${r.title} (${releaseTypeLabel(r).toLowerCase()}, ${formatLongDate(r.releaseDate!)})`);
-    return `Music from ${BAND_NAME}, ${BAND_SUBTITLE.toLowerCase()}: ${parts.join(" and ")}. Stream, pre-save, lyrics and liner notes.`;
+      .sort((a, b) => (b.releaseDate ?? "").localeCompare(a.releaseDate ?? ""))
+      .map((r) => `${r.title} (${kind(r)}, ${formatLongDate(r.releaseDate!)})`);
+    const preSave = releases.some((r) => r.status === "upcoming");
+    return `Music from ${BAND_NAME}, Austin psych punk: ${parts.join(" and ")}. Stream${preSave ? ", pre-save" : ""}, lyrics, liner notes.`;
   })(),
   videos: `Music videos from ${BAND_NAME}${videos[0] ? `, including "${videos[0].title}" (${videos[0].kind.toLowerCase()})` : ""}.`,
   shows: `Upcoming and past shows from ${BAND_NAME} — Austin, TX psych punk — with dates, venues, set times and flyers.`,
@@ -130,6 +137,8 @@ export function musicGroupJsonLd() {
     foundingDate: "2024",
     foundingLocation: { "@type": "Place", name: "Austin, Texas", address: bandAddress },
     // `roleName` is not a Person property; schema.org wants the role wrapped in a Role node.
+    // Releases by @id (full MusicAlbum nodes live on /music), so answer engines can tie the band to its music.
+    album: releases.map((r) => ({ "@type": "MusicAlbum", "@id": `${SITE_URL}/music#${r.id}`, name: r.title, url: `${SITE_URL}/music` })),
     member: members.map((m) => ({
       "@type": "PerformanceRole",
       roleName: m.role.split(",").map((r) => r.trim()),
@@ -162,6 +171,8 @@ function releaseJsonLd(release: Release) {
     url: `${SITE_URL}/music`,
     numTracks: release.tracklist.length,
     ...(tracks.length ? { track: tracks } : {}),
+    // Where to hear it (Bandcamp, Spotify...); getReleaseLinks drops platforms without a URL yet.
+    ...(getReleaseLinks(release).length ? { sameAs: getReleaseLinks(release).map((l) => l.url) } : {}),
   };
 }
 
@@ -211,6 +222,7 @@ function eventJsonLd(show: Show & { date: string }, today: string) {
   const end = start === undefined || timeEnd === undefined ? undefined : timeEnd < start ? timeEnd + 1440 : timeEnd;
   const price = ticketPrice(show.price);
   const isUpcoming = show.date >= today;
+  const releasedHere = releases.find((r) => r.releaseShowId === show.id);
   return {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
@@ -224,7 +236,18 @@ function eventJsonLd(show: Show & { date: string }, today: string) {
       "@type": "MusicVenue",
       name: show.venue,
       ...(venue?.url ? { url: venue.url } : {}),
-      ...(address ? { address: { "@type": "PostalAddress", streetAddress: address.split(",")[0], addressLocality: "Austin", addressRegion: "TX", addressCountry: "US" } } : {}),
+      ...(address
+        ? {
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: address.split(",")[0],
+              addressLocality: "Austin",
+              addressRegion: "TX",
+              ...(address.match(/\b(\d{5})\b/) ? { postalCode: address.match(/\b(\d{5})\b/)![1] } : {}),
+              addressCountry: "US",
+            },
+          }
+        : {}),
     },
     performer: [
       artistRef,
@@ -243,7 +266,11 @@ function eventJsonLd(show: Show & { date: string }, today: string) {
           },
         }
       : {}),
-    url: `${SITE_URL}/shows`,
+    // A release show is about its release, linked to the MusicAlbum node on /music.
+    ...(releasedHere ? { about: { "@type": "MusicAlbum", "@id": `${SITE_URL}/music#${releasedHere.id}`, name: releasedHere.title } } : {}),
+    // Each show card on /shows carries its id as an anchor.
+    "@id": `${SITE_URL}/shows#${show.id}`,
+    url: `${SITE_URL}/shows#${show.id}`,
   };
 }
 
@@ -275,10 +302,13 @@ export function videosJsonLd() {
 /** Latest content dates, for sitemap lastModified. */
 export function latestDates(today: string) {
   const showDates = allShows.map((s) => s.date).filter((d): d is string => !!d && d <= today);
+  // Announced shows change (prices, flyers, ticket links) without a date of their own, so while any are
+  // upcoming the listing counts as fresh as the build that published it.
+  const hasUpcoming = allShows.some((s) => !s.date || s.date > today);
   const releaseDates = releases.map((r) => r.releaseDate).filter((d): d is string => !!d && d <= today);
   const videoDates = videos.map((v) => v.date).filter((d) => d <= today);
   const max = (arr: string[], fallback: string) => (arr.length ? arr.sort().at(-1)! : fallback);
-  const shows = max(showDates, today);
+  const shows = hasUpcoming ? today : max(showDates, today);
   const music = max(releaseDates, shows);
   const vids = max(videoDates, music);
   return { shows, music, videos: vids, site: [shows, music, vids].sort().at(-1)! };
