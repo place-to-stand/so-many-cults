@@ -71,6 +71,7 @@ function showMarkdown(show: Show, upcoming: boolean): string {
   if (show.visuals) lines.push(`- Visuals by: ${link(show.visuals.name, show.visuals.url)}`);
   if (show.isReleaseShow) lines.push(`- Release show`);
   if (upcoming && show.ticketUrl) lines.push(`- Tickets: ${show.ticketUrl}`);
+  if (upcoming && show.rsvpUrl) lines.push(`- RSVP: ${show.rsvpUrl}`);
   if (show.poster) lines.push(`- Flyer: ${abs(show.poster.fullSize)}`);
   if (show.description) lines.push("", show.description);
   return lines.join("\n");

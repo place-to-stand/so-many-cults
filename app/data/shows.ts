@@ -20,6 +20,8 @@ export type Show = {
   lineup: string[];
   description: string | null;
   ticketUrl: string;
+  /** RSVP page (e.g. Partiful, which texts guests reminders); renders an RSVP button beside Tickets. */
+  rsvpUrl?: string | null;
   /** Marks a record-release show (gets a badge). */
   isReleaseShow: boolean;
   /** Projection/visuals artist, when the bill has one. */

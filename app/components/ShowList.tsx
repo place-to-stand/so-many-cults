@@ -215,17 +215,30 @@ export function ShowCard({ show, compact = false }: { show: Show; compact?: bool
             )}
           </div>
 
-          {show.ticketUrl && (
-            <div className="mt-6 border-t border-[#262626] pt-5 flex items-center gap-4">
-              <Link
-                href={show.ticketUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block text-xs uppercase tracking-[0.15em] px-[18px] py-2 bg-white font-bold text-black hover:bg-[#ddd] hover:no-underline transition-colors"
-              >
-                Tickets
-              </Link>
-              {show.price && <span className="text-sm text-[#ccc]">{show.price}</span>}
+          {(show.ticketUrl || show.rsvpUrl) && (
+            <div className="mt-6 border-t border-[#262626] pt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
+              {show.ticketUrl && (
+                <Link
+                  href={show.ticketUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-xs uppercase tracking-[0.15em] px-[18px] py-2 border border-white bg-white font-bold text-black hover:bg-[#ddd] hover:border-[#ddd] hover:no-underline transition-colors"
+                >
+                  Tickets
+                </Link>
+              )}
+              {/* Secondary to Tickets: outlined, same size */}
+              {show.rsvpUrl && (
+                <Link
+                  href={show.rsvpUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-xs uppercase tracking-[0.15em] px-[18px] py-2 border border-white font-bold text-white hover:bg-white hover:text-black hover:no-underline transition-colors"
+                >
+                  RSVP
+                </Link>
+              )}
+              {show.ticketUrl && show.price && <span className="text-sm text-[#ccc]">{show.price}</span>}
             </div>
           )}
         </div>
