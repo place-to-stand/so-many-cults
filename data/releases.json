@@ -1,5 +1,5 @@
 {
-  "_note": "The first release with `featured: true` drives the homepage hero, /music, and the EPK. `status` is 'upcoming' or 'released'; before release, links are shown as pre-save links. Empty urls are hidden. `artwork` is the web-size image (null falls back to the band logo); `artworkHiRes` is the print/press download shown on the EPK. `video.url` supports YouTube watch/short/youtu.be links; null hides the video section. `releaseShowId` points to an id in shows.json. `type` is single, ep, or album. `audio` is a path under /public to a streamable file for the on-site player (null hides it). `artworkCredit` {name, url} is shown under the cover and in the lightbox caption (null hides it). `creditsId` references a block in credits.json. `tracklist` is [{title, duration, lyrics}] — lyrics as a plain string with \\n line breaks (blank line between verses). Tracks with empty lyrics still list; the Lyrics row hides if no track has lyrics. Each track may have `audio`; a release with 2+ playable tracks renders the multi-track player, otherwise the single-track player uses `audio` on the release. Mark a track `instrumental: true` to label it as having no lyrics. `downloads` is [{label, file}] of press-ready files (masters etc.) listed on the EPK; entries with an empty file are hidden.",
+  "_note": "The first release with `featured: true` drives the homepage hero, /music, and the EPK. `status` is 'upcoming' or 'released'; before release, links are shown as pre-save links. On the release card a platform with an empty url shows as an inert 'Coming soon' pill (no links at all = the default placeholder row); everywhere else empty urls are hidden. `artwork` is the web-size image (null falls back to the band logo); `artworkHiRes` is the print/press download shown on the EPK. `video.url` supports YouTube watch/short/youtu.be links; null hides the video section. `releaseShowId` points to an id in shows.json. `type` is single, ep, or album. `audio` is a path under /public to a streamable file for the on-site player (null hides it). `artworkCredit` {name, url} is shown under the cover and in the lightbox caption (null hides it). `creditsId` references a block in credits.json. `tracklist` is [{title, duration, lyrics}] — lyrics as a plain string with \\n line breaks (blank line between verses). Tracks with empty lyrics still list; the Lyrics row hides if no track has lyrics. Each track may have `audio`; a release with 2+ playable tracks renders the multi-track player, otherwise the single-track player uses `audio` on the release. Mark a track `instrumental: true` to label it as having no lyrics. `downloads` is [{label, file}] of press-ready files (masters etc.) listed on the EPK; entries with an empty file are hidden.",
   "releases": [
     {
       "id": "debut-single",
@@ -133,7 +133,38 @@
           "instrumental": false
         }
       ],
-      "links": [],
+      "links": [
+        {
+          "platform": "bandcamp",
+          "label": "Bandcamp",
+          "url": "https://somanycults.bandcamp.com/album/so-many-cults"
+        },
+        {
+          "platform": "spotify",
+          "label": "Spotify",
+          "url": ""
+        },
+        {
+          "platform": "youtube-music",
+          "label": "YouTube Music",
+          "url": ""
+        },
+        {
+          "platform": "apple-music",
+          "label": "Apple Music",
+          "url": ""
+        },
+        {
+          "platform": "amazon-music",
+          "label": "Amazon Music",
+          "url": ""
+        },
+        {
+          "platform": "tidal",
+          "label": "Tidal",
+          "url": ""
+        }
+      ],
       "video": null,
       "releaseShowId": "2026-10-03-13th-floor-ep-release",
       "downloads": [

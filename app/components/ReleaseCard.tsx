@@ -184,7 +184,8 @@ export function ReleaseCard({
           </MetaRow>
         )}
         <MetaRow label={linksLabel}>
-          {links.length > 0 ? <LinkButtons links={links} /> : <LinkButtons links={PLACEHOLDER_PLATFORMS} placeholder />}
+          {/* Once any platform is live, list them all: live ones link, empty ones stay "Coming soon" pills */}
+          {links.length > 0 ? <LinkButtons links={release.links} /> : <LinkButtons links={PLACEHOLDER_PLATFORMS} placeholder />}
         </MetaRow>
         {release.tracklist.some((t) => t.lyrics.trim()) && (
           <MetaRow label="Lyrics">
